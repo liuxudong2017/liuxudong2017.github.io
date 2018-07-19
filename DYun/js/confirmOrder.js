@@ -18,8 +18,9 @@ var vm = new Vue({
 		times: 60
 	},
 	methods: {
-		checkPay: function checkPay(e) {
-			var index = e.target.tabIndex;
+		checkPay: function checkPay(index) {
+			console.log(index);
+			//			let index=e.target.tabIndex;
 			this.payType == index ? "" : this.payType = index;
 		},
 		getCode: function getCode(e) {
@@ -40,7 +41,6 @@ var vm = new Vue({
 		},
 		submitOrder: function submitOrder() {
 			console.log(this.code + "===" + this.iphone);
-			location.href="payOk.html";
 		}
 	},
 	created: function created() {//创建 可访问data

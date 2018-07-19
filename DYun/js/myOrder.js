@@ -27,7 +27,8 @@ var vm = new Vue({
 			rmb: 300
 		}],
 		pageNum: 1,
-		isShowModel: false
+		isShowModel: false,
+		delIndex: -1
 	},
 	methods: {
 		addMoreOrder: function addMoreOrder(e) {
@@ -61,11 +62,10 @@ var vm = new Vue({
 			location.href = 'payOk.html';
 		},
 		goDel: function goDel(e) {
-			this.isShowModel = false;
 			var index = e.target.tabIndex * 1;
 			var arr = this.listArr;
-			arr.splice(index - 1, 1);
-			console.log(arr.length);
+			arr.splice(this.delIndex, 1);
+			this.delIndex = -1;
 		}
 	},
 	created: function created() {//创建 可访问data

@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
 	<!--[if lt IE 9]>
 	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<script src="js/html5shiv.js"></script>
@@ -72,7 +72,7 @@
 	<!--绑定手机eeeee-->
 	<!--pay ssss-->
 	<div class="pay-wrap">
-		<div class="pay-box flex" @click.stop='checkPay' tabindex="0">
+		<div class="pay-box flex" @click='checkPay(0)'>
 			<div class="pay-left">
 				<div class="pay-img-box">
 					<img src="img/alipay.png" class="img-auto"/>
@@ -81,7 +81,7 @@
 			</div>
 			<div :class="['pay-right',payType==0?'active':'']"></div>
 		</div>
-		<div class="pay-box flex no-border" @click.stop='checkPay' tabindex="1">
+		<div class="pay-box flex no-border" @click='checkPay(1)'>
 			<div class="pay-left">
 				<div class="pay-img-box">
 					<img src="img/wxpay.png" class="img-auto"/>

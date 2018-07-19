@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
 	<!--[if lt IE 9]>
 	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<script src="js/html5shiv.js"></script>
@@ -26,7 +26,7 @@
 <div id="app">
 	<div class="order-wrap" v-for="(item,index) in listArr">
 	<!--等待付款-->
-	<div class="order-group" tabIndex="index" @click='goPay' v-if="item.orderStatus==0">
+	<div class="order-group" tabindex="index" @click='goPay' v-if="item.orderStatus==0">
 			<div class="order-item-1 flex">
 				<div class="order-item-left">
 					<img src="img/ding_dan.png" alt="" class="img" />
@@ -44,7 +44,7 @@
 			</div>
 	</div>
 	<!--等待使用-->
-	<div class="order-group" tabIndex="index" @click='goUse' v-if="item.orderStatus==1">
+	<div class="order-group" tabindex="index" @click='goUse' v-if="item.orderStatus==1">
 			<div class="order-item-1 flex">
 				<div class="order-item-left">
 					<img src="img/ding_dan.png" alt="" class="img" />
@@ -61,8 +61,8 @@
 				已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
 			</div>
 	</div>
-	<!--已完成-->
-	<div class="order-group" tabIndex="index" @click='isShowModel=true' v-if="item.orderStatus==2">
+	<!--已完成  isShowModel=true -->
+	<div class="order-group" tabindex="index" @click='delIndex=index' v-if="item.orderStatus==2">
 			<div class="order-item-1 flex">
 				<div class="order-item-left">
 					<img src="img/ding_dan.png" alt="" class="img" />
@@ -84,14 +84,14 @@
 	<div class="add-more" @click="addMoreOrder">点击加载更多</div>
 	<!--model-->
 
-	<div :class="['model',isShowModel?'':'hide']">
+	<div :class="['model',delIndex!=-1?'':'hide']">
 		<div class="order-alert-wrap">
 			<div class="order-alert-title">提示</div>
 			<div class="order-alert-text">
 				确定要删除订单记录吗？
 			</div>
 			<div class="order-alert-btn flex">
-				<div class="order-alert-cancel btn" @click='isShowModel=false'>取消</div>
+				<div class="order-alert-cancel btn" @click='delIndex=-1'>取消</div>
 				<div class="order-alert-true btn" @click='goDel'>确定</div>
 			</div>
 		</div>
