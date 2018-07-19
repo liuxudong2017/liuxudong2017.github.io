@@ -1,0 +1,28 @@
+
+	.header-wrap{
+		overflow: hidden;
+		background: url(../img/bg.png);
+		padding-top:.001rem;
+		overflow: hidden;
+	}
+	.pay-box{
+		padding:.33rem .3rem;
+	}
+	.pay-time{
+		color:#333333;
+		font-size: .3rem;
+	}
+	.time-img{
+		width:.3rem;
+		height:.3rem;
+		vertical-align: middle;
+	}
+	.pay-rmb{
+		text-align:right;
+		font-size: .26rem;
+		color:#643414;
+	}
+	.box-wrap{
+		border-radius: .3rem .3rem 0 0;
+		background: #fff;
+	}

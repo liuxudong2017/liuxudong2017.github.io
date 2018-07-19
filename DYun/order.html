@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>订单</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lt IE 9]>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<script src="js/html5shiv.js"></script>
+	<script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/amazeui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="css/order.css"/>
+	<script type="text/javascript" src="js/ydui.flexible.js"></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript"  src="js/public.js"></script>
+</head>
+
+<body>
+<div id="app">
+	<div class="box-wrap">
+		<!---->
+		<div class="dy-title-box flex-start">
+			<div class="dy-title-img-box">
+				<img src="img/base_mess.png" class="img-auto"/>
+			</div>
+			<div class="dy-title-text">基本信息</div>
+		</div>
+		<!---->
+		<div class="order-nav flex">
+			<div :class="['nav-item',checkNum==0?'active':'']" @click="toggleNav" tabindex='0'>单板</div>
+			<div :class="['nav-item',checkNum==1?'active':'']" @click="toggleNav" tabindex='1'>双板</div>
+		</div>
+		<!---->
+		<div class="input-box flex">
+			<div class="label">身高<sup>*</sup></div>
+			<div class="input">
+				<input type="number" name="" id="" v-model="cm" v-bind:placeholder="Dcm"/>
+			</div>
+			<div class="order-unit">cm</div>
+		</div>
+		<!---->
+		<div class="input-box flex">
+			<div class="label">体重<sup>*</sup></div>
+			<div class="input">
+				<input type="number" name="" id="" v-model="kg" v-bind:placeholder="Dkg"/>
+			</div>
+			<div class="order-unit">kg</div>
+		</div>
+		<!---->
+		<div class="input-box flex">
+			<div class="label">鞋码<sup>*</sup></div>
+			<div class="input">
+				<input type="number" name="" id="" v-model="num" v-bind:placeholder="Dnum"/>
+			</div>
+			<div class="order-unit">码</div>
+		</div>
+		<!---->
+	</div>
+	<div class="box-wrap no-border">
+		<!---->
+		<div class="dy-title-box flex-start">
+			<div class="dy-title-img-box">
+				<img src="img/tao_can.png" class="img-auto"/>
+			</div>
+			<div class="dy-title-text">套餐信息</div>
+		</div>
+		<div class="dy-item-box">
+			<span class="dy-item-name">产品明细：</span>
+			<span class="dy-item-text">双板、雪鞋、平日一日票</span>
+		</div>
+		<!---->
+		<div class="dy-item-box">
+			<span class="dy-item-name">租赁费用：</span>
+			<span class="dy-item-text color"><span class="rmb-icon">￥</span>300</span>
+		</div>
+		<!---->
+		<div class="dy-item-box">
+			<span class="dy-item-name">押金费用：</span>
+			<span class="dy-item-text color1"><span class="color"><span class="rmb-icon">￥</span>300 </span>(雪具归还后原路返回)</span>
+		</div>
+		<!---->
+	</div>
+	<!--提交订单 ssss-->
+	<div class="dy-order-submit-wrap flex">
+		<div class="dy-left flex">
+			<div class="dy-submit-img-wrap">
+				<div class="dy-submit-img-box">
+					<img src="img/ding_dan.png" class="dy-submit-img"/>
+				</div>
+			</div>
+			<div class="dy-order-money">
+				订单总额: <span class="color"><span class="rmb-icon">￥</span>{{allRMB}}</span>
+			</div>
+		</div>
+		<div class="dy-right-submit-btn" @click="submitLease">提交订单</div>
+	</div>
+	<!--提交订单 eeee-->
+</div>
+</body>
+<script src="js/order.js"></script>
+</html>

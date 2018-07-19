@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的订单</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--[if lt IE 9]>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<script src="js/html5shiv.js"></script>
+	<script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/amazeui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="css/myOrder.css"/>
+	<script type="text/javascript" src="js/ydui.flexible.js"></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+</head>
+
+<body>
+<div id="app">
+	<div class="order-wrap" v-for="(item,index) in listArr">
+	<!--等待付款-->
+	<div class="order-group" tabIndex="index" @click='goPay' v-if="item.orderStatus==0">
+			<div class="order-item-1 flex">
+				<div class="order-item-left">
+					<img src="img/ding_dan.png" alt="" class="img" />
+					<span class="ski-name">{{item.skiName}}</span>
+				</div>
+				<div class="order-item-right color">
+					等待付款
+				</div>
+			</div>
+			<div class="order-item-2">
+				{{item.info}}
+			</div>
+			<div class="order-item-3">
+				需付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+			</div>
+	</div>
+	<!--等待使用-->
+	<div class="order-group" tabIndex="index" @click='goUse' v-if="item.orderStatus==1">
+			<div class="order-item-1 flex">
+				<div class="order-item-left">
+					<img src="img/ding_dan.png" alt="" class="img" />
+					<span class="ski-name">{{item.skiName}}</span>
+				</div>
+				<div class="order-item-right color">
+					待使用
+				</div>
+			</div>
+			<div class="order-item-2">
+				{{item.info}}
+			</div>
+			<div class="order-item-3">
+				已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+			</div>
+	</div>
+	<!--已完成-->
+	<div class="order-group" tabIndex="index" @click='isShowModel=true' v-if="item.orderStatus==2">
+			<div class="order-item-1 flex">
+				<div class="order-item-left">
+					<img src="img/ding_dan.png" alt="" class="img" />
+					<span class="ski-name">{{item.skiName}}</span>
+				</div>
+				<div class="order-item-right order-ok">
+					<img src="img/ok.png" alt="" class="order-ok-img" />
+					<span class="order-del">删除订单</span>
+				</div>
+			</div>
+			<div class="order-item-2">
+				{{item.info}}
+			</div>
+			<div class="order-item-3">
+				需付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+			</div>
+	</div>
+	</div>
+	<div class="add-more" @click="addMoreOrder">点击加载更多</div>
+	<!--model-->
+
+	<div :class="['model',isShowModel?'':'hide']">
+		<div class="order-alert-wrap">
+			<div class="order-alert-title">提示</div>
+			<div class="order-alert-text">
+				确定要删除订单记录吗？
+			</div>
+			<div class="order-alert-btn flex">
+				<div class="order-alert-cancel btn" @click='isShowModel=false'>取消</div>
+				<div class="order-alert-true btn" @click='goDel'>确定</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+</body>
+<script src="js/myOrder.js"></script>
+</html>

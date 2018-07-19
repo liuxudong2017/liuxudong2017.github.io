@@ -1,0 +1,77 @@
+.banner-box {
+			padding: .3rem;
+			width: 100%;
+			overflow: hidden;
+			border-bottom: .3rem solid #f7f7f7;
+		}
+		.banner-box .img-auto {
+			border-radius: .15rem;
+		}
+		/*   滑雪场 ss  */
+		
+		.ski-group {
+			padding: .3rem .3rem 0;
+			border-bottom: .3rem solid #F7F7F7;
+			overflow: hidden;
+		}
+		
+		.ski-img-box {
+			width: 1.2rem;
+			height: 1.2rem;
+			border: .02rem solid gray;
+		}
+		
+		.ski-info-mess .ski-name {
+			font-size: .3rem;
+			color: #333;
+		}
+		
+		.ski-info-mess .ski-address,
+		.ski-info-rigth {
+			font-size: .24rem;
+			color: #666;
+		}
+		
+		.ski-info-mess {
+			padding-left: .3rem;
+		}
+		
+		.lease-hide {
+			max-height: 3.08rem;
+			overflow: hidden;
+		}
+		.lease-list-more {
+			height: .65rem;
+			line-height: .65rem;
+			text-align: center;
+			font-size: .26rem;
+			color: #666666;
+		}
+		
+		.footer-nav-group,
+		.footer-nav-holder {
+			box-sizing: border-box;
+			height: 1rem;
+			padding: .15rem 0;
+			border-top: .02rem solid #F1F1F1;
+		}
+		
+		.footer-nav-group {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			color: #2c2c2c;
+			font-size: .18rem;
+			justify-content: space-around;
+			-webkit-align-content: space-around;
+			background: #fff;
+		}
+		
+		.nav-icon-box {
+			width: .4rem;
+			height: .4rem;
+			overflow: hidden;
+			margin: 0 auto;
+		}

@@ -1,0 +1,62 @@
+
+	.wait{
+		color:#ff0000;
+	}
+	.wait-get{
+		color:#33cc33;
+	}
+	.box-wrap{
+		font-size: .3rem;
+	}
+	.status-box{
+		height:.9rem;
+		line-height: .9rem;
+		border-bottom: .02rem solid #F1F1F1;
+	}
+	/*header ssss*/
+	.header-wrap{
+		width:100%;
+		height:4.6rem;
+		overflow: hidden;
+		background: url(../img/bg.png);
+		font-size:.2rem;
+		color:#333333;
+		text-align: center;
+		border:0.01rem solid #FFD900
+	}
+	.header-box{
+		width: 6.9rem;
+	    height: 3.5rem;
+	    border-radius: .3rem;
+	    margin: .8rem auto 0;
+	    background: #fff;
+	    border: .01rem solid #fff;
+	    padding-top:.01rem;
+	}
+	.header-item-1{
+		width:1.1rem;
+		height:1.1rem;
+		line-height: 1.1rem;
+		text-align: center;
+		font-size:.6rem;
+		color:#643414;
+		font-weight: 700;
+		border-radius: 50%;
+		margin:-.6rem auto 0;
+		background: #fff;
+	}
+	.header-item-2{
+		font-size: .28rem;
+		color: #643414;
+		margin:0rem 0 .1rem;
+	}
+	.header-item-3{
+		width:2rem;
+		height:2rem;
+		padding:.04rem;
+		border:.02rem solid #F1F1F1;
+		margin:0 auto;
+	}
+
+	
+	
