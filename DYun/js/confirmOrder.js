@@ -40,6 +40,7 @@ var vm = new Vue({
 			}
 		},
 		submitOrder: function submitOrder() {
+			location.href="payOk.html";
 			console.log(this.code + "===" + this.iphone);
 		}
 	},
