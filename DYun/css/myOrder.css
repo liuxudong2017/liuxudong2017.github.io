@@ -1,4 +1,6 @@
-
+	.order-color{
+		color:#666666;
+	}
 	.order-group{
 		padding: 0 .3rem;
 		border-bottom: .3rem solid #F7F7F7;
@@ -20,7 +22,7 @@
 		font-size:.28rem;
 		color:#333333;
 		padding-left: .3rem;
-		background: #F7F7F7;
+		background: #ddd;
 	}
 	.order-item-3{
 		text-align: right;

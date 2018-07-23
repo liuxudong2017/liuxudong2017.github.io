@@ -15,11 +15,12 @@ var vm = new Vue({
 		},
 		payType: 1 //0 阿里支付 1微信支付
 		, allRMB: 300,
-		times: 60
+		times: 60,
+		hintText: '请输入正确的手机号码!',
+		isHint: false
 	},
 	methods: {
 		checkPay: function checkPay(index) {
-			console.log(index);
 			//			let index=e.target.tabIndex;
 			this.payType == index ? "" : this.payType = index;
 		},
@@ -40,7 +41,14 @@ var vm = new Vue({
 			}
 		},
 		submitOrder: function submitOrder() {
+			location.href = "payOk.html?status=1";
 			console.log(this.code + "===" + this.iphone);
+		},
+		regIphone: function regIphone(e) {
+			var reg = /^1[3|5|7|8]\d{9}$/;
+			var isTure = reg.test(this.iphone);
+			this.isHint = !isTure;
+			isTure ? '' : this.hintText = "请输入正确的手机号码！";
 		}
 	},
 	created: function created() {//创建 可访问data

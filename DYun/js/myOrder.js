@@ -6,7 +6,7 @@ var vm = new Vue({
 	el: "#app",
 	data: {
 		listArr: [{
-			orderStatus: 0 // 0 待付款  1 待使用 2 已完成
+			orderStatus: 0 // 0 待付款  1 待使用 2 使用中 3 已完成 4 已失效 5 已取消
 			, skiName: '北京国际滑雪场',
 			info: '只能雪板+雪鞋一日套餐',
 			rmb: 300
@@ -21,7 +21,17 @@ var vm = new Vue({
 			info: '只能雪板+雪鞋一日套餐',
 			rmb: 300
 		}, {
-			orderStatus: 0 // 0 待付款  1 待使用 2 已完成
+			orderStatus: 3 // 0 待付款  1 待使用 2 已完成
+			, skiName: '北京国际滑雪场',
+			info: '只能雪板+雪鞋一日套餐',
+			rmb: 300
+		}, {
+			orderStatus: 4 // 0 待付款  1 待使用 2 已完成
+			, skiName: '北京国际滑雪场',
+			info: '只能雪板+雪鞋一日套餐',
+			rmb: 300
+		}, {
+			orderStatus: 5 // 0 待付款  1 待使用 2 已完成
 			, skiName: '北京国际滑雪场',
 			info: '只能雪板+雪鞋一日套餐',
 			rmb: 300
@@ -58,11 +68,10 @@ var vm = new Vue({
 		goPay: function goPay(e) {
 			location.href = 'waitPay.html';
 		},
-		goUse: function goUse(e) {
-			location.href = 'payOk.html';
+		goUse: function goUse(status) {
+			location.href = 'payOk.html?status=' + status;
 		},
 		goDel: function goDel(e) {
-			var index = e.target.tabIndex * 1;
 			var arr = this.listArr;
 			arr.splice(this.delIndex, 1);
 			this.delIndex = -1;

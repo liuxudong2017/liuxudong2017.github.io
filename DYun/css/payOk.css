@@ -2,16 +2,22 @@
 	.wait{
 		color:#ff0000;
 	}
+	.over{
+		color:#666666;
+	}
 	.wait-get{
 		color:#33cc33;
 	}
 	.box-wrap{
 		font-size: .3rem;
 	}
-	.status-box{
+	.status-item{
 		height:.9rem;
 		line-height: .9rem;
 		border-bottom: .02rem solid #F1F1F1;
+	}
+	.status-item span{
+		padding-right: .3rem;
 	}
 	/*header ssss*/
 	.header-wrap{

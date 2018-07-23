@@ -31,8 +31,9 @@ var vm = new Vue({
 
 	},
 	methods: {
-		getMap: function getMap() {
-			location.href = 'bdMap.html';
+		getMap(){
+			location.href='bdMap.html';
+			
 		}
 	},
 	created: function created() {},
