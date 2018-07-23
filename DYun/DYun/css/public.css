@@ -142,7 +142,6 @@ user-select:none;
 /* submit order 提交订单 ssss*/
 
 .dy-order-submit-wrap {
-	background: #fff;
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -163,7 +162,6 @@ user-select:none;
 	border: .02rem solid #f1f1f1;
 	box-shadow: 0.05rem -0.1rem 0.1rem #f2f2f2;
 	margin-top: -.3rem;
-	background: #fff;
 }
 
 .dy-submit-img-wrap .dy-submit-img-box {

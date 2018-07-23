@@ -34,8 +34,7 @@ var vm = new Vue({
 		getMap: function getMap() {
 			if (!this.isShowMap) {
 				this.isShowMap = true; // 先赋值
-				setTimeout(function(){
-					var map = new BMap.Map("map");
+				var map = new BMap.Map("map");
 				// 创建地图实例  
 				var point = new BMap.Point(116.404, 39.915);
 				// 创建点坐标  
@@ -44,7 +43,6 @@ var vm = new Vue({
 				var marker = new BMap.Marker(point);
 				map.addOverlay(marker);
 				console.log('-=-=-=-');
-			},300);
 			}
 		}
 	},

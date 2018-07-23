@@ -3,6 +3,7 @@
 var vm = new Vue({
 	el: '#app',
 	data: {
+		ab: "jkljk",
 		bannerSrc: 'img/banner_1.png',
 		skiArr: [{
 			skiSrc: 'img/shop_logo.png',
@@ -32,7 +33,6 @@ var vm = new Vue({
 			skiName: '',
 			skiAdrr: '',
 			skiDistance: "55km",
-			isShowMoreOrder: false,
 			orderTypeArr: [{
 				orderTitle: "只能雪板一日租",
 				rmb: 300,
