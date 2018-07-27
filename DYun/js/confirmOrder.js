@@ -84,7 +84,7 @@ var vm = new Vue({
 				orderCode: this.paramObj.orderCode,
 				totalPrice: this.paramObj.allRmb,
 				userIp: returnCitySN.cip,
-				tradeType: "JSAPI",
+				tradeType: "APP",
 				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
 			};
 			console.log(ajaxUrl.orderInterface);
@@ -94,27 +94,26 @@ var vm = new Vue({
 				alert(JSON.stringify(res)+'---res');
 				var data=res.data.data.xml;
 				alert(JSON.stringify(data)+'--data');
-
 				alert(data.appid+'===appID');
 				var time=new Date();
 				time=time.getTime();
-				// var objaa={
-				// 	"appId":data.appid,
-				// 	"nonceStr":data.nonce_str,
-				// 	"paySign":data.sign,
-				// 	"signType":"MD5",
-				// 	"package":"prepay_id="+data.prepay_id,
-				// 	"timeStamp":time
-				// }//jljlkjljjlk
-				var objaa={};
-				objaa.appId=data.appid;
-				objaa.nonceStr=data.nonce_str;
-				objaa.paySign=data.sign;
-				objaa.signType='MD5';
-				objaa.package='prepay_id='+data.prepay_id;
-				objaa.timeStamp=time;
-				alert(JSON.stringify(objaa)+'-----confirmOrder-param14');
-				callpay(objaa);
+				var objaa={
+					"appId":data.appid,
+					"nonceStr":data.none_str,
+					"paySign":data.sign,
+					"signType":"MD5",
+					"package":"prepay_id="+data.prepay_id,
+					"timeStamp":time
+				}//jljlkjljjlk
+				// var obj={};
+				// objaa.appId=data.appid;
+				// objaa.nonceStr=data.nonce_str;
+				// objaa.paySign=data.sign;
+				// objaa.signType='MD5';
+				// objaa.package='prepay_id='+data.prepay_id;
+				// objaa.timeStamp=time;
+				alert(JSON.stringify(obj)+'-----confirmOrder-param14');
+				callpay(obj);
 			});
 		},
 		regIphone: function regIphone(e) {
