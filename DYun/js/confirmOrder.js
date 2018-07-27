@@ -105,7 +105,7 @@ var vm = new Vue({
 				// 	"signType":"MD5",
 				// 	"package":"prepay_id="+data.prepay_id,
 				// 	"timeStamp":time
-				// }
+				// }//jljlkjljjlk
 				var objaa={};
 				objaa.appId=data.appid;
 				objaa.nonceStr=data.nonce_str;
@@ -113,7 +113,7 @@ var vm = new Vue({
 				objaa.signType='MD5';
 				objaa.package='prepay_id='+data.prepay_id;
 				objaa.timeStamp=time;
-				alert(JSON.stringify(objaa)+'-----confirmOrder-param');
+				alert(JSON.stringify(objaa)+'-----confirmOrder-param14');
 				callpay(objaa);
 			});
 		},
