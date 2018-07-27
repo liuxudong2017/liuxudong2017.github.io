@@ -96,7 +96,7 @@ var vm = new Vue({
 				time=time.getTime();
 				var obj={
 					"appId":data.appid,
-					"nonceStr":data.none_str,
+					"nonceStr":data.nonce_str,
 					"paySign":data.sign,
 					"signType":"MD5",
 					"package":"prepay_id="+data.prepay_id,
