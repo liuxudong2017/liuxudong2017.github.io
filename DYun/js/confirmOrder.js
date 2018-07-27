@@ -94,14 +94,21 @@ var vm = new Vue({
 				var data=res.data.data.xml;
 				var time=new Date();
 				time=time.getTime();
-				var objaa={
-					"appId":data.appid,
-					"nonceStr":data.nonce_str,
-					"paySign":data.sign,
-					"signType":"MD5",
-					"package":"prepay_id="+data.prepay_id,
-					"timeStamp":time
-				}
+				// var objaa={
+				// 	"appId":data.appid,
+				// 	"nonceStr":data.nonce_str,
+				// 	"paySign":data.sign,
+				// 	"signType":"MD5",
+				// 	"package":"prepay_id="+data.prepay_id,
+				// 	"timeStamp":time
+				// }
+				var objaa={};
+				objaa.appId=data.appid;
+				objaa.nonceStr=data.nonce_str;
+				objaa.paySign=data.sign;
+				objaa.signType='MD5';
+				objaa.package='prepay_id='+data.prepay_id;
+				objaa.timeStamp=time;
 				alert(JSON.stringify(objaa)+'-----confirmOrder-param');
 				callpay(objaa);
 			});
