@@ -18,9 +18,11 @@
 		.ski-img-box {
 			width: 1.2rem;
 			height: 1.2rem;
-			border: .02rem solid gray;
+			overflow: hidden;
 		}
-		
+		.ski-img-box .img-auto{
+			min-height: 100%;
+		}
 		.ski-info-mess .ski-name {
 			font-size: .3rem;
 			color: #333;

@@ -14,10 +14,13 @@ var vm = new Vue({
 			shoeNum: 43
 		},
 		payType: 1 //0 阿里支付 1微信支付
+
 		, allRMB: 300,
 		times: 60,
 		hintText: '请输入正确的手机号码!',
-		isHint: false
+		isHint: false,
+		paramObj: {},
+		id: 0
 	},
 	methods: {
 		checkPay: function checkPay(index) {
@@ -27,7 +30,7 @@ var vm = new Vue({
 		getCode: function getCode(e) {
 			var _this = this;
 
-			if (this.iphone != '') {
+			if (this.iphone != '' && !this.isHint) {
 				this.codeStatus = true;
 				var stop = setInterval(function () {
 					_this.times -= 1;
@@ -37,22 +40,101 @@ var vm = new Vue({
 					}
 				}, 1000);
 			} else {
-				alert('手机号不能为空');
+				this.isHint = true;
 			}
 		},
+		pay: function pay(params) {
+			var _this2 = this;
+
+			axios.post(ajaxUrl.leaseOrderDetailInterface, params).then(function (res) {
+				console.log(res);
+				if (res.data.code == 0) {
+					var data = res.data.data;
+					var _params = {
+						languageCode: 1,
+						userId: 1,
+						body: '',
+						orderCode: data.orderCode,
+						totalPrice: data.totalPrice,
+						userIp: returnCitySN.cip,
+						tradeType: data.payType,
+						notifyUrl: 'http://testapi.ew-sports.com:8080/ewsports-portal/wx'
+					};
+					_this2.wxPay(_params);
+					console.log('wx params sssss');
+					console.log(_params);
+					console.log('wx params eeeeee');
+				}
+			});
+		},
+		wxPay: function wxPay(params) {
+			console.log('wx-------0');
+			console.log(ajaxUrl.orderInterface);
+			console.log(params);
+			axios.post(ajaxUrl.orderInterface, params).then(function (res) {
+				console.log('wxPayInterface....SSSS');
+				console.log(res);
+				console.log('wxPayInterface....eeeee');
+			});
+		},
 		submitOrder: function submitOrder() {
-			location.href = "payOk.html?status=1";
-			console.log(this.code + "===" + this.iphone);
+			var param = {
+				languageCode: 1,
+				userId: 1,
+				orderCode: this.paramObj.orderCode,
+				totalPrice: this.paramObj.allRmb,
+				userIp: returnCitySN.cip,
+				tradeType: "APP",
+				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
+			};
+			console.log(ajaxUrl.orderInterface);
+			console.log(param);
+			axios.post(ajaxUrl.orderInterface, param).then(function (res) {
+				console.log(res);
+				callpay(res.data.data.xml);
+			});
 		},
 		regIphone: function regIphone(e) {
 			var reg = /^1[3|5|7|8]\d{9}$/;
 			var isTure = reg.test(this.iphone);
 			this.isHint = !isTure;
 			isTure ? '' : this.hintText = "请输入正确的手机号码！";
+		},
+		loadPage: function loadPage() {
+			var _this3 = this;
+
+			console.log(ajaxUrl.leaseOrderDetailInterface);
+			var params = {
+				languageCode: 1,
+				userId: 1,
+				orderId: this.id
+			};
+			console.log(params);
+			axios.post(ajaxUrl.leaseOrderDetailInterface, params).then(function (res) {
+				console.log(res);
+				if (res.data.code == 0) {
+					var data = res.data.data;
+					var obj = {};
+					obj.allRmb = data.totalPrice;
+					obj.orderCode = data.orderCode;
+					obj.info = data.goodsDetails;
+					obj.shopName = data.shopName;
+					obj.cm = data.userHeight;
+					obj.kg = data.userWeight;
+					obj.num = data.userShoeSize;
+					_this3.payType = data.payType;
+					_this3.paramObj = obj;
+				}
+				console.log('-=-=-==');
+
+				console.log('======');
+			});
 		}
 	},
-	created: function created() {//创建 可访问data
-
+	created: function created() {
+		//创建 可访问data
+		this.id = formateUrl().id;
+		this.loadPage();
 	},
 	mounted: function mounted() {//挂在
 

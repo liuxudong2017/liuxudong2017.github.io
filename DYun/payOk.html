@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="app">
-	<div class="header-wrap">
+	<div class="header-wrap" v-if="orStatus==1">
 		<div class="header-box">
 			<div class="header-item-1">√</div>
 			<div class="header-item-2">付款成功</div>
@@ -78,17 +78,17 @@
 		<!---->
 		<div class="dy-item-box">
 			<span class="dy-item-name">租赁费用：</span>
-			<span class="dy-item-text color"><span class="rmb-icon">￥</span>{{mealMess.rmb}}</span>
+			<span class="dy-item-text color"><span class="rmb-icon">￥</span>{{mealMess.rmb/100}}</span>
 		</div>
 		<!---->
 		<div class="dy-item-box">
 			<span class="dy-item-name">押金费用：</span>
-			<span class="dy-item-text color1"><span class="color"><span class="rmb-icon">￥</span>{{mealMess.pledgeRMB}} </span>(雪具归还后原路返回)</span>
+			<span class="dy-item-text color1"><span class="color"><span class="rmb-icon">￥</span>{{mealMess.pledgeRMB/100}} </span>(雪具归还后原路返回)</span>
 		</div>
 		<!---->
 	</div>	
 	<!--领取状态-->
-	<div class="box-wrap dy-box-wrap no-border">
+	<div class="box-wrap dy-box-wrap no-border" v-if='orStatus==1||orStatus==2||orStatus==3'>
 		<!---->
 		<div class="dy-title-box flex-start">
 			<div class="dy-title-img-box">
@@ -106,7 +106,7 @@
 	</div>
 	<!--footer-->
 	<div class="footer-btn-wrap flex-around">
-		<a href="tel:010-854645"><div class="footer-btn-left btn">联系客服</div></a>
+		<a :href="'tel:'+tel"><div class="footer-btn-left btn">联系客服</div></a>
 		<div class="footer-btn-right btn" @click='isCancelOrder=!isCancelOrder' v-if='orStatus==1'>取消订单</div>
 	</div>
 	<!--alert-model-->

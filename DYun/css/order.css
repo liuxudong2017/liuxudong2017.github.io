@@ -47,3 +47,29 @@
 	.input-box input:focus{
 		border:0;
 	}
+	
+	/*bindIphone ssss*/
+	input{
+		border:0;
+	}
+	.bind-iphone-wrap{
+		padding:0 .3rem;
+		border-bottom: .3rem solid #F1F1F1;
+		font-size:.3rem;
+	}
+	.bind-iphone-box{
+		border-bottom:.02rem solid #F1F1F1;
+		height: .90rem;
+		line-height: .9rem;
+	}
+	.input1{
+		width:47%;
+	}
+	.btn{
+		border:0;
+	}
+	.btn span{
+		border-radius: .3rem;
+		background: #FFD900;
+		padding:.12rem .3rem;
+	}

@@ -23,10 +23,10 @@
 
 <body>
 <div id="app">
-	<!--0 待付款  1 待使用 2 使用中 3 已完成 4 已失效 5 已取消-->
+	<!--0 待付款  1 待使用 2 使用中 3 已完成 5 已失效 4 已取消-->
 	<div class="order-wrap" v-for="(item,index) in listArr">
 		<!--等待付款-->
-		<div class="order-group" tabindex="index" @click='goPay' v-if="item.orderStatus==0">
+		<div class="order-group" tabindex="index" @click='goPay(item.orderId)' v-if="item.orderStatus==0">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -40,11 +40,11 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					需付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					需付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 		<!--等待使用-->
-		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus)(item.orderStatus)' v-if="item.orderStatus==1">
+		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus,item.orderId)' v-if="item.orderStatus==1">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -58,11 +58,11 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					已付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 		<!--使用中-->
-		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus)' v-if="item.orderStatus==2">
+		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus,item.orderId)' v-if="item.orderStatus==2">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -76,12 +76,12 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					已付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 			
 		<!--已完成  -->
-		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus)' v-if="item.orderStatus==3">
+		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus,item.orderId)' v-if="item.orderStatus==3">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -96,11 +96,11 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					需付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					需付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 			<!--已失效-->
-		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus)' v-if="item.orderStatus==4">
+		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus,item.orderId)' v-if="item.orderStatus==5">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -114,11 +114,11 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					已付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 		<!--已取消-->
-		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus)' v-if="item.orderStatus==5">
+		<div class="order-group" tabindex="index" @click='goUse(item.orderStatus,item.orderId)' v-if="item.orderStatus==4">
 				<div class="order-item-1 flex">
 					<div class="order-item-left">
 						<img src="img/ding_dan.png" alt="" class="img" />
@@ -132,16 +132,14 @@
 					{{item.info}}
 				</div>
 				<div class="order-item-3">
-					已付款:  <span class="rmb-icon">￥</span>{{item.rmb}}
+					已付款:  <span class="rmb-icon">￥</span>{{item.rmb/100}}
 				</div>
 		</div>
 		<!---->
 	</div>
-
-	<div class="add-more" @click="addMoreOrder">点击加载更多</div>
+	<!--<div class="add-more" @click="addMoreOrder">点击加载更多</div>-->
 	<!--model-->
-
-	<div :class="['model',delIndex!=-1?'':'hide']">
+	<div :class="['model','hide']">
 		<div class="order-alert-wrap">
 			<div class="order-alert-title">提示</div>
 			<div class="order-alert-text">
@@ -152,7 +150,6 @@
 				<div class="order-alert-true btn" @click='goDel'>确定</div>
 			</div>
 		</div>
-		
 	</div>
 </div>
 </body>

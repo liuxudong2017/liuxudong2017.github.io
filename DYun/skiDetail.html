@@ -22,22 +22,22 @@
 	<body>
 		<div id="app">
 			<div class="banner-box">
-				<img :src="bannerSrc" class="img-auto" />
+				<img :src="skiObj.bannerSrc" class="img-auto" />
 			</div>
 			<div class="ski-info-wrap">
 				<div class="ski-info-list flex">
 					<div class="ski-info-left flex">
 						<div class="ski-info-img-box">
-							<img :src="skiSrc" alt="" class="img-auto" />
+							<img :src="skiObj.skiSrc" alt="" class="img-auto" />
 						</div>
-						<span class="ski-name">{{skiName}}</span>
+						<span class="ski-name">{{skiObj.skiName}}</span>
 					</div>
-					<div class="ski-info-left">{{skiDistance}}</div>
+					<div class="ski-info-left">{{skiObj.skiDistance}}</div>
 
 				</div>
 				<div class="ski-info-list flex" @click='getMap'>
 					<div class="ski-info-list-left">
-						地址: {{skiAdrr}}
+						地址: {{skiObj.skiAdrr}}
 					</div>
 					<div class="ski-info-list-right flex">
 						<div class="img-box">
@@ -45,10 +45,10 @@
 						</div>
 					</div>
 				</div>
-				<a :href="'tel:'+tel">
+				<a :href="'tel:'+skiObj.tel">
 					<div class="ski-info-list flex">
 						<div class="ski-info-list-left">
-							电话: {{tel}}
+							电话: {{skiObj.tel}}
 						</div>
 						<div class="ski-info-list-right flex">
 							<div class="img-box">
@@ -57,7 +57,7 @@
 						</div>
 					</div>
 				</a>
-				<div class="lease-list-wrap" v-for="(item,index) in orderTypeArr" :key="index">
+				<div class="lease-list-wrap" v-for="(item,index) in skiObj.orderTypeArr" :key="index">
 					<div class="lease-list flex">
 						<div class="lease-list-left">
 							<div class="lease-name">{{item.orderTitle}}</div>
@@ -66,7 +66,7 @@
 								<span class="lease-include" v-if="item.orderInclude!=''">({{item.orderInclude}})</span>
 							</div>
 						</div>
-						<a href="order.html">
+						<a :href="item.hrefs">
 							<div class="lease-list-right">
 								预约租赁
 							</div>
@@ -86,8 +86,8 @@
 					</div>
 				</div>
 				<div class="ski-rulse-info-box">
-					<div class="flex-start" v-for="(item,index) in rulseArr">
-						<div class="rulse-num">{{index+1}}、</div>
+					<div class="flex-start" v-for="(item,index) in skiObj.rulseArr" v-if='item!=""'>
+						<div class="rulse-num">{{index}}、</div>
 						<div v-for="{{rulseArr}}">{{item}}</div>
 					</div>
 				</div>
@@ -102,10 +102,10 @@
 					</div>
 				</div>
 				<div class="banner-box">
-					<img :src="bannerSrc1" class="img-auto" />
+					<img :src="skiObj.bannerSrc1" class="img-auto" />
 				</div>
 				<div class="ski-info-text">
-					{{skiInfo.info}}
+					{{skiObj.info}}
 				</div>
 			</div>
 

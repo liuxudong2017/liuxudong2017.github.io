@@ -29,7 +29,7 @@
 				</div>
 				<div>剩余：{{time}}</div>
 			</div>
-			<div class="pay-rmb">需付款: <span class="rmb-icon">￥</span>{{rmb}}</div>
+			<div class="pay-rmb">需付款: <span class="rmb-icon">￥</span>{{rmb/100}}</div>
 		</div>
 		<!--订单-->
 	<div class="box-wrap dy-box-wrap">
@@ -47,7 +47,7 @@
 		<!---->
 		<div class="dy-item-box">
 			<span class="dy-item-name">订单状态：</span>
-			<span class="dy-item-text wait">{{orderMess.orderStatus}}</span>
+			<span class="dy-item-text color">{{orderMess.orderStatus}}</span>
 		</div>
 		<!---->
 		<div class="dy-item-box">
@@ -80,12 +80,12 @@
 		<!---->
 		<div class="dy-item-box">
 			<span class="dy-item-name">租赁费用：</span>
-			<span class="dy-item-text color"><span class="rmb-icon">￥</span>{{mealMess.rmb}}</span>
+			<span class="dy-item-text color"><span class="rmb-icon">￥</span>{{mealMess.rmb/100}}</span>
 		</div>
 		<!---->
 		<div class="dy-item-box">
 			<span class="dy-item-name">押金费用：</span>
-			<span class="dy-item-text color1"><span class="color"><span class="rmb-icon">￥</span>{{mealMess.pledgeRMB}} </span>(雪具归还后原路返回)</span>
+			<span class="dy-item-text color1"><span class="color"><span class="rmb-icon">￥</span>{{mealMess.pledgeRMB/100}} </span>(雪具归还后原路返回)</span>
 		</div>
 		<!---->
 	</div>
@@ -121,7 +121,7 @@
 				</div>
 			</div>
 			<div class="dy-order-money">
-				订单总额: <span class="color"><span class="rmb-icon">￥</span>{{rmb}}</span>
+				订单总额: <span class="color"><span class="rmb-icon">￥</span>{{rmb/100}}</span>
 			</div>
 		</div>
 		<div class="dy-right-submit-btn" @click="pay">确认支付</div>
@@ -129,6 +129,7 @@
 	<!--提交订单 eeee-->
 </div>
 </body>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script src="js/ajax.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
 <script type="text/javascript" src="js/public.js"></script>

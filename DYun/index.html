@@ -17,7 +17,6 @@
 		<link rel="stylesheet" type="text/css" href="css/public.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		<script type="text/javascript" src="js/ydui.flexible.js"></script>
-		
 	</head>
 <body>
 		<div id="app">
@@ -26,7 +25,7 @@
 			</div>
 			<!--list-->
 			<div class="ski-group" v-for='(item,index) in skiArr' :key="index">
-				<a href="skiDetail.html">
+				<a :href="'skiDetail.html?shopId='+item.shopId">
 					<div class="ski-info flex">
 						<div class="ski-info-left flex">
 							<div class="ski-img-box">
@@ -46,9 +45,9 @@
 					<div class="lease-list flex" v-for="(item1,index1) in item.orderTypeArr" v-key="index1">
 						<div class="lease-list-left">
 							<div class="lease-name">{{item1.orderTitle}}</div>
-							<div class="lease-price"><span class="rmb-icon">￥</span>{{item1.rmb}}<span class="lease-include" v-if='item1.orderInclude!=""'>({{item1.orderInclude}})</span></div>
+							<div class="lease-price"><span class="rmb-icon">￥</span>{{item1.rmb/100}}<span class="lease-include" v-if='item1.orderInclude!=""'>({{item1.orderInclude}})</span></div>
 						</div>
-						<a href="order.html">
+						<a :href="item1.hrefs">
 							<div class="lease-list-right">
 								预约租赁
 							</div>

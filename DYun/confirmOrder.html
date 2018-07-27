@@ -31,31 +31,31 @@
 		</div>
 		<div class="dy-item-box">
 			<span class="dy-item-name">雪场名称：</span>
-			<span class="dy-item-text">{{mess.skiName}}</span>
+			<span class="dy-item-text">{{paramObj.shopName}}</span>
 		</div>
 		<div class="dy-item-box">
 			<span class="dy-item-name">产品明细：</span>
-			<span class="dy-item-text">{{mess.info}}</span>
+			<span class="dy-item-text">{{paramObj.info}}</span>
 		</div>
 		<div class="dy-item-box">
 			<span class="dy-item-name flex">
 				身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高：
 			</span>
-			<span class="dy-item-text">{{mess.cm}}	cm</span>
+			<span class="dy-item-text">{{paramObj.cm}}	cm</span>
 		</div>
 		<div class="dy-item-box">
 			<span class="dy-item-name">体&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</span>
-			<span class="dy-item-text">{{mess.kg}}	kg</span>
+			<span class="dy-item-text">{{paramObj.kg}}	kg</span>
 		</div>
 		<div class="dy-item-box">
 			<span class="dy-item-name">鞋&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
-			<span class="dy-item-text">{{mess.shoeNum}}	</span>
+			<span class="dy-item-text">{{paramObj.num}}	</span>
 		</div>
 		
 	</div>
 
     <!--绑定手机-sss-->
-    <div class="bind-iphone-wrap">
+    <div class="bind-iphone-wrap hide">
     	<div class="dy-hint" v-if='isHint'>
     		{{hintText}}
     	</div>
@@ -75,14 +75,14 @@
 	<!--绑定手机eeeee-->
 	<!--pay ssss-->
 	<div class="pay-wrap">
-		<div class="pay-box flex" @click='checkPay(0)'>
+		<div class="pay-box flex" @click='checkPay(2)'>
 			<div class="pay-left">
 				<div class="pay-img-box">
 					<img src="img/alipay.png" class="img-auto"/>
 				</div>
 				<span>支付宝支付</span>
 			</div>
-			<div :class="['pay-right',payType==0?'active':'']"></div>
+			<div :class="['pay-right',payType==2?'active':'']"></div>
 		</div>
 		<div class="pay-box flex no-border" @click='checkPay(1)'>
 			<div class="pay-left">
@@ -104,19 +104,20 @@
 				</div>
 			</div>
 			<div class="dy-order-money">
-				订单总额: <span class="color"><sub>￥</sub>{{allRMB}}</span>
+				订单总额: <span class="color"><sub>￥</sub>{{paramObj.allRmb/100}}</span>
 			</div>
 		</div>
 		<div class="dy-right-submit-btn" @click="submitOrder">确认支付</div>
 	</div>
 	<!--提交订单 eeee-->
-    
-    
+
     <!--footer ee-->
 </div>
 </body>
-<script src="js/ajax.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
+<script src="js/ajax.js" type="text/javascript"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
 <script type="text/javascript" src="js/public.js"></script>
 <script src="js/confirmOrder.js"></script>
 </html>

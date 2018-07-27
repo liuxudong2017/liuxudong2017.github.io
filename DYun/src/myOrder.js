@@ -7,6 +7,7 @@ let vm=new Vue({
 				,skiName:'北京国际滑雪场'
 				,info:'只能雪板+雪鞋一日套餐'
 				,rmb:300
+				,orderId:''
 			},
 			{
 				orderStatus:1// 0 待付款  1 待使用 2 已完成
@@ -41,7 +42,6 @@ let vm=new Vue({
 		]
 		,pageNum:1
 		,isShowModel:false
-		,delIndex:-1
 	}
 	,methods:{
 		addMoreOrder(e){
@@ -73,20 +73,43 @@ let vm=new Vue({
 			]
 			this.listArr=[...this.listArr,...arr];
 		}
-		,goPay(e){
-			location.href='waitPay.html';
+		,goPay(orderId){
+			location.href='waitPay.html?orderId='+orderId;
 		}
-		,goUse(status){
-			location.href='payOk.html?status='+status;
+		,goUse(status,orderId){
+			location.href='payOk.html?status='+status+'&orderId='+orderId;
 		}
 		,goDel(e){
 			let arr=this.listArr;
 			arr.splice(this.delIndex,1);
 			this.delIndex=-1;
 		}
+		,loadPage(){
+			axios.post(ajaxUrl.leaseOrderListInterface,{languageCode:1,userId:'1'}).then(res=>{
+				console.log(res);
+				if(res.data.code==0){
+					let data=res.data.data;
+					let arr=[];
+					for(let i=0;i<data.length;i++)
+					{
+						let obj={};
+						obj.orderStatus=data[i].state;
+						obj.skiName=data[i].shopName;
+						obj.rmb=data[i].totalPrice;
+						obj.orderId=data[i].goodsId;
+						obj.info=data[i].goodsDetails;
+						obj.orderId=data[i].id;
+						obj.payType=data[i].payType;
+						arr.push(obj);
+					}
+					
+					this.listArr=arr;
+				}
+			});
+		}
 	}
 	,created(){ //创建 可访问data
-
+		this.loadPage();
 	}
 	,mounted(){//挂在
 
