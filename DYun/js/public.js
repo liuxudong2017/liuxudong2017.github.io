@@ -109,6 +109,7 @@ function jsApiCall(param) {
 	console.log('callPay..6666.');
 	WeixinJSBridge.invoke('getBrandWCPayRequest', param, function (res) {
 		WeixinJSBridge.log(res.err_msg);
+		
 		alert(JSON.stringify(param)+'-=-=param');
 		//alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
 		if (res.err_msg == "get_brand_wcpay_request:ok") {
