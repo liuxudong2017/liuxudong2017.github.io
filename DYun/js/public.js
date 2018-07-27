@@ -113,7 +113,7 @@ function jsApiCall(param) {
 		//alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
 		if (res.err_msg == "get_brand_wcpay_request:ok") {
 			console.log('callPay1111...');
-			alert(res);
+			alert('OK');
 			//						var cur_chapter_id=document.getElementById('cur_chapter_id').value;
 			//						var choose_chapter=document.getElementById('choose_chapter').value;
 			//						var book_id=document.getElementById('book_id').value;
@@ -125,7 +125,8 @@ function jsApiCall(param) {
 			//							window.location.href="/web/pay_order/index.html";
 			//						}
 		} else {
-			alert(res);
+			// alert(res);
+			alert('err');
 			//返回跳转到订单详情页面
 			//alert('支付失败');
 		}
