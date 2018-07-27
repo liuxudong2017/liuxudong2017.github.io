@@ -91,13 +91,10 @@ var vm = new Vue({
 			console.log(param);
 			axios.post(ajaxUrl.orderInterface, param).then(function (res) {
 				console.log(res);
-				alert(JSON.stringify(res)+'---res');
 				var data=res.data.data.xml;
-				alert(JSON.stringify(data)+'--data');
-				alert(data.appid+'===appID');
 				var time=new Date();
 				time=time.getTime();
-				var objaa={
+				var obj={
 					"appId":data.appid,
 					"nonceStr":data.none_str,
 					"paySign":data.sign,
