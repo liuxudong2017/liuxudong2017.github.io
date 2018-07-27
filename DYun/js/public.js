@@ -126,7 +126,7 @@ function jsApiCall(param) {
 			//						}
 		} else {
 			// alert(res);
-			alert('err');
+			alert('err='+res.err_msg);
 			//返回跳转到订单详情页面
 			//alert('支付失败');
 		}
