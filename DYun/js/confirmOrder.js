@@ -102,7 +102,7 @@ var vm = new Vue({
 					"package":"prepay_id="+data.prepay_id,
 					"timeStamp":time
 				}
-				alert(JSON.stringify(obj));
+				alert(JSON.stringify(obj)+'-----confirmOrder-param');
 				callpay(obj);
 			});
 		},
