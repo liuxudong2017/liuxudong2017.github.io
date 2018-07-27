@@ -96,12 +96,15 @@ var vm = new Vue({
 					appId:data.appid,
 					device_info:data.device_info,
 					mch_id:data.mch_id,
-					nonce_str:data.nonce_str,
+					nonceStr:data.nonce_str,
 					prepay_id:data.prepay_id,
 					result_code:data.result_code,
 					return_code:data.return_code,
 					return_msg:data.return_msg,
-					sign:data.sign,
+					paySign:data.sign,
+					signType:"MD5",
+					package:"prepay_id="+data.prepay_id,
+					timeStamp:data.mch_id,
 					trade_type:data.trade_type
 				}
 				callpay(obj);
