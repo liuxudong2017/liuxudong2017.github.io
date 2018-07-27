@@ -91,7 +91,20 @@ var vm = new Vue({
 			console.log(param);
 			axios.post(ajaxUrl.orderInterface, param).then(function (res) {
 				console.log(res);
-				callpay(res.data.data.xml);
+				var data=res.data.data.xml;
+				var obj={
+					appId:data.appid,
+					device_info:data.device_info,
+					mch_id:data.mch_id,
+					nonce_str:data.nonce_str,
+					prepay_id:data.prepay_id,
+					result_code:data.result_code,
+					return_code:data.return_code,
+					return_msg:data.return_msg,
+					sign:data.sign,
+					trade_type:data.trade_type
+				}
+				callpay(obj);
 			});
 		},
 		regIphone: function regIphone(e) {
