@@ -84,7 +84,7 @@ var vm = new Vue({
 				orderCode: this.paramObj.orderCode,
 				totalPrice: this.paramObj.allRmb,
 				userIp: returnCitySN.cip,
-				tradeType: "APP",
+				tradeType: "JSAPI",
 				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
 			};
 			console.log(ajaxUrl.orderInterface);
