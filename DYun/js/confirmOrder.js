@@ -96,18 +96,11 @@ var vm = new Vue({
 				time=time.getTime();
 				var obj={
 					"appId":data.appid,
-					//device_info:data.device_info,
-					//mch_id:data.mch_id,
 					"nonceStr":data.nonce_str,
-					//prepay_id:data.prepay_id,
-					//result_code:data.result_code,
-					//return_code:data.return_code,
-					//return_msg:data.return_msg,
 					"paySign":data.sign,
 					"signType":"MD5",
 					"package":"prepay_id="+data.prepay_id,
-					"timeStamp":time,
-					//trade_type:data.trade_type
+					"timeStamp":time
 				}
 				callpay(obj);
 			});
