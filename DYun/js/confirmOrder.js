@@ -92,6 +92,8 @@ var vm = new Vue({
 			axios.post(ajaxUrl.orderInterface, param).then(function (res) {
 				console.log(res);
 				var data=res.data.data.xml;
+				var time=new Date();
+				time=time.getTime();
 				var obj={
 					"appId":data.appid,
 					//device_info:data.device_info,
@@ -104,7 +106,7 @@ var vm = new Vue({
 					"paySign":data.sign,
 					"signType":"MD5",
 					"package":"prepay_id="+data.prepay_id,
-					"timeStamp":data.mch_id,
+					"timeStamp":time,
 					//trade_type:data.trade_type
 				}
 				callpay(obj);
