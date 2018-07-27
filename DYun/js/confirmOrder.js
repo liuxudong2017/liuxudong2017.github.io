@@ -94,7 +94,7 @@ var vm = new Vue({
 				var data=res.data.data.xml;
 				var time=new Date();
 				time=time.getTime();
-				var obj={
+				var objaa={
 					"appId":data.appid,
 					"nonceStr":data.nonce_str,
 					"paySign":data.sign,
@@ -102,8 +102,8 @@ var vm = new Vue({
 					"package":"prepay_id="+data.prepay_id,
 					"timeStamp":time
 				}
-				alert(JSON.stringify(obj)+'-----confirmOrder-param');
-				callpay(obj);
+				alert(JSON.stringify(objaa)+'-----confirmOrder-param');
+				callpay(objaa);
 			});
 		},
 		regIphone: function regIphone(e) {
