@@ -101,7 +101,9 @@ var vm = new Vue({
 					"signType":"MD5",
 					"package":"prepay_id="+data.prepay_id,
 					"timeStamp":time
-				}//jljlkjljjlk
+				}
+
+				
 				// var obj={};
 				// objaa.appId=data.appid;
 				// objaa.nonceStr=data.nonce_str;
