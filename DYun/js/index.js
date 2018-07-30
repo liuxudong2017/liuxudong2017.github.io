@@ -111,6 +111,7 @@ var vm = new Vue({
 		// alert(wxId);
 		if(this.wxId){
 			alert('授权过'+this.wxId);
+			location.href = ajaxUrl.wxAuthorizationInUrl;
 		}else{
 			alert(0);
 			location.href = ajaxUrl.wxAuthorizationInUrl;
