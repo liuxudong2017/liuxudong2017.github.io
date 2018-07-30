@@ -143,6 +143,7 @@ function wxAuthorizationLogin() {
 		location.href = ajaxUrl.wxAuthorizationInUrl;
 	} else if (wxId == undefined && formateUrl().wxId != undefined) {
 		setCookieVal('wxId', formateUrl().wxId);
+		alert(getCookieVal('wxId'));
 	}
 }
 //微信支付 
