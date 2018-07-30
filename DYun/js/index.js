@@ -111,7 +111,6 @@ var vm = new Vue({
 			location.href = ajaxUrl.wxAuthorizationInUrl;
 		}else if(this.wxId==undefined&&formateUrl().wxId!=undefined){
 			setCookieVal('wxId',formateUrl().wxId);
-			alert(formateUrl().wxId);
 		}else{
 			
 		}
