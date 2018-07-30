@@ -22,6 +22,7 @@ var ajaxUrl = {
 	, cancelOrderInterface: https + '/v2/lease/opLeaseOrder' //取消删除订单
 
 	, orderInterface: https + '/v2/lease/unifiedOrder' //统一下单（微信）
+	, wxOrderInterface:https+'/v2/lease/unifiedOrder/Pub'//公众号支付
 
 	, refundInterface: https + '/v2/lease/refund' //申请退款(微信)
 

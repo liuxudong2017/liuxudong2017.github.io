@@ -78,7 +78,7 @@ var vm = new Vue({
 			});
 		},
 		submitOrder: function submitOrder() {
-			if (getCookieVal('wxId') != undefined) {
+			// if (getCookieVal('wxId') != undefined) {
 
 				var param = {
 					languageCode: 1,
@@ -90,6 +90,7 @@ var vm = new Vue({
 					notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
 					wxId: getCookieVal('wxId')
 				};
+				alert(getCookieVal('wxId'));
 				console.log(ajaxUrl.orderInterface);
 				console.log(param);
 				axios.post(ajaxUrl.wxOrderInterface, param).then(function (res) {
@@ -112,9 +113,9 @@ var vm = new Vue({
 					console.log('909090');
 					console.log(callpay);
 				});
-			} else {
-				wxAuthorizationLogin(); //wx授权
-			}
+			// } else {
+			// 	wxAuthorizationLogin(); //wx授权
+			// }
 		},
 		regIphone: function regIphone(e) {
 			var reg = /^1[3|5|7|8]\d{9}$/;
