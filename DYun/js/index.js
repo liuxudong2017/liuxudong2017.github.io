@@ -13,7 +13,6 @@ var vm = new Vue({
 			lon: '', //经度
 			lat: '', //纬度
 			isShowMoreOrder: false,
-			wxId:'--',
 			orderTypeArr: [{
 				orderTitle: "只能雪板一日租",
 				rmb: 300,
@@ -106,14 +105,7 @@ var vm = new Vue({
 	},
 	created: function created() {
 		//创建 可访问data
-		this.wxId=getCookieVal('wxId');
-		if(this.wxId==undefined&&formateUrl().wxId==undefined){
-			location.href = ajaxUrl.wxAuthorizationInUrl;
-		}else if(this.wxId==undefined&&formateUrl().wxId!=undefined){
-			setCookieVal('wxId',formateUrl().wxId);
-		}else{
-			
-		}
+		wxAuthorizationLogin(); //微信授权登陆
 		this.loadPage({});
 	}
 });

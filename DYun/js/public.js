@@ -8,16 +8,27 @@
 var https = 'http://180.76.170.44:8080/ewsports-portal';
 var ajaxUrl = {
 	leaseListInterface: https + '/v2/lease/getLeaseShopList' //租赁点列表
+
 	, leaseShopListInterface: https + '/v2/lease/getSportRecordDetail' //租赁点下商品列表
+
 	, leaseDetailInterface: https + '/v2/lease/getLeaseShopDetail' //查询租赁点详情
+
 	, createOrderInterface: https + '/v2/lease/generateLeaseOrder' //生成订单
+
 	, leaseOrderListInterface: https + '/v2/lease/getLeaseOrderList' //租赁订单列表
+
 	, leaseOrderDetailInterface: https + '/v2/lease/getLeaseOrderDetail' //租赁订单详情
+
 	, cancelOrderInterface: https + '/v2/lease/opLeaseOrder' //取消删除订单
+
 	, orderInterface: https + '/v2/lease/unifiedOrder' //统一下单（微信）
+
 	, refundInterface: https + '/v2/lease/refund' //申请退款(微信)
+
 	, getCodeInterface: https + '/verification/send' //发送短信
+
 	, getCheckCodeInterface: https + '/verification/check' //检验验证码
+
 	, wxAuthorizationInUrl: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc3553896777578d0&redirect_uri=http://www.ew-sports.com/ski.jsp&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
 	/**
   * 存储  sss
@@ -123,6 +134,16 @@ function getCookieVal(keys) {
 	var obj = getCookieVals();
 	return obj[keys];
 }
+
+//微信授权登陆 sss
+function wxAuthorizationLogin() {
+	var wxId = getCookieVal('wxId');
+	if (wxId == undefined && formateUrl().wxId == undefined) {
+		location.href = ajaxUrl.wxAuthorizationInUrl;
+	} else if (wxId == undefined && formateUrl().wxId == undefined) {
+		setCookieVal('wxId', formateUrl().wxId);
+	}
+}
 //微信支付 
 
 //调用微信JS api 支付
@@ -154,6 +175,7 @@ function jsApiCall(param) {
 		}
 	});
 }
+
 function callpay(param) {
 	console.log('callPay...');
 	if (typeof WeixinJSBridge == "undefined") {

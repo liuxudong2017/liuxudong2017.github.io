@@ -160,9 +160,11 @@ var vm = new Vue({
 				}
 			};
 			console.log(ajaxUrl.createOrderInterface);
+			console.log('-----------------');
 			console.log(param);
 			axios.post(ajaxUrl.createOrderInterface, param).then(res => {
 				console.log(res);
+				console.log('-------------------');
 				if(res.data.code == 0) {
 				let ot = parseFloat(this.checkNum) + 1;
 				//location.href = 'confirmOrder.html?orderId=' + this.paramObj.orderId+'&id='+res.data.data + "&orderType=" + ot + '&info=' + this.paramObj.info + '&shopId=' + this.paramObj.shopId + '&allRmb=' + this.paramObj.allRmb + '&price=' + this.paramObj.price + '&depositPrice=' + this.paramObj.deposit + '&shopName=' + this.paramObj.shopName + '&skiType=' + this.checkNum + "&cm=" + this.cm + '&kg=' + this.kg + '&num=' + this.num;

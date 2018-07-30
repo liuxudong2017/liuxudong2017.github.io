@@ -74,39 +74,44 @@ let vm = new Vue({
 			})
 		},
 		submitOrder() {
-			let param = {
-				languageCode: 1,
-				userId: 1,
-				orderCode: this.paramObj.orderCode,
-				totalPrice: this.paramObj.allRmb,
-				userIp: returnCitySN.cip,
-				tradeType: "JSAPI",
-				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
-			}
-			console.log(ajaxUrl.orderInterface);
-			console.log(param);
-			axios.post(ajaxUrl.orderInterface,param).then(res=>{
-				console.log(res);
-				if(res.data.code==0){
-					var data=res.data.data.xml;
-				var time=new Date();
-				time=time.getTime();
-				var obj={
-					"appId":data.appid,
-					"nonceStr":data.nonce_str,
-					"paySign":data.sign,
-					"signType":"MD5",
-					"package":"prepay_id="+data.prepay_id,
-					"timeStamp":time
+			if(getCookieVal('wxId') != undefined) {
+				let param = {
+					languageCode: 1,
+					userId: 1,
+					orderCode: this.paramObj.orderCode,
+					totalPrice: this.paramObj.allRmb,
+					userIp: returnCitySN.cip,
+					tradeType: "JSAPI",
+					notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
+					wxId: getCookieVal('wxId')
 				}
-				console.log(obj);
-				callpay(obj);	
+				console.log(ajaxUrl.orderInterface);
+				console.log(param);
+				axios.post(ajaxUrl.wxOrderInterface, param).then(res => {
+					console.log(res);
+					if(res.data.code == 0) {
+						var data = res.data.data.xml;
+						var time = new Date();
+						time = time.getTime();
+						var obj = {
+							"appId": data.appid,
+							"nonceStr": data.nonce_str,
+							"paySign": data.sign,
+							"signType": "MD5",
+							"package": "prepay_id=" + data.prepay_id,
+							"timeStamp": time
+						}
+						console.log(obj);
+						callpay(obj);
+					}
+					console.log('909090');
+					console.log(callpay);
+				});
+			} else {
+				wxAuthorizationLogin(); //wx授权
 			}
-				console.log('909090');
-				console.log(callpay);
-			});	
 		},
-		
+
 		regIphone(e) {
 			let reg = /^1[3|5|7|8]\d{9}$/;
 			let isTure = reg.test(this.iphone);
