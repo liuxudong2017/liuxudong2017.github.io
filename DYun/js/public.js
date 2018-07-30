@@ -141,7 +141,7 @@ function wxAuthorizationLogin() {
 	var wxId = getCookieVal('wxId');
 	if (wxId == undefined && formateUrl().wxId == undefined) {
 		location.href = ajaxUrl.wxAuthorizationInUrl;
-	} else if (wxId == undefined && formateUrl().wxId == undefined) {
+	} else if (wxId == undefined && formateUrl().wxId != undefined) {
 		setCookieVal('wxId', formateUrl().wxId);
 	}
 }
