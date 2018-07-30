@@ -90,7 +90,7 @@ var vm = new Vue({
 					notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
 					wxId: getCookieVal('wxId')
 				};
-				alert(getCookieVal('wxId'));
+				alert(getCookieVal('wxId')+'-=-=-=wxId');
 				console.log(ajaxUrl.orderInterface);
 				console.log(param);
 				axios.post(ajaxUrl.wxOrderInterface, param).then(function (res) {
