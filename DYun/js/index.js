@@ -112,17 +112,9 @@ var vm = new Vue({
 		}else if(this.wxId==undefined&&formateUrl().wxId!=undefined){
 			setCookieVal('wxId',formateUrl().wxId);
 			alert(formateUrl().wxId);
+		}else{
+			
 		}
-		// alert(wxId);
-		// if(this.wxId){
-		// 	alert('授权过'+this.wxId);
-		// 	location.href = ajaxUrl.wxAuthorizationInUrl;
-		// }else{
-		// 	alert(0);
-		// 	location.href = ajaxUrl.wxAuthorizationInUrl;
-
-		// }
-		// this.wxId!=undefined?"":;
 		this.loadPage({});
 	}
 });
