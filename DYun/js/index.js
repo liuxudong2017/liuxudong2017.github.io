@@ -106,10 +106,13 @@ var vm = new Vue({
 	},
 	created: function created() {
 		//创建 可访问data
-		setCookieVal('wxId',formateUrl().wxId);
 		this.wxId=getCookieVal('wxId');
-		alert(JSON.stringify(formateUrl()));
-		location.href = ajaxUrl.wxAuthorizationInUrl;
+		if(this.wxId==undefined&&formateUrl().wxId==undefined){
+			location.href = ajaxUrl.wxAuthorizationInUrl;
+		}else if(this.wxId==undefined&&formateUrl().wxId!=undefined){
+			setCookieVal('wxId',formateUrl().wxId);
+			alert(formateUrl().wxId);
+		}
 		// alert(wxId);
 		// if(this.wxId){
 		// 	alert('授权过'+this.wxId);
