@@ -109,8 +109,8 @@ var vm = new Vue({
 		setCookieVal('wxId',formateUrl().wxId);
 		this.wxId=getCookieVal('wxId');
 		// alert(wxId);
-		if(this.wxId!=undefined){
-			alert('授权过');
+		if(this.wxId){
+			alert('授权过'+this.wxId);
 		}else{
 			alert(0);
 			location.href = ajaxUrl.wxAuthorizationInUrl;
