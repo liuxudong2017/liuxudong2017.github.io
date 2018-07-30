@@ -107,6 +107,7 @@ var vm = new Vue({
 		//创建 可访问data
 		setCookieVal('wxId',formateUrl().wxId);
 		var wxId=getCookieVal('wxId');
+		alert(wxId);
 		wxId?"":location.href = ajaxUrl.wxAuthorizationInUrl;
 		this.loadPage({});
 	}
