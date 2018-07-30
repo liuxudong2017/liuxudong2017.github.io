@@ -109,7 +109,7 @@ var vm = new Vue({
 		setCookieVal('wxId',formateUrl().wxId);
 		this.wxId=getCookieVal('wxId');
 		// alert(wxId);
-		this.wxId?"":location.href = ajaxUrl.wxAuthorizationInUrl;
+		this.wxId!=undefined?"":location.href = ajaxUrl.wxAuthorizationInUrl;
 		this.loadPage({});
 	}
 });

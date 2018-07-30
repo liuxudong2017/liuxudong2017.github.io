@@ -19,7 +19,6 @@
 		<script type="text/javascript" src="js/ydui.flexible.js"></script>
 	</head>
 <body>
-	{{wxId}}
 		<div id="app">
 			<div class="banner-box">
 				<img v-bind:src="bannerSrc" class="img-auto" />
@@ -45,7 +44,8 @@
 				<div :class="item.isShowMoreOrder?'lease-list-wrap':'lease-list-wrap lease-hide'">
 					<div class="lease-list flex" v-for="(item1,index1) in item.orderTypeArr" v-key="index1">
 						<div class="lease-list-left">
-							<div class="lease-name">{{item1.orderTitle}}</div>
+	
+							<div class="lease-name">{{item1.orderTitle}}wxId={{wxId}}</div>
 							<div class="lease-price"><span class="rmb-icon">￥</span>{{item1.rmb/100}}<span class="lease-include" v-if='item1.orderInclude!=""'>({{item1.orderInclude}})</span></div>
 						</div>
 						<a :href="item1.hrefs">
