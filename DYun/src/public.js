@@ -21,8 +21,8 @@ const ajaxUrl = {
 		,
 	orderInterface: https + '/v2/lease/unifiedOrder' //统一下单（微信）
 		,
-	,wxOrderInterface:https+'/v2/lease/unifiedOrderPub'//公众号支付 
-	refundInterface: https + '/v2/lease/refund' //申请退款(微信)
+	wxOrderInterface:https+'/v2/lease/unifiedOrderPub'//公众号支付 
+	,refundInterface: https + '/v2/lease/refund' //申请退款(微信)
 		,
 	getCodeInterface: https + '/verification/send' //发送短信
 		,
@@ -133,8 +133,9 @@ function wxAuthorizationLogin() {
 	var wxId = getCookieVal('wxId');
 	if(wxId == undefined && formateUrl().wxId == undefined) {
 		location.href = ajaxUrl.wxAuthorizationInUrl;
-	} else if(wxId == undefined && formateUrl().wxId == undefined) {
+	} else if(wxId == undefined && formateUrl().wxId != undefined) {
 		setCookieVal('wxId', formateUrl().wxId);
+		alert('wxid='+getCookieVal('wxId'));
 	}
 }
 //微信支付 
@@ -143,10 +144,12 @@ function wxAuthorizationLogin() {
 function jsApiCall(param) {
 	console.log(param);
 	console.log('callPay..6666.');
+	
 	WeixinJSBridge.invoke(
 		'getBrandWCPayRequest',
 		param,
 		function(res) {
+			alert(JSON.stringify(res));
 			WeixinJSBridge.log(res.err_msg);
 			//					alert(res);
 			console.log(param);
@@ -165,7 +168,7 @@ function jsApiCall(param) {
 				//							window.location.href="/web/pay_order/index.html";
 				//						}
 			} else {
-				alert('err=' + res.err_msg);
+				alert(JSON.stringify(res));
 				//返回跳转到订单详情页面
 				//alert('支付失败');
 			}

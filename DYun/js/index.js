@@ -90,6 +90,7 @@ var vm = new Vue({
 							obj1.shopId = arrList[j].shopId;
 							obj1.num = arrList[j].goodsName.indexOf('单板套餐') >= 0 ? 0 : 1;
 							obj1.hrefs = 'order.html?orderId=' + arrList[j].id + "&shopName=" + data[i].shopName + "&allRmb=" + arrList[j].costPrice + "&deposit=" + arrList[j].deposit + "&price=" + arrList[j].price + "&shopId=" + arrList[j].shopId + "&num=" + obj1.num + "&info=" + arrList[j].goodsDetails;
+
 							arr1.push(obj1);
 						}
 						obj.orderTypeArr = arr1;

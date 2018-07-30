@@ -74,7 +74,7 @@ let vm = new Vue({
 			})
 		},
 		submitOrder() {
-			if(getCookieVal('wxId') != undefined) {
+//			if(getCookieVal('wxId') != undefined) {
 				let param = {
 					languageCode: 1,
 					userId: 1,
@@ -83,9 +83,9 @@ let vm = new Vue({
 					userIp: returnCitySN.cip,
 					tradeType: "JSAPI",
 					notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
-					wxId: getCookieVal('wxId')
+					wxId: getCookieVal('wxId')?getCookieVal('wxId'):0
 				}
-				console.log(ajaxUrl.orderInterface);
+				console.log(ajaxUrl.wxOrderInterface);
 				console.log(param);
 				axios.post(ajaxUrl.wxOrderInterface, param).then(res => {
 					console.log(res);
@@ -107,9 +107,9 @@ let vm = new Vue({
 					console.log('909090');
 					console.log(callpay);
 				});
-			} else {
-				wxAuthorizationLogin(); //wx授权
-			}
+//			} else {
+//				wxAuthorizationLogin(); //wx授权
+//			}
 		},
 
 		regIphone(e) {

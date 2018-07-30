@@ -78,43 +78,42 @@ var vm = new Vue({
 			});
 		},
 		submitOrder: function submitOrder() {
-			// if (getCookieVal('wxId') != undefined) {
-
-				var param = {
-					languageCode: 1,
-					userId: 1,
-					orderCode: this.paramObj.orderCode,
-					totalPrice: this.paramObj.allRmb,
-					userIp: returnCitySN.cip,
-					tradeType: "JSAPI",
-					notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
-					wxId: getCookieVal('wxId')
-				};
-				console.log(ajaxUrl.wxOrderInterface);
-				console.log(param);
-				axios.post(ajaxUrl.wxOrderInterface, param).then(function (res) {
-					console.log(res);
-					if (res.data.code == 0) {
-						var data = res.data.data.xml;
-						var time = new Date();
-						time = time.getTime();
-						var obj = {
-							"appId": data.appid,
-							"nonceStr": data.nonce_str,
-							"paySign": data.sign,
-							"signType": "MD5",
-							"package": "prepay_id=" + data.prepay_id,
-							"timeStamp": time
-						};
-						console.log(obj);
-						callpay(obj);
-					}
-					console.log('909090');
-					console.log(callpay);
-				});
-			// } else {
-			// 	wxAuthorizationLogin(); //wx授权
-			// }
+			//			if(getCookieVal('wxId') != undefined) {
+			var param = {
+				languageCode: 1,
+				userId: 1,
+				orderCode: this.paramObj.orderCode,
+				totalPrice: this.paramObj.allRmb,
+				userIp: returnCitySN.cip,
+				tradeType: "JSAPI",
+				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
+				wxId: getCookieVal('wxId') ? getCookieVal('wxId') : 0
+			};
+			console.log(ajaxUrl.wxOrderInterface);
+			console.log(param);
+			axios.post(ajaxUrl.wxOrderInterface, param).then(function (res) {
+				console.log(res);
+				if (res.data.code == 0) {
+					var data = res.data.data.xml;
+					var time = new Date();
+					time = time.getTime();
+					var obj = {
+						"appId": data.appid,
+						"nonceStr": data.nonce_str,
+						"paySign": data.sign,
+						"signType": "MD5",
+						"package": "prepay_id=" + data.prepay_id,
+						"timeStamp": time
+					};
+					console.log(obj);
+					callpay(obj);
+				}
+				console.log('909090');
+				console.log(callpay);
+			});
+			//			} else {
+			//				wxAuthorizationLogin(); //wx授权
+			//			}
 		},
 		regIphone: function regIphone(e) {
 			var reg = /^1[3|5|7|8]\d{9}$/;
