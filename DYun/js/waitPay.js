@@ -3,7 +3,9 @@
 var vm = new Vue({
 	el: "#app",
 	data: {
-		time: '23 小时 55 分',
+		mm: '00',
+
+		ss: '00',
 		rmb: 300,
 		orderMess: {
 			orderNum: '6545165465165',
@@ -28,10 +30,7 @@ var vm = new Vue({
 	},
 	methods: {
 		cancleOrder: function cancleOrder() {
-			var _this = this;
-
 			//取消订单成功
-			//			location.href="myOrder.html";
 			console.log(ajaxUrl.cancelOrderInterface);
 			var params = {
 				languageCode: 1,
@@ -44,22 +43,9 @@ var vm = new Vue({
 				console.log(res);
 				if (res.data.code == 0) {
 					console.log('code-=-=' + res.data.code);
-					_this.refund();
+					//this.refund();
 					//					location.href='payOk.html?orderId='+this.paramObj.orderId;
 				}
-			});
-		},
-		refund: function refund() {
-			var params = {
-				languageCode: 1,
-				userId: this.userID,
-				out_trade_no: this.orderMess.orderNum,
-				totalPrice: this.rmb,
-				outRefundNo: '',
-				refundFee: ''
-			};
-			axios.post(ajaxUrl.refundInterface, params).then(function (res) {
-				console.log(res);
 			});
 		},
 		pay: function pay() {
@@ -72,7 +58,7 @@ var vm = new Vue({
 				orderCode: this.orderMess.orderNum,
 				totalPrice: this.rmb,
 				userIp: returnCitySN.cip,
-				tradeType: this.orderObj.payType,
+				tradeType: "JSPAI",
 				notifyUrl: 'http://testapi.ew-sports.com:8080/ewsports-portal/wx'
 			};
 			console.log(params);
@@ -80,11 +66,40 @@ var vm = new Vue({
 				console.log(res);
 			});
 		},
+		formTime: function formTime(timeStr) {
+			var _this = this;
+
+			//
+			var orderTime = new Date(timeStr);
+			var that = this;
+			orderTime.setMinutes(orderTime.getMinutes() + 30);
+			var payOverTime = orderTime.getTime();
+			var stop = setInterval(function () {
+				var currTime = new Date();
+				currTime = currTime.getTime();
+				var waitTime = parseInt((payOverTime - currTime) / 1000);
+				var waitTimeM = Math.floor(waitTime / 60);
+				var waitTimeS = Math.floor(waitTime - waitTimeM * 60);
+
+				if (waitTimeM <= 0 && waitTimeS <= 0) {
+					//支付超时
+					clearInterval(stop);
+					location.href = "payOk.html?orderId=" + _this.paramObj.orderId;
+				} else {
+					_this.mm = waitTimeM < 10 ? '0' + waitTimeM : waitTimeM;
+					_this.ss = waitTimeS < 10 ? '0' + waitTimeS : waitTimeS;
+				}
+			}, 1000);
+		},
 		loadPage: function loadPage() {
 			var _this2 = this;
 
 			console.log(ajaxUrl.leaseOrderDetailInterface);
-			var params = { languageCode: 1, userId: 1, orderId: this.paramObj.orderId };
+			var params = {
+				languageCode: 1,
+				userId: 1,
+				orderId: this.paramObj.orderId
+			};
 			console.log(params);
 			axios.post(ajaxUrl.leaseOrderDetailInterface, params).then(function (res) {
 				console.log(res);
@@ -96,7 +111,7 @@ var vm = new Vue({
 					obj1.orderNum = data.orderCode;
 					obj1.orderStatus = '待付款';
 					obj1.skiName = data.shopName;
-					obj1.orderTime = '2018-13-26 17:33';
+					obj1.orderTime = data.orderTime;
 					obj2.info = data.goodsDetails;
 					obj2.rmb = data.goodsPrice;
 					obj2.pledgeRMB = data.depositPrice;
@@ -110,6 +125,7 @@ var vm = new Vue({
 					_this2.mealMess = obj2;
 					_this2.orderMess = obj1;
 					console.log('0000');
+					_this2.formTime(data.orderTime);
 				}
 			});
 		}

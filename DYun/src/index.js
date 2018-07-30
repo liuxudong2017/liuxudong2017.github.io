@@ -99,6 +99,7 @@ var vm = new Vue({
 		}
 	},
 	created: function created() { //创建 可访问data
+		location.href=ajaxUrl.wxAuthorizationInUrl;
 		this.loadPage({});
 	},
 });

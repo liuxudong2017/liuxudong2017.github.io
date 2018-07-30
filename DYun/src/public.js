@@ -16,6 +16,7 @@ const ajaxUrl={
 	,refundInterface:https+'/v2/lease/refund'//申请退款(微信)
 	,getCodeInterface:https+'/verification/send'//发送短信
 	,getCheckCodeInterface:https+'/verification/check'//检验验证码
+	,wxAuthorizationInUrl:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc3553896777578d0&redirect_uri=http://www.ew-sports.com/ski.jsp&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
 }
 /**
  * 存储  sss
@@ -92,19 +93,42 @@ function formateNumber(num){
 	let str=nums>=1?nums.toFixed(2)+' km':num+' m';
 	return str;
 }
-
+//在cookie中添加值
+function setCookieVal(keys,vals){
+	var d=new Date();
+	d.setDate(d.getDate()+30);
+	document.cookie=''+keys+'='+vals+"; expires="+d;
+}
+//获取cookies中所有的值
+function getCookieVals(){
+	var cookieStr=document.cookie;
+	var arr=cookieStr.split('; ');
+	var obj={};
+	for(var i=0;i<arr.length;i++){
+		var arr1=arr[i].split('=');
+		obj[arr1[0]]=arr1[1];
+	}
+	return obj;
+}
+//获取 cookies中指定的值
+function getCookieVal(keys){
+	var obj=getCookieVals();
+	return obj[keys];
+}
 //微信支付 
 
 //调用微信JS api 支付
 		function jsApiCall(param)
 		{	
+			console.log(param);
 			console.log('callPay..6666.');
 			WeixinJSBridge.invoke(
 				'getBrandWCPayRequest',
 				param,
 				function(res){
 					WeixinJSBridge.log(res.err_msg);
-					alert(res);
+//					alert(res);
+					console.log(param);
 					//alert(res.err_code+"|"+res.err_desc+"|"+res.err_msg);
 					 if(res.err_msg == "get_brand_wcpay_request:ok")
 					 {
@@ -121,7 +145,7 @@ function formateNumber(num){
 //							window.location.href="/web/pay_order/index.html";
 //						}
 					}else{
-						alert(res);
+						alert('err='+res.err_msg);
                        //返回跳转到订单详情页面
                        //alert('支付失败');
                    }

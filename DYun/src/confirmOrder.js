@@ -80,14 +80,28 @@ let vm = new Vue({
 				orderCode: this.paramObj.orderCode,
 				totalPrice: this.paramObj.allRmb,
 				userIp: returnCitySN.cip,
-				tradeType: "APP",
+				tradeType: "JSAPI",
 				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
 			}
 			console.log(ajaxUrl.orderInterface);
 			console.log(param);
 			axios.post(ajaxUrl.orderInterface,param).then(res=>{
 				console.log(res);
-				callpay(res.data.data.xml);
+				if(res.data.code==0){
+					var data=res.data.data.xml;
+				var time=new Date();
+				time=time.getTime();
+				var obj={
+					"appId":data.appid,
+					"nonceStr":data.nonce_str,
+					"paySign":data.sign,
+					"signType":"MD5",
+					"package":"prepay_id="+data.prepay_id,
+					"timeStamp":time
+				}
+				console.log(obj);
+				callpay(obj);	
+			}
 				console.log('909090');
 				console.log(callpay);
 			});	

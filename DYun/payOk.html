@@ -99,7 +99,7 @@
 		<div class="status-box">
 			<div class="status-item" v-for='(item,index) in getStatusMess' :key='index'>
 				<span class="">{{item.title}}	</span>
-				<span :class="colorClassArr[index]">	{{item.content}}</span>
+				<span :class="colorClassArr[item.status]">	{{item.content}}</span>
 			</div>
 			<!---->
 		</div>

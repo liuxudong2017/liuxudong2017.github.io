@@ -16,6 +16,8 @@
 	<link rel="stylesheet" type="text/css" href="css/public.css"/>
 	<link rel="stylesheet" type="text/css" href="css/order.css"/>
 	<script type="text/javascript" src="js/ydui.flexible.js"></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	
 </head>
 <body>
 <div id="app">
@@ -30,8 +32,8 @@
 		<!---->
 		
 		<div class="order-nav flex">
-			<div :class="['nav-item',checkNum==0?'active':'']" @click="toggleNav" tabindex='0'>单板</div>
-			<div :class="['nav-item',checkNum==1?'active':'']" @click="toggleNav" tabindex='1'>双板</div>
+			<div :class="['nav-item',checkNum==0?'active':'']" tabindex='0'>单板</div>
+			<div :class="['nav-item',checkNum==1?'active':'']" tabindex='1'>双板</div>
 		</div>
 		<!---->
 		<div class="dy-hint" v-if='isHint'>
@@ -63,7 +65,7 @@
 		<!---->
 	</div>
 	    <!--绑定手机-sss-->
-    <div class="bind-iphone-wrap">
+    <div class="bind-iphone-wrap" v-if='!isBindIphone'>
     	<div class="dy-hint" v-if='isIphoneHint'>
     		{{iphoneText}}
     	</div>

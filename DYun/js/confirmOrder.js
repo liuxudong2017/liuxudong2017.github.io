@@ -84,35 +84,30 @@ var vm = new Vue({
 				orderCode: this.paramObj.orderCode,
 				totalPrice: this.paramObj.allRmb,
 				userIp: returnCitySN.cip,
-				tradeType: "APP",
+				tradeType: "JSAPI",
 				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx"
 			};
 			console.log(ajaxUrl.orderInterface);
 			console.log(param);
 			axios.post(ajaxUrl.orderInterface, param).then(function (res) {
 				console.log(res);
-				var data=res.data.data.xml;
-				var time=new Date();
-				time=time.getTime();
-				var obj={
-					"appId":data.appid,
-					"nonceStr":data.nonce_str,
-					"paySign":data.sign,
-					"signType":"MD5",
-					"package":"prepay_id="+data.prepay_id,
-					"timeStamp":time
+				if (res.data.code == 0) {
+					var data = res.data.data.xml;
+					var time = new Date();
+					time = time.getTime();
+					var obj = {
+						"appId": data.appid,
+						"nonceStr": data.nonce_str,
+						"paySign": data.sign,
+						"signType": "MD5",
+						"package": "prepay_id=" + data.prepay_id,
+						"timeStamp": time
+					};
+					console.log(obj);
+					callpay(obj);
 				}
-
-				
-				// var obj={};
-				// objaa.appId=data.appid;
-				// objaa.nonceStr=data.nonce_str;
-				// objaa.paySign=data.sign;
-				// objaa.signType='MD5';
-				// objaa.package='prepay_id='+data.prepay_id;
-				// objaa.timeStamp=time;
-				alert(JSON.stringify(obj)+'-----confirmOrder-param14');
-				callpay(obj);
+				console.log('909090');
+				console.log(callpay);
 			});
 		},
 		regIphone: function regIphone(e) {

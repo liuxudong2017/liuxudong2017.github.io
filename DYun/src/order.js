@@ -19,6 +19,7 @@ var vm = new Vue({
 		paramObj: {},
 		times: 60,
 		code: '',
+		isCode:'',
 		iphone: '',
 		codeStatus: false,
 		isIphoneHint: false,
@@ -34,8 +35,23 @@ var vm = new Vue({
 			console.log(this.cm + '---' + this.kg + '---' + this.num + '-----');
 			if(this.cm != '' && this.kg != '' && this.num != '' && !this.isHint) {
 				console.log('c.---' + this.cm);
-				this.cretaOrderAjax();
 				
+//				
+				if(this.iphone!=''&&this.code!=''&&!this.isBindIphone){
+//					let param={
+//						userAccount:this.iphone,
+//						verificationCode:this.code
+//					}
+					let param=new URLSearchParams();
+					param.append('userAccount',this.iphone);
+					param.append('verificationCode',this.code);
+					this.checkCode(param);
+				}else if(this.iphone==''&&this.code==''&&!this.isBindIphone){
+					this.iphoneText='请输入正确的手机号和验证码！';
+					this.isIphoneHint=true;	
+				}else{
+					this.cretaOrderAjax();
+				}
 			} else {
 				this.cm == "" ? this.isCm = false : this.kg == '' ? this.isKg = false : this.num == '' ? this.isNum = false : '';
 			}
@@ -77,18 +93,20 @@ var vm = new Vue({
 					recipients:tel,
 					privatekey:keys
 				}
+//				let param=new URLSearchParams();
+//				param.append('languageCode',1);
+//				param.append('modeType',2);
+//				param.append('businessType',101);
+//				param.append('recipients',tel);
+//				param.append('privatekey',keys);
 				console.log(keys);
 				console.log(ajaxUrl.getCodeInterface);
 				console.log(param);
-//				var $=axios.create({
-//				headers:{'Content-Type':'application/x-www-form-urlencoded'},
-//				withCredentials:true
-//				})
-//				$.post(ajaxUrl.getCodeInterface,param).then(res=>{
-//					console.log(res);
-//				});
 				axios.post(ajaxUrl.getCodeInterface,param).then(res=>{
 					console.log(res);
+					if(res.data.code==0){
+						this.isCode=res.data.data;
+					}
 				});
 				//-----------------------
 				this.codeStatus = true;
@@ -100,10 +118,21 @@ var vm = new Vue({
 					}
 
 				}, 1000);
-			
 			} else {
 				this.isIphoneHint = true;
 			}
+		},
+		checkCode(param,callBack){
+			//let urls='http://180.76.189.195:8082/ewsports-portal/verification/check';
+			axios.post(ajaxUrl.getCheckCodeInterface,param).then(res=>{
+				console.log(ajaxUrl.getCheckCodeInterface);
+				console.log(res);
+				callBack?callBack(res):'';
+				if(res.data.code==0){
+					setCookieVal('isBindIphone',false);
+				 	this.cretaOrderAjax();
+				}
+			});
 		},
 		regIphone(e) {
 			let reg = /^1[3|5|7|8]\d{9}$/;
@@ -150,6 +179,9 @@ var vm = new Vue({
 		this.paramObj = param;
 		console.log(param.shopName);
 		this.checkNum = param.num;
+		this.isBindIphone=getCookieVal('isBindIphone');
+		console.log('cookdddddie=='+this.isBindIphone);
+		
 	},
 	mounted: function mounted() { //挂在
 
