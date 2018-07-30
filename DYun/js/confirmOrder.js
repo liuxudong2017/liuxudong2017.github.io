@@ -95,6 +95,7 @@ var vm = new Vue({
 				console.log(res);
 				if (res.data.code == 0) {
 					var data = res.data.data.xml;
+					alert('xml:'+JSON.stringify(data));
 					var time = new Date();
 					time = time.getTime();
 					var obj = {

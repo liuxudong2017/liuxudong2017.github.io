@@ -150,11 +150,12 @@ function wxAuthorizationLogin() {
 
 //调用微信JS api 支付
 function jsApiCall(param) {
+	alert(JSON.stringify(param));
 	console.log(param);
 	console.log('callPay..6666.');
 
 	WeixinJSBridge.invoke('getBrandWCPayRequest', param, function (res) {
-		alert(JSON.stringify(res));
+		
 		WeixinJSBridge.log(res.err_msg);
 		//					alert(res);
 		console.log(param);
