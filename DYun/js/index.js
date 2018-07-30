@@ -108,15 +108,17 @@ var vm = new Vue({
 		//创建 可访问data
 		setCookieVal('wxId',formateUrl().wxId);
 		this.wxId=getCookieVal('wxId');
+		alert(JSON.stringify(formateUrl()));
+		location.href = ajaxUrl.wxAuthorizationInUrl;
 		// alert(wxId);
-		if(this.wxId){
-			alert('授权过'+this.wxId);
-			location.href = ajaxUrl.wxAuthorizationInUrl;
-		}else{
-			alert(0);
-			location.href = ajaxUrl.wxAuthorizationInUrl;
+		// if(this.wxId){
+		// 	alert('授权过'+this.wxId);
+		// 	location.href = ajaxUrl.wxAuthorizationInUrl;
+		// }else{
+		// 	alert(0);
+		// 	location.href = ajaxUrl.wxAuthorizationInUrl;
 
-		}
+		// }
 		// this.wxId!=undefined?"":;
 		this.loadPage({});
 	}
