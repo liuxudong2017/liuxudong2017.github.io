@@ -99,6 +99,7 @@ var vm = new Vue({
 					_this.skiArr = arr;
 					//this.bannerSrc=res.data.imgDomain+res.data.fieldImg.split('^')[0];
 				}
+				alert(JSON.stringify(res));
 				console.log(res);
 			});
 		}
