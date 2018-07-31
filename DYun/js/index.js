@@ -60,7 +60,7 @@ var vm = new Vue({
 	},
 
 	methods: {
-		loadPage: function loadPage(param) {
+		loadPageDy: function loadPageDy(param) {
 			var _this = this;
 
 			//加载页面数据
@@ -106,8 +106,9 @@ var vm = new Vue({
 	},
 	created: function created() {
 		//创建 可访问data
-		alert(judgeTarget());
-		this.loadPage({});
+		alert(judgeTarget()+'=='+typeof this.loadPageDy+'---'+this.loadPageDy);
+
+		this.loadPageDy({});
 		judgeTarget()=='app'?'':wxAuthorizationLogin(); //微信授权登陆
 	}
 });
