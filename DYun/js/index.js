@@ -4,6 +4,7 @@ var vm = new Vue({
 	el: '#app',
 	data: {
 		bannerSrc: 'img/banner_1.png',
+		test_state:'',
 		skiArr: [{
 			skiSrc: 'img/shop_logo.png',
 			skiName: "怀北国际滑雪场",
@@ -62,9 +63,10 @@ var vm = new Vue({
 	methods: {
 		loadPageDy: function loadPageDy(param) {
 			var _this = this;
-
+			this.test_state='loadPageDy';
 			//加载页面数据
 			axios.post(ajaxUrl.leaseListInterface, param).then(function (res) {
+				this.test_state='axios'+JSON.stringify(res);
 				if (res.data.code == 0) {
 					var data = res.data.data;
 					var arr = [];
@@ -99,14 +101,14 @@ var vm = new Vue({
 					_this.skiArr = arr;
 					//this.bannerSrc=res.data.imgDomain+res.data.fieldImg.split('^')[0];
 				}
-				alert(JSON.stringify(res));
+				// alert(JSON.stringify(res));
 				console.log(res);
 			});
 		}
 	},
 	created: function created() {
 		//创建 可访问data
-		alert(judgeTarget()+'----'+axios+'=='+typeof this.loadPageDy+'---'+this.loadPageDy);
+		// alert(judgeTarget()+'----'+axios+'=='+typeof this.loadPageDy+'---'+this.loadPageDy);
 
 		this.loadPageDy({});
 		judgeTarget()=='app'?'':wxAuthorizationLogin(); //微信授权登陆
