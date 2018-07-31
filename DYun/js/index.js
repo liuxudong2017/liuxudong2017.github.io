@@ -67,8 +67,8 @@ var vm = new Vue({
 			var param={
 				languageCode:1,
 				userId:getCookieVal('userId')?getCookieVal('userId'):1,
-				lon:'0',
-				lat:'0'
+				lon:116,
+				lat:30
 			};
 			//加载页面数据
 			axios.post(ajaxUrl.leaseListInterface, param).then(function (res) {
