@@ -87,7 +87,7 @@ var vm = new Vue({
 				userIp: returnCitySN.cip,
 				tradeType: "JSAPI",
 				notifyUrl: "http://testapi.ew-sports.com:8080/ewsports-portal/wx",
-				wxId: getCookieVal('wxId') ? getCookieVal('wxId') : 0
+				wxId: getCookieVal('wxId')
 			};
 			console.log(ajaxUrl.wxOrderInterface);
 			console.log(param);

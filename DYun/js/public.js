@@ -113,6 +113,9 @@ function formateNumber(num) {
 	var str = nums >= 1 ? nums.toFixed(2) + ' km' : num + ' m';
 	return str;
 }
+function judgeTarget(){
+	return formateUrl().target;
+}
 //在cookie中添加值
 function setCookieVal(keys, vals) {
 	var d = new Date();
