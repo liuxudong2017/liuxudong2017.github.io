@@ -64,9 +64,15 @@ var vm = new Vue({
 		loadPageDy: function loadPageDy(param) {
 			var _this = this;
 			this.test_state='loadPageDy';
+			var param={
+				languageCode:1,
+				userId:getCookieVal('userId')?getCookieVal('userId'):1,
+				lon:'0',
+				lat:'0'
+			};
 			//加载页面数据
 			axios.post(ajaxUrl.leaseListInterface, param).then(function (res) {
-				this.test_state='axios'+JSON.stringify(res);
+				this.test_state='axios';
 				if (res.data.code == 0) {
 					var data = res.data.data;
 					var arr = [];
