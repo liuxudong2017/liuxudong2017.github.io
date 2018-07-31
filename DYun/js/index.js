@@ -107,7 +107,7 @@ var vm = new Vue({
 	created: function created() {
 		//创建 可访问data
 		alert(judgeTarget());
-		judgeTarget()=='app'?'':wxAuthorizationLogin(); //微信授权登陆
 		this.loadPage({});
+		judgeTarget()=='app'?'':wxAuthorizationLogin(); //微信授权登陆
 	}
 });
