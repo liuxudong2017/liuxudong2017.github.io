@@ -94,9 +94,7 @@
 				width:42px;
 
 			}
-			.footer-box .footer-text{
-				padding-top: 15px;
-			}
+			
 			.footer-box img{
 				width:100%;
 			}
@@ -106,9 +104,26 @@
 			/*页脚信息eeee*/
 
 	@media screen and (max-width: 767px){
+		.module-1 .row-1{
+			display:flex;
+			justify-content: space-between;
+			width:90%;
+			margin:0 auto;
+			color:#6D6E71;
+			font-size: 12px;
+		}
+		.module-1 .row-1 .row-title{
+			font-size:20px;
+			color:#214B9F;
+			margin-top:48px;
+		}
+		.module-1 .row-1 img{
+			height: 128px;
+		}
 		.nav-btn{
 			margin-top:1rem;
-			/*color:#fff;*/
+			color:#F9D43A;
+
 
 		}
 		.dropdown-menu{
@@ -133,6 +148,7 @@
 		color: #6D6E71;
 		padding-left: 25px;
 	}
+
 	</style>
 </head>
 <body>
@@ -165,7 +181,20 @@
 	</div>
 <!--导航end-->
 </div>
-<div class="module-1" style="background:#f7f7f7;padding:50px 0 14px">
+<div class="module-1 visible-xs">
+	<div class="row-1">
+		<div class="row-title">关于我们</div>
+		<img src="img/a-banner.png" alt=""/>
+	</div>
+	<div style="width:90%;margin:10px auto;color:#6D6E71;">
+		<p>一万小时（10K COLLEGE)</p>
+		隶属于北京拾刻教育科技有限公司。由国内一线互联网公司资深员工于2018年底设立。
+	</div>
+	<div style="width:90%;margin:10px auto;color:#6D6E71;">
+		一万小时学院面向全社会尤其是在校大学生挑选培训对象，提供最长一年的免费在线培训与项目实践。只有当学员找到年薪10万以上的工作才需支付未来2年很小比例的收入。并同时提供工作后长达5年的长期职业生涯跟踪和辅导。
+	</div>
+</div>
+<div class="module-1 hidden-xs" style="background:#fff;padding:50px 0 14px">
 	<div class="box row" style="width:80%">
 		<div class="left col-sm-8 col-xs-12">
 			<h1>关于我们</h1>
@@ -182,7 +211,7 @@
 
 </div>
 <div class="module-2 box">
-	<div class="box">
+	<div class="box" style="width:95%;">
 	<h3>我们的使命</h3>
 	<p>帮助每个优秀的年轻人都能高质量完成一万小时的积累。利用互联网和科技的力量投资和培养大量年轻人并和他们建立长期联系。</p>
 	<h3>联系方式</h3>

@@ -137,9 +137,7 @@
 				width:42px;
 
 			}
-			.footer-box .footer-text{
-				padding-top: 15px;
-			}
+			
 			.footer-box img{
 				width:100%;
 			}
@@ -148,6 +146,7 @@
 			}
 			/*页脚信息eeee*/
 			@media screen and (max-width: 767px){
+
 				.dropdown-menu{
 					left: 50%;
 				}
@@ -166,11 +165,12 @@
 				    text-align: center;
 				}
 				.d-banner-btn-box {
-				    margin-top: 60px;
+				    margin-top: 0px;
 				    text-align: center;
 				}
 				.nav-btn{
 					padding-top:1rem;
+					color:#F9D43A;
 				}
 			}
 
@@ -209,10 +209,6 @@
 		color:#fff;
 		background: #FEBB46; 
 	}
-	
-	
-
-
 	.adv-content{
 		float:left;
 		width:55%;
@@ -265,7 +261,69 @@
 			</div>
 			<div class="pace-activity"></div>
 		</div>
-		<div class="data-banner-box">
+		<style>
+			.data-banner-box{
+				color:#214B9F;
+			}
+			.banner-row{
+				display:flex;
+				justify-content: space-around;
+				width: 90%;
+    			margin: 0 auto;
+			}
+			.banner-img{
+				width:45%;
+			}
+			.camp-summary-xs{
+				display: flex!important;
+			    justify-content: space-around;
+			    width: 90%;
+			    margin: 0 auto;
+			    padding:40px 0;
+			    text-align: center;
+			}
+			.camp-summary-xs li{
+				list-style: none;
+				padding:0 15px;
+				border-right:2px solid #FEBB46;
+				max-width: 50%;
+			}
+			.camp-summary-xs li.not-border{
+				border:0;
+			}
+			.camp-summary-xs .title{
+				color:#224B9E;
+				font-size: 14px;
+
+			}
+			.camp-summary-xs .content{
+				color:#6D6E71 ;
+				font-size: 12px;
+			}
+		</style>
+		<div class="data-banner-box visible-xs">
+			<div class="banner-row">
+				<div class="banner-title">
+					<div class="camp-detail-banner-title" style=" font-size:10px; padding-top:35px;">一万小时学院(10K College)</div>
+					<div class="camp-detail-banner-title" style=" font-size:20px; ">数据分析在线训练营</div>
+				</div>
+				<div class="banner-img">
+					<img src="img/d-banner.png" style="width:100%" />
+				</div>
+			</div>
+			<div class="banner-row" style="font-size:12px;">
+				3个月冲刺培训计划，让你从0开始变身商业数据分析师。找到工作才需支付1个月的税前薪水作为学费，否则免费。
+			</div>
+			<div class="camp-detail-banner-button d-banner-btn-box">
+									
+									<a class="btn camp-register-btn" href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__sg7U8BUM0Q5SFNXQ1A5QzVYVEUzQzQ4UEc3RlBFWi4u" style="
+    								padding:5px 30px; font-size:14px; "><span >立即申请</span></a> 
+
+									<div class="btn" onclick="$('#ww1').css('display','block');$('#ww2').css('display','block');" style="padding:5px 30px; font-size:14px;">微信咨询</div>
+								</div>
+		</div>
+		<!-- banner-boxssss -->
+		<div class="data-banner-box hidden-xs">
 			<div class="data-banner">
 				<div class="camp-detail-banner-mask data-banner-mask">
 							<div class="camp-detail-banner-info">
@@ -287,6 +345,7 @@
 						</div>
 			</div>
 		</div>
+		<!-- banner-boxeeee -->
 		<div id="react-component" style="height: 100%">
 			<div class="react-root">
 				<div>
@@ -311,18 +370,40 @@
 
 						</div>
 					</div> -->
-					<div class="camp-summary">
+					<div class="camp-summary hidden-xs">
 						<li><span class="camp-sumary-title">预计薪资</span><span class="camp-sumary-content">
 								年薪10到20万(根据拉勾网数据统计)</span></li>
 						<li><span class="camp-sumary-title">课程时长</span><span class="camp-sumary-content">3
 								个月。每周约5小时在线授课，以及20个小时练习时间</span></li>
 						<!-- <li><span class="camp-sumary-title">先修技能</span><span class="camp-sumary-content">没有专业限制和技能要求</span></li> -->
 					</div>
-					<div class="camp-summary">
+					<div class="camp-summary hidden-xs">
 					
 						<li><span class="camp-sumary-title">开课时间</span><span class="camp-sumary-content">2019/01/05 上午 10:00:00</span></li>
 						<li><span class="camp-sumary-title">先修技能</span><span class="camp-sumary-content">没有专业限制和技能要求</span></li>
 					</div>
+					<!-- xs sssssss -->
+					<div class="camp-summary-xs visible-xs">
+						<li>
+							<span class="title">预计薪资</span><br />
+							<span class="content">年薪10到20万(根据拉勾网数据统计)</span>
+						</li>
+						<li class="not-border">
+							<span class="title">课程时长</span><br />
+							<span class="content">3 个月，每周5小时在线授课，以及20个小时练习时间 </span>
+						</li>
+					</div>
+					<div class="camp-summary-xs visible-xs">
+						<li>
+							<span class="title">开课时间</span><br />
+							<span class="content">2019/01/05 上午10:00:00</span>
+						</li>
+						<li class="not-border">
+							<span class="title">先修技能</span><br />
+							<span class="content">没有专业限制和技能要求</span>
+						</li>
+					</div>
+					<!-- xs eeeeee -->
 				</div>
 				<div class="camp-detail-introduction">
 					<div class="camp-detail-section text-center">
