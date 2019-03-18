@@ -1,0 +1,839 @@
+<doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+	<title>一万小时学院 - 30周1000小时在线培训计划，让你毕业进名企</title>
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="https://10kcollege.com/wp-content/themes/10kpro/img/logo.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://unpkg.com/vue-ydui/dist/ydui.flexible.js"></script>
+</head>
+<style>
+	body{
+		overflow-x: hidden;
+	}
+	a{
+		color:#4a90e2;
+	}
+	.entry {
+	     font-size: .3rem;
+	     color:#020089;
+    	 text-align: left;
+	}
+	.entry h3 {
+		font-size: .4rem;
+    		font-weight: normal;
+    		color: #020089;
+    		margin-bottom: .4rem;
+    		margin-top: 1rem;
+	}
+
+	.entry h4{
+	        font-size: .35rem;
+    		font-weight: normal;
+    		margin-bottom: .2rem;
+    		margin-top: .3rem;
+	}
+	.post-title {
+	     font-size: .5rem;
+    	     color: #020089;
+    	     text-align: center;
+    	     margin: .66rem 0 .66rem;
+ 	}
+	.flex{
+	    display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+	    display: flex;          /* 新版本语法: Opera 12.1, Firefox 22+ */
+	    display: -moz-box;      /* 老版本语法: Firefox (buggy) */
+	    display: -ms-flexbox;   /* 混合版本语法: IE 10 */   
+	    -webkit-justify-content: space-between;
+	    -moz-justify-content: space-between;
+	    -ms-justify-content: space-between;
+	    -o-justify-content: space-between;
+	    justify-content: space-between;
+	}
+	.flex-start{
+		display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+	    display: flex;          /* 新版本语法: Opera 12.1, Firefox 22+ */
+	    display: -moz-box;      /* 老版本语法: Firefox (buggy) */
+	    display: -ms-flexbox;   /* 混合版本语法: IE 10 */   
+	    -webkit-justify-content: space-start;
+	    -moz-justify-content: space-start;
+	    -ms-justify-content: space-start;
+	    -o-justify-content: space-start;
+	    justify-content: space-start;
+	}
+	.app,.box{
+		max-width: 1100px;
+		width:90%;
+		margin:0 auto;
+	}
+	.logo{
+		width:1.4rem;
+		padding-top: .5rem;
+		max-width: 100%;
+	}
+
+	.nav-item{
+		text-align: center;
+		overflow: hidden;
+	}
+	.nav-item a{
+		display: block;
+		width:1.64rem;
+		padding: .1rem 0;
+		color:#A1A1A5;
+		float: right;
+		border-radius: .44rem;
+		margin-top:1.1rem;
+    	max-width: 100%;
+    	margin-right: .15rem;
+	}
+	.nav-item .active{
+		color:#fff;
+		background: #FEBB46; 
+	}
+	.nav-item a:hover{
+		color:#fff;
+		background: #FEBB46; 
+	}
+	
+	
+
+
+	.adv-content{
+		float:left;
+		width:55%;
+	}
+
+	.adv-img{
+		float:right;
+		width:40%;
+	}
+
+/*	.module-1 .title{
+		font-size:.66rem;
+		color:#020089;
+		font-weight: 600;
+		margin:.66rem 0 .85rem;
+	}
+	.module-1 .content{
+		color:##2f2f2f;
+		font-size: .38rem;
+	}
+	.module-1 .concat-way{
+		font-size: .26rem;
+		color:#A1A1A5;
+		margin:1rem 0 .86rem;
+	}
+	.module-1 .concat-way img{
+		width:.36rem;
+		margin-right: .13rem
+
+	}
+	.module-1 .concat-way .wx img{
+		width:auto;
+		height: .5rem;
+	}
+	.module-1 .btn1{
+		width: 3.2rem;
+	    padding: .2rem .3rem;
+	    background: #FEBB46;
+	    border-radius: .34rem;
+	    color: #fff;
+	    text-align: center;
+	    font-size: .32rem;
+	}
+	.module-1 .wx{
+		margin-left: .5rem;
+	}*/
+	.module-2{
+		background: #f7f7f7;
+		overflow: hidden;
+		text-align: center;
+		padding-bottom: 1.26rem;
+		margin:0 auto;
+	}
+	.module-2 img{
+		display: block;
+		width:60px;
+		margin:1rem auto .18rem;
+	}
+	.module-2 .title{
+		font-size:.3rem;
+		color:#214b9f;
+		margin-bottom: .28rem;
+		/*font-weight: 600*/
+	}
+	.module-2 .content{
+		color:#6D6E71;
+		font-size: .28rem;
+		text-align: left;
+		
+	}
+	
+	.module-3{
+		background: url(https://10kcollege.com/wp-content/themes/10kpro/img/bg.png);
+	}
+	.module-3 .hodler{
+		width:4rem;
+		
+	}
+	.module-3 .title-box{
+		margin-bottom: .4rem;
+		font-size: .5rem;
+		color:#020089;
+	}
+	.module-3 img{
+		width:3.17rem;
+		height: 3.17rem;
+	}
+	.module-3 .box{
+		width: 60%;
+    	margin-top: 1.5rem;
+	}
+	.module-3.row{
+		margin: 0;
+	}
+	.module-3 p{
+		font-size:.3rem;
+		/*color:##2f2f2f;*/
+		/*width:3.94rem;*/
+	}
+	.module-3 .item{
+		 margin: 0.5rem 0 1rem;
+	}
+	.module-3 .title{
+		font-size: .3rem;
+		font-weight: 600;
+		
+		margin:1.34rem 0 .39rem;
+		color:#020089;
+	}
+	.module-4 p{
+			font-size:.3rem;
+		}
+		.module-4 .left{
+			width:75%;
+		}
+		.module-4 .right{
+			width:2rem;
+			height:2rem;
+			border-radius: 50%;
+			overflow: hidden;
+			margin:.4rem .1rem 0 0;
+		}
+		.module-4 img{
+			    width: 1.5rem;
+    			margin-top: .2rem;
+			
+
+		}
+		.module-4 .item{
+			padding:.3rem;
+		}
+		
+		.module-4 .contet-box{
+			border:.02rem solid #E3E3E3;
+			box-shadow: 0 .08rem .16rem #E3E3E3;
+			margin-bottom: .4rem;
+			padding:.15rem;
+			text-align: center
+		}
+
+		.module-4{
+			width:1100px;
+			margin:0 auto;
+			height: 65%;
+		}
+
+		.module-4 .mentor-name {
+		    font-size: .4rem;
+		    color: #020089;
+		}
+
+		.module-4 .title{
+			color:#020089;
+			font-size: .5rem;
+			text-align: center;
+			margin:1rem 0 .46rem;
+		}
+		.module-5{
+		
+			    width: 95%;
+			    margin-left: auto;
+   				margin-right:auto;
+   				margin-top:1 rem;
+    			font-size: .32rem;
+    			color: #4A4A4A;
+    			text-align: center;
+    			padding-top: .5rem;
+    			overflow: hidden;
+		}
+
+		
+
+		.img-responsive{
+			width:100%;
+		}
+		.nav-btn{
+			margin-top:1rem;
+			text-align: right;
+		}
+		.nav-btn .glyphicon{
+			font-size:.5rem;
+			margin-right: .3rem;
+			/*color:#f2f2f2;*/
+		}
+		.nav-btn .nav-list{
+			width:30%;
+			text-align: right;
+			color:#A1A1A5;
+		}
+	@media (max-width: 767px){
+
+		.footer-text{
+			width: 80%;
+		    text-align: right;
+		    font-size: 12px;
+		}
+		.module-1{
+			height:502px;
+		}
+		.nav-wrap{
+			width:95%;
+			margin:0 auto;
+		}
+		.nav-wrap .col-xs-3 a{
+		margin-top: 1.2rem;
+		}
+		.nav-item a{
+			padding:0;
+		}
+		.module-1 .btn1{
+			width:30%;
+			margin-bottom: 1rem;
+		}
+
+		.adv-content {
+ 		   float: left;
+    	   width: 100%;
+		}
+
+		.adv-img {
+ 		   float: left;
+ 		   width:100%;
+ 		   object-fit: cover;
+		}
+		.module-2 .box>div{
+			height:35%;
+		}
+		.module-2 .item{
+			margin-bottom: 1rem;
+		}
+		.module-3 .box{
+			    width: 90%;
+    			margin-top: 0.75em;
+		}
+		.module-3 .item-2{
+			margin:1.75rem 0;
+		}
+		.module-3 p {
+		    font-size: .3rem;
+		    color:#6D6E71;
+		    /* width: 3.94rem; */
+		}
+		.module-3 img {
+			margin-top: 1rem;
+    			width: 2rem;
+    			height: 2rem;
+		}
+		.module-3 .hodler {
+		    width: 3rem;
+		}
+		.module-3 .title-box {
+		    margin-bottom: .4rem;
+		    font-size: .4rem;
+		    color: #020089;
+		}
+		.module-4 .contet-box{
+			margin:0;
+
+		}
+		.module-4{
+			width:100%;
+			height: 136%
+		}
+
+		
+
+		.dropdown-menu {
+   			min-width: 100px;
+    		right: 0;
+    		left: auto;
+   	
+		}
+
+		.dropdown-menu>li>a{
+			font-size:.36rem;
+			color:##2f2f2f;
+		}
+		.post-title {
+		 width:100%
+		}
+		.entry {
+		 width:100%
+		}
+	
+	}
+	.module-1{
+		margin:0 auto;
+		overflow: hidden;
+		position: relative;
+		background-image: url(img/index-banner.png);
+		background-size: auto 100%;
+		height: 553px;
+	}
+	.module-1 img{
+		width:100%;
+
+	}
+	.module-1 .i-content-box{
+		position: absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+	}
+	.module-1 .i-content-box h1{
+		margin-top:5%;
+		font-weight: 400;
+	}
+
+	.i-content-box{
+
+		
+		color:#fff;
+		text-align: center;
+		margin:0px auto 0;
+	}
+	.i-content-box p{
+		font-size:20px;
+		max-width: 920px;
+		margin:30px auto 50px;
+	}
+	.i-content-box a{
+		color:#fff;
+		text-decoration: none;
+	}
+	span.i-btn{
+		background: #1646C8;
+	}
+	.i-btn-box{
+		margin-top: 8%;
+	}
+	.i-btn{
+		margin: 10px 40px;
+	    background: #FEBB46;
+	    border-radius: 20px;
+	    font-size: 22px;
+	    padding: 10px 40px;
+	}
+
+	@media screen and (max-width: 767px){
+		.i-btn{
+			margin:0 10px;
+			font-size:13px;
+			padding:8px 25px;
+		}
+		.nav-btn{
+			margin-top: .2rem;
+		}
+		.logo{
+			padding-top: 0;
+		}
+		.i-content-box p{
+			margin:0 auto 80px;
+			font-size:15px;
+			width:90%;
+			text-align: left;
+		}
+		.i-btn-box{
+			margin-top:15px;
+		}
+		.module-1 .i-content-box h1{
+			margin: 48px auto 18px;
+		    font-size: 24px;
+		    width: 90%;
+		    text-align: left;
+		    font-weight: 400;
+		}
+	}
+	.nav-box{
+		max-width: 1100px;
+		margin:0 auto;
+	}
+	.nav-box .logo-box .logo{
+		width:1.4rem;
+	}
+	.logo-box{
+		text-align: left;
+	}
+
+			/*页脚信息*/
+			.footer-box{
+				max-width: 1100px;
+				margin:0 auto;
+				overflow: hidden;
+				font-size: 14px;
+				color:#4A4A4A;
+				display: flex;
+				display: -webkit-flex;
+    			justify-content: space-between;
+    			-webkit-justify-content:space-between;
+			}
+			.footer-box .img-box{
+				
+				width:42px;
+
+			}
+			
+			.footer-box img{
+				width:100%;
+			}
+			.footer-box a{
+				color:#4A4A4A;
+			}
+			/*页脚信息eeee*/
+
+</style>
+<body>
+	<style>
+	
+ </style>
+ 
+<!-- module 1  -->
+<div class="row module-1">
+	<div class="i-content-box">
+		<div class="nav-box">
+			<!--导航start-->
+	<div class="row nav-wrap hidden-xs">
+		<div class="col-sm-8 col-xs-3 logo-box">
+                <a href="https://www.10kcollege.com/">
+			<img src="img/logo.png" alt="" class="logo" /> </a>
+		</div>
+		<div class="col-sm-4 flex-start">
+		<div class=" nav-item "><a href="https://10kcollege.com/" class="active">首页</a></div>
+		<div class=" nav-item"><a href="data.html">流程</a></div>
+		<div class=" nav-item"><a href="about.html">关于我们</a></div>
+		</div>
+	</div>
+	<div class="row nav-wrap visible-xs">
+		<div class="col-sm-6 col-xs-10 logo-box">
+			<img src="img/logo.png" alt="" class="logo" />
+		</div>
+		<!-- ssssss -->
+		<div class="dropdown nav-btn">
+			<span class="glyphicon glyphicon-align-left" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+  			<ul class="dropdown-menu nav-list" aria-labelledby="dLabel">
+  				<li><a href="index.html" style="text-align:center">首页</a></li>
+  				<li><a href="data.html" style="text-align:center">流程</a></li>
+   			 <li><a href="https://10kcollege.com/index.php/2019/02/15/about/" style="text-align:center">关于我们</a></li>
+  			</ul>
+		</div>
+	</div>
+<!--导航end-->
+		</div>
+		<h1>投资你的在线计算机学院</h1>
+		<p>国内外最顶尖大学计算机系的培养计划,知名互联网企业5年以上工程师在线授课和辅导、
+			7个月1000小时完善的培训体系,让你拿下高薪Offer。
+		</p>
+		<div class="i-btn-box">
+			<a href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__sg7U8BUM0Q5SFNXQ1A5QzVYVEUzQzQ4UEc3RlBFWi4u" class="i-btn">立即申请</a>
+			<span class="i-btn">微信咨询</span>
+		</div>
+	</div>
+
+</div>
+
+<!-- module 2 -->
+	<div class="row module-2">
+		<div class="box">
+			<div class="col-sm-3 col-xs-6 item">
+				<div class="img-box">
+					<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-1.png" alt="" />
+				</div>
+				<div class="title">
+					找到工作再付款
+				</div>
+				<div class="content">
+					拿到主流互联网公司的offer且年薪10万以上，才需要支付25%的年薪，年薪20万元封顶。没有贷款和任何债务，真正零风险。
+				</div>
+			</div>
+		        <div class="col-sm-3 col-xs-6 item">
+                                         <div class="img-box">
+                                                 <img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-4.png" alt="" />
+                                         </div>
+                                         <div class="title">业内最优秀的导师</div>
+                                         <div class="content">
+                                                 每位学员都配有专门指导老师，全部来自国内top互联网公司，普遍工作5年以上，具有丰富的培养招聘面试经验。 </div> 
+                         </div>
+
+			<div class="col-sm-3 col-xs-6 item">
+				<div class="img-box">
+					<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-2.png" alt="" />
+				</div>
+				<div class="title">
+					从基础理论开始
+				</div>
+				<div class="content">
+					以UC伯克利计算机系本科生的课程体系为基础制定培养计划，包括数据结构与算法、计算机组成原理、数据库 、计算机网络等。点击查看<a href="https://10kcollege.com/index.php/2018/11/25/basic/">课程明细</a>。
+				</div>
+			</div>
+			<div class="col-sm-3 col-xs-6 item">
+				<div class="img-box">
+					<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-3.png" alt="" />
+				</div>
+				<div class="title">
+					真实的项目实践
+				</div>
+				<div class="content">
+					知名互联网公司一线工程师带队做项目。采用业内主流开发方法和工具组队进行项目开发，
+					让培训和你将来的工作无缝对接。你需要掌握至少2门语言，向Github提交至少1万行代码。
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- module 3 -->
+	<div class="row module-3">
+		<div class="box">
+			
+			<div class="item flex-start">
+				<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-6.png" />
+				<div style="padding-left: 2em;">
+					<div class="title-box flex-start">
+				            商业数据分析	
+					</div>
+					<p >
+					根据LinkedIn 2016年的统计，商业数据分析是国内最为稀缺的职位，供需比仅为0.05，远低于技术以及产品运营等职位。此课程由一线互联网公司资深数据分析师精心设计，让你在3个月的时间从0开始掌握数据分析的基本技能。<br/> <a href="https://10kcollege.com/data.html">商业数据分析</a>	
+					
+					</p>
+					
+				</div>
+			</div>
+			<div class="item flex-start">
+				<div style="padding-left: 2em;">
+					<div class="title-box flex-start">
+						算法与人工智能
+					</div>
+					<p >
+					现在还有那个方向比人工智能火？ 2018年秋招算法岗应届本科生30万起。计算机视觉、自然语言处理等前沿应用领域更是面临巨大的人才缺口。此课程让你拿到入场券加入当今最热门的领域，并为未来长期发展打下基础。<br/> <a href="https://10kcollege.com/index.php/2018/11/27/machinelearning/">算法与人工智能课程目录</a>	
+					
+					</p>
+					
+				</div>
+				<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-6.png" />
+
+			</div>
+			
+			<div class="item flex-start">
+				<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-7.png" />
+				<div style="padding-left: 2em;">
+					<div class="title-box flex-start">
+					服务器端开发工程师	
+					</div>
+					<p >
+					服务器后台开发的工作内容主要是为前端包括Andorid/iOS/H5等提供的服务，同时要保证服务的可靠性和性能。同时负责处理复杂的业务逻辑以及数据的存储和加工。一个优秀的服务器后端开发人员需要对操作系统、数据库、网络协议、Web服框架有比较深入的了解。此课程让你获得服务器后台开发工作的入场券。<br/>
+					<a href="https://10kcollege.com/index.php/2018/11/27/servers/">服务器后台开发课程目录</a>
+					</p>
+					
+				</div>
+			</div>
+			<div class="item flex-start">
+				<div style="padding-left: 2em;">
+					<div class="title-box flex-start">
+						Android开发工程师						
+					</div>
+					<p >
+					Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。此方向的课程目标是让学员经过培训以后能熟练掌握Android平台上的开发。无论是校园招聘还是社会招聘Android的招聘需求都比较大，但是学校没有进行这个方向的培训，同时相对会比较简单，是一个比较好的就业方向的选择。<br/> <a href="https://10kcollege.com/index.php/2018/11/27/android/">Android客户端开发课程目录</a>
+					</p>
+					
+				</div>
+				<img src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- module 4 -->
+	
+	<div class="module-4">
+
+		<div class="title">导师列表</div>
+		
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+
+
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+
+
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+
+		
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+
+
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+
+
+		<div class="item col-sm-4 col-xs-12">
+			<div class="contet-box flex-start">
+					<div style="width:75%">
+						<p class="mentor-name"></p>
+					<p>数据结构算法、计算机组成原理、数据库
+					、计算机网络等各种课程为你打下扎实的理论基础。</p>
+					</div>
+					<div style="width:84px;heigth:84px;">
+						<img style="width:100%;heigth:100%" src="https://10kcollege.com/wp-content/themes/10kpro/img/g-5.png" alt="" />
+					</div>
+			</div>
+		</div>
+		
+		
+	</div>
+<!-- module 2222 eeeeeeeee -->
+<div class="app">
+	
+<!--导航start-->
+	<!--<div class="row nav-wrap hidden-xs">
+		<div class="col-sm-8 col-xs-3">
+                <a href="https://www.10kcollege.com/">
+			<img src="https://10kcollege.com/wp-content/themes/10kpro/img/logo.png" alt="" class="logo" /> </a>
+		</div>
+		<div class="col-sm-4 flex-start">
+		<div class=" nav-item"><a href="https://10kcollege.com/">首页</a></div>
+		<div class=" nav-item"><a href="https://10kcollege.com/index.php/2019/02/15/about/">关于我们</a></div>
+		<div class=" nav-item"><a href="https://10kcollege.com/index.php/2019/02/15/about/">联系我们</a></div>
+		</div>
+	</div>
+	<div class="row nav-wrap visible-xs">
+		<div class="col-sm-6 col-xs-10">
+			<img src="https://10kcollege.com/wp-content/themes/10kpro/img/logo.png" alt="" class="logo" />
+		</div>
+		
+		<div class="dropdown nav-btn">
+			<span class="glyphicon glyphicon-align-left" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+  			<ul class="dropdown-menu nav-list" aria-labelledby="dLabel">
+   			 <li><a href="https://10kcollege.com/index.php/2019/02/15/about/">关于我们</a></li>
+  			</ul>
+		</div>
+	</div>-->
+<!--导航end-->
+<!-- module 1  -->                                                             
+<!-- <div class="row module-1">
+		<div class="col-sm-6 adv-content">
+			<div class="title">投资你的在线计算机学院</div>
+			<div class="content"> 国内外最顶尖大学计算机系的培养计划，知名互联网企业5年以上工程师在线授课和辅导、7个月1000小时完善的培训体系，让你拿下高薪Offer。</div>
+			<div class="concat-way flex-start">
+				<div class="phone">
+					<img class="phone-img" src="https://10kcollege.com/wp-content/themes/10kpro/img/Group3.png" alt="" />
+					18513481232
+				</div>
+				<div class="wx">
+					<img class="phone-img" src="https://10kcollege.com/wp-content/themes/10kpro/img/Group7.png" alt="" />
+					18513481232
+				</div>
+			</div>
+			<div class="btn1">立即申请</div>
+		</div>
+		<div class="col-sm-6 adv-img">
+			<img src="https://10kcollege.com/wp-content/themes/10kpro/img/Group109.png" alt="" class="img-responsive" />
+		</div>
+
+	</div>
+
+</div> -->
+	
+	<!-- module 5 -->
+
+	<!-- <div class="module-5">
+			<div>
+				<span>	&copy;2018 北京拾刻教育科技有限公司 京ICP备19006113号-1 </span>
+			</div>
+		</div> -->
+	<!-- module 6 -->
+	<!-- 页脚 sss -->
+</div>
+			<div style="background:#f1f1f1;">
+				<div class="footer-box module-5">
+					<div class="img-box">
+						<img src="img/footer-logo.png" alt="" />
+					</div>
+					<div class="footer-text">
+						<span>	&copy;2011-2019 Umeng.com,All Rights Reserved</span>
+						<span>京ICP备案11021163号-6|京公网安备11010502033607</span>
+					</div>
+				</div>
+			</div>
+	<!-- 页脚 eeee -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</html>

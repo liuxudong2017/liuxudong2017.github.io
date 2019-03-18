@@ -1,0 +1,73 @@
+
+	.box-wrap{
+		padding:0 .3rem; 
+		border-bottom: .3rem solid #F1F1F1;
+	}
+	.dy-item-name{
+		display: inline-block;
+		width:20%;
+	}
+	input{
+		border:0;
+	}
+	.bind-iphone-wrap{
+		padding:0 .3rem;
+		border-bottom: .3rem solid #F1F1F1;
+		font-size:.3rem;
+	}
+	.bind-iphone-box{
+		border-bottom:.02rem solid #F1F1F1;
+		height: .90rem;
+		line-height: .9rem;
+	}
+	.input1{
+		width:47%;
+	}
+	.btn{
+		border:0;
+	}
+	.btn span{
+		border-radius: .3rem;
+		background: #FFD900;
+		padding:.12rem .3rem;
+	}
+	/*pay*/
+	.pay-wrap{
+		padding:0 .3rem;
+		font-size:.3rem;
+		color:#333333;
+	}
+	.pay-box{
+		height:.9rem;
+		line-height: .9rem;
+		border-bottom: .02rem solid #F1F1F1;
+	}
+	.pay-img-box{
+		display: inline-block;
+		width:.6rem;
+		height:.6rem;
+		overflow: hidden;
+		vertical-align: middle;
+		
+	}
+	.pay-right{
+		width:.4rem;
+		height: .4rem;
+		border-radius: 50%;
+		border:.02rem solid gray;
+		margin-top:.3rem;
+	}
+	.active{
+		border:0;
+		background:#1EB721;
+		color:#fff;
+	}
+	.active:after{
+		content: "√";
+		display: block;
+		width:100%;
+		height:100%;
+		line-height: 0.4rem;
+		text-align: center;
+		font-weight: 700;
+	}

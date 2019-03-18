@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>雪场详情</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+		<meta name="format-detection" content="telephone=yes" />
+		<!--[if lt IE 9]>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<script src="js/html5shiv.js"></script>
+	<script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+	<![endif]-->
+		<link rel="stylesheet" type="text/css" href="css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/skiDetail.css"/>
+		<script type="text/javascript" src="js/ydui.flexible.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="banner-box">
+				<img :src="skiObj.bannerSrc" class="img-auto" />
+			</div>
+			<div class="ski-info-wrap">
+				<div class="ski-info-list flex">
+					<div class="ski-info-left flex">
+						<div class="ski-info-img-box">
+							<img :src="skiObj.skiSrc" alt="" class="img-auto" />
+						</div>
+						<span class="ski-name">{{skiObj.skiName}}</span>
+					</div>
+					<div class="ski-info-left">{{skiObj.skiDistance}}</div>
+
+				</div>
+				<div class="ski-info-list flex" @click='getMap'>
+					<div class="ski-info-list-left">
+						地址: {{skiObj.skiAdrr}}
+					</div>
+					<div class="ski-info-list-right flex">
+						<div class="img-box">
+							<img src="img/adrress.png" alt="" class="img-auto" />
+						</div>
+					</div>
+				</div>
+				<a :href="'tel:'+skiObj.tel">
+					<div class="ski-info-list flex">
+						<div class="ski-info-list-left">
+							电话: {{skiObj.tel}}
+						</div>
+						<div class="ski-info-list-right flex">
+							<div class="img-box">
+								<img src="img/iphone.png" alt="" class="img-auto" />
+							</div>
+						</div>
+					</div>
+				</a>
+				<div class="lease-list-wrap" v-for="(item,index) in skiObj.orderTypeArr" :key="index">
+					<div class="lease-list flex">
+						<div class="lease-list-left">
+							<div class="lease-name">{{item.orderTitle}}</div>
+							<div class="lease-price">
+								<span class="rmb-icon">￥</span>{{item.rmb}}
+								<span class="lease-include" v-if="item.orderInclude!=''">({{item.orderInclude}})</span>
+							</div>
+						</div>
+						<a :href="item.hrefs">
+							<div class="lease-list-right">
+								预约租赁
+							</div>
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="ski-use-rulse-wrap">
+				<div class="ski-title-box flex">
+					<div class="rulse-img-box">
+						<img src="img/rulse.png" class="img-auto" />
+					</div>
+					<div class="title-name">
+						使用规则
+					</div>
+				</div>
+				<div class="ski-rulse-info-box">
+					<div class="flex-start" v-for="(item,index) in skiObj.rulseArr" v-if='item!=""'>
+						<div class="rulse-num">{{index}}、</div>
+						<div v-for="{{rulseArr}}">{{item}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="ski-use-rulse-wrap no-border">
+				<div class="ski-title-box flex">
+					<div class="rulse-img-box">
+						<img src="img/info.png" class="img-auto" />
+					</div>
+					<div class="title-name">
+						雪场介绍
+					</div>
+				</div>
+				<div class="banner-box">
+					<img :src="skiObj.bannerSrc1" class="img-auto" />
+				</div>
+				<div class="ski-info-text">
+					{{skiObj.info}}
+				</div>
+			</div>
+
+			<!---->
+		</div>
+	</body>
+	<script src="js/ajax.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/public.js"></script>
+	<script src="js/skiDetail.js"></script>
+</html>
