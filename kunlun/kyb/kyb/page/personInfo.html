@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/personInfo.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg" />
+			</div>
+			<div class="nav">
+				<span  @click="goBackTo('index')">首页</span>
+				<span @click="goBackTo('personInfo')" ref="active">个人信息</span>
+				<span @click="goBackTo('personQuestion')">调查问题</span>
+				<span @click="goBackTo('groupInfo')">团组注册</span>
+				<span @click="goBackTo('helpRegister')">协助注册</span>
+				<span @click="goBackTo('changePW')">修改密码</span>
+				<span @click="goBackTo('login')">退出</span>
+			</div>
+			<div id="info_box">
+				<el-row class="info_content">
+					<el-row class="info_content_row" v-for="item in infoView">
+						<el-col
+					  		:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+					  		class="info_tit_box"
+						>
+							<span class="info_tit">{{item.title}}<span class="xing" v-if="item.required">*</span></span>
+						</el-col>
+						<!--国家-->
+						<el-col
+				  			:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+					  		:push="1"
+					  		v-if="item.name==='PsnCountry'"
+						>
+							<el-select
+								:placeholder="item.placeholder"
+								v-model="item.value"
+								@change="countryChange"
+								:disabled="disabledBtn"
+							>
+								<el-option
+									v-for="item in countryArr"
+							        :label="item.label"
+							        :value="item.value"
+								></el-option>
+							</el-select>
+						</el-col>
+						<!--省份-->
+						<el-col
+							:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+							:push="1"
+							v-else-if="item.name==='PsnProvince'"
+						>
+							<el-select
+								:placeholder="item.placeholder"
+								v-model="item.value"
+								@change="provinceChange"
+								:disabled="disabledBtn"
+							>
+								<el-option
+									v-for="item in provinceArr"
+									:label="item.label"
+									:value="item.value"
+								></el-option>
+							</el-select>
+						</el-col>
+						<!--城市-->
+						<el-col
+				  			:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+					  		:push="1"
+					  		v-else-if="item.name==='PsnCity'"
+						>
+							<el-select
+								:placeholder="item.placeholder"
+								v-model="item.value"
+								:disabled="disabledBtn"
+							>
+								<el-option
+									v-for="item in cityArr"
+							        :label="item.label"
+							        :value="item.value"
+								></el-option>
+							</el-select>
+						</el-col>
+						<!--行业类别-->
+						<el-col
+				  			:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+					  		:push="1"
+					  		v-else-if="item.name==='PsnTrade'"
+						>
+							<el-select
+								:placeholder="item.placeholder"
+								v-model="item.value"
+								:disabled="disabledBtn"
+							>
+								<el-option
+									v-for="item in tradeArr"
+							        :label="item.label"
+							        :value="item.value"
+
+								></el-option>
+							</el-select>
+						</el-col>
+						<!--性别-->
+						<el-col
+					  		:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+					  		:push="1"
+					  		class="sex_box"
+					  		v-else-if="item.name==='PsnGender'"
+						>
+							<el-radio :disabled="disabledBtn" v-model="item.value" label="先生">先生</el-radio>
+							<el-radio :disabled="disabledBtn" v-model="item.value" label="女士">女士</el-radio>
+						</el-col>
+						<!--其他情况-->
+						<el-col
+				  			:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+					  		:push="1"
+					  		v-else
+						>
+
+							<el-input
+				    		type="text"
+				    		:placeholder="item.placeholder"
+				    		v-model="item.value"
+								:disabled="disabledBtn"
+				    	>
+					    </el-input>
+						</el-col>
+					</el-row>
+				</el-row>
+				<div v-if="!disabledBtn">
+					<div  class="info_btn" @click="submitInfo" :style="globalStyle">保存</div>
+					<div class="info_btn_white" ref="goBackPersonInfo" @click="goBack">返回</div>
+				</div>
+				<div v-if="disabledBtn">
+					<div  class="info_btn"  @click="edit" :style="globalStyle">编辑</div>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+
+			var app = new Vue({
+				el: '#app',
+				mounted:function(){
+					var That=this;
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}
+					this.$refs.active.style.color=this.globalStyle.background;
+					this.token=sessionStorage.getItem('token');
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'PreRegInfoPsj'},function(res){
+						res=JSON.parse(res);
+							if(res.status==="OK"){
+								// console.log(res)
+							}else{
+								alert(res.ErrorMsg)
+							}
+					},function(err){
+						console.log(err)
+					})
+					//获取input配置项
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/template/getinput',{ExhID : 564,RegistType:'pc'},function(res){
+							res=JSON.parse(res);
+							if(res.status==="OK"){
+								That.infoView=res.data;
+								//行业类别
+								for(var i=0;i<That.infoView.length;i++){
+									if(That.infoView[i].name=="PsnTrade"){
+										That.infoView[i].data=That.infoView[i].data.map(function(ele,index){
+											var eleObj={};
+											eleObj.label=ele;
+											eleObj.value=ele;
+											return eleObj;
+										})
+										That.tradeArr=That.infoView[i].data;
+									}
+// 									if(res.data[i].name==="PsnLoginPwd"){
+// 										res.data.splice(i+1,0,{name:"PsnConfirmLoginPwd",placeholder:"请输入您的确认密码",required:true,title:"确认密码",value:""});
+// 									}
+ 									if(res.data[i].name==="PsnLoginPwd"){
+  										res.data.splice(16,1);
+  									}
+								}
+								//回显
+								fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetRegistInfo',{
+									ExhID : 564,
+									PsjID : sessionStorage.getItem('PsjID')
+								},function(res){
+									res=JSON.parse(res);
+									for(var key in res.Data){
+										for(var i=0;i<That.infoView.length;i++){
+											if(key===That.infoView[i].name){
+												That.infoView[i].value=res.Data[key];
+											}
+										}
+									}
+									console.log(That.infoView)
+								},function(err){
+									console.log('获取回显数据请求失败'+err)
+								})
+							}else{
+								console.log(res.ErrorMsg)
+							}
+					},function(err){
+						console.log(err)
+					})
+					//获取国家
+					fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetCountry',{ExhID : 564},function(res){
+						res=JSON.parse(res);
+							res.Data=res.Data.map(function(ele){
+								ele.label=ele.zptCity;
+								ele.value=ele.zptCity;
+								return ele
+							})
+							res.Data.unshift({zptCity:"中国大陆",zptCityCode:"86",value:"中国大陆",label:"中国大陆"});
+							That.countryArr=res.Data;
+
+							if(res.status==="OK"){
+								res.Data=res.Data.map(function(ele){
+									ele.label=ele.zptCity;
+									ele.value=ele.zptCity;
+									return ele
+								})
+								res.Data.unshift({zptCity:"中国大陆",zptCityCode:"86",value:"中国大陆",label:"中国大陆"});
+								That.countryArr=res.Data;
+							}else{
+								console.log("请求国家失败"+res.ErrorMsg);
+							}
+
+					},function(err){
+						console.log(err)
+					})
+				},
+				data : {
+				    bannerImg : "",
+				    globalStyle : {},
+				    stepImg : [],
+						infoView : [],
+				    token : "",
+				    countryArr : [],
+				    countryVal : "",
+				    provinceArr : [],
+				    cityArr : [],
+				    tradeArr : [],
+				    rule : {
+				    	PsnName : /^([\u4E00-\u9FA5\uF900-\uFA2D]|[a-z9 A-Z\.\s]){2,30}$/,
+				    	PsnComName : /^[\u4E00-\u9FA5A-Za-z0-9-_.,()（）'\s]{4,50}$/,
+				    	PsnRank : /^[a-zA-Z\u4e00-\u9fa5\,\s]{2,50}$/,
+				    	PsnDept : /^[\u4E00-\u9FA5A-Za-z-_()（）/\s]{2,50}$/,
+				    	PsnMobile : /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/,
+				    	PsnEmail  : /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/,
+				    	PsnAddress : /^[\s\w\u4E00-\u9FA5A-Za-z0-9-_.,'‘’#()（） @ % …… ^ & * !！/\\]{6,100}$/,
+				    	PsnWebUrl  : /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/){0,1}(([A-Za-z0-9-~]+)\.)+(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/,
+						PsnFax     : /^([0-9]{7,8})([-][0-9]{0,5}){0,1}$/,
+						PsnTel     : /^([0-9]{7,8})([-][0-9]{0,5}){0,1}$/,
+						PsnIDCard  : /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/,
+				    	PsnZipCode :   /^[0-9]{6}$/,
+				    	PsnRemark  :   /^[0-9a-zA-Z\u4e00-\u9fa5\,\s]+$/
+				    },
+						onoffSubmit :true,
+						disabledBtn : true
+				},
+				methods : {
+					goBackTo : function(name){
+						window.location.href='./'+name+'.html';
+					},
+					//提交信息接口
+					submitInfo : function(){
+						var That=this;
+						this.onoffSubmit=true;
+						for(var i=0;i<this.infoView.length;i++){
+							if(this.infoView[i].required){
+								//必填
+								if(this.infoView[i].name=="PsnGender"||this.infoView[i].name=="PsnCountry"||this.infoView[i].name=="PsnTrade"){
+									//国家省份城市性别验证
+									if(this.infoView[i].value===""){
+										alert("请选择您的"+this.infoView[i].title);
+										this.onoffSubmit=false;
+										break;
+									}
+								}else if(this.infoView[i].name=="PsnProvince"||this.infoView[i].name=="PsnCity"){
+									if(this.countryVal=="86"&&this.infoView[i].value==""){
+										alert("请选择您的"+this.infoView[i].title);
+										this.onoffSubmit=false;
+										break;
+									}
+								}else if(this.infoView[i].name==="PsnZipCode"){
+									//邮编验证
+									if(this.infoView[i].value.trim()===""){
+										//输入为空
+										alert("请输入您的"+this.infoView[i].title);
+										this.onoffSubmit=false;
+										break;
+									}else{
+										if(this.countryVal=="86"){
+											this.rule.PsnZipCode=/^[0-9]{6}$/;
+										}else if(this.countryVal=="853"||this.countryVal=="886"||this.countryVal=="852"){
+											this.rule.PsnZipCode=/^[0-9]{5,6}$/;
+
+										}else{
+											this.rule.PsnZipCode=/^[0-9a-zA-Z]{3,20}$/;
+
+										}
+										if(!this.rule[this.infoView[i].name].test(this.infoView[i].value)){
+											alert("请正确输入您的"+this.infoView[i].title);
+											this.onoffSubmit=false;
+											break;
+										}
+									}
+								}else{
+									if(this.infoView[i].value.trim()===""){
+										//输入为空
+										alert("请输入您的"+this.infoView[i].title);
+										this.onoffSubmit=false;
+										break;
+									}else if(this.infoView[i].name=="PsnComName"){
+										if(this.infoView[i].value.length<4 || this.infoView[i].value.length>50){
+											alert("请输入4-50位"+this.infoView[i].title);	
+											this.onoffSubmit=false;
+											break;
+										}
+									}else if(this.infoView[i].name=="PsnRank"){
+										if(this.infoView[i].value.length<2 || this.infoView[i].value.length>50){
+											alert("请输入2-50位"+this.infoView[i].title);	
+											this.onoffSubmit=false;
+											break;
+										}
+									}else if(this.infoView[i].name=="PsnDept"){
+										if(this.infoView[i].value.length<2 || this.infoView[i].value.length>50){
+											alert("请输入2-50位"+this.infoView[i].title);	
+											this.onoffSubmit=false;
+											break;
+										}
+									}else if(this.infoView[i].name=="PsnAddress"){
+										if(this.infoView[i].value.length<6 || this.infoView[i].value.length>100){
+											alert("请输入6-100位"+this.infoView[i].title);	
+											this.onoffSubmit=false;
+											break;
+										}
+									}else if(!this.rule[this.infoView[i].name].test(this.infoView[i].value)){
+										//验证是否符合规则
+										alert("请正确输入您的"+this.infoView[i].title);
+										this.onoffSubmit=false;
+										break;
+									}
+								}
+							}else{
+								//非必填
+								if(this.infoView[i].name!=="PsnGender"&&this.infoView[i].name!=="PsnCountry"&&this.infoView[i].name!=="PsnProvince"&&this.infoView[i].name!=="PsnCity"&&this.infoView[i].name!=="PsnTrade"){
+									if(this.infoView[i].name=="PsnZipCode"){
+										if(this.infoView[i].value!==""){
+											if(this.countryVal=="86"){
+												this.rule.PsnZipCode=/^[0-9]{6}$/;
+											}else if(this.countryVal=="853"||this.countryVal=="886"||this.countryVal=="852"){
+												this.rule.PsnZipCode=/^[0-9]{5,6}$/;
+
+											}else{
+												this.rule.PsnZipCode=/^[0-9a-zA-Z]{3,20}$/;
+
+											}
+											if(!this.rule[this.infoView[i].name].test(this.infoView[i].value)){
+												alert("请正确输入您的"+this.infoView[i].title);
+												this.onoffSubmit=false;
+												break;
+											}
+										}
+									}
+									else if(this.infoView[i].name=="PsnFax"||this.infoView[i].name=="PsnTel"){
+										if(this.infoView[i].value!==""){
+											if(this.countryVal!=="86"){
+												this.rule.PsnFax=/^([0-9]{1,4}[-]){1}([1-9][0-9]{5,11})([-][0-9]{0,6}){0,1}$/;
+												this.rule.PsnTel=/^([0-9]{1,4}[-]){1}([1-9][0-9]{5,11})([-][0-9]{0,6}){0,1}$/;
+											}
+
+										}
+									}
+									else if(this.infoView[i].name=="PsnIDCard"){
+										if(this.infoView[i].value!==""){
+											if(this.countryVal!=="86"){
+												this.rule.PsnIDCard=/^[a-zA-Z]{5,17}$/;
+											}
+
+										}
+									}
+									else{
+										if(this.infoView[i].value!==""&&!this.rule[this.infoView[i].name].test(this.infoView[i].value)){
+											alert("请正确输入您的"+this.infoView[i].title);
+											this.onoffSubmit=false;
+											break;
+										}
+									}
+								}
+							}
+						}
+
+
+
+
+						if(!this.onoffSubmit){
+							return;
+						}
+						var psnEmail="";
+						var PsnIDCard="";
+						for(var i=0;i<this.infoView.length;i++){
+							if(this.infoView[i].name==="PsnEmail"){
+								psnEmail=this.infoView[i].value;
+							}
+						}
+						var info={};
+						for(var i=0;i<That.infoView.length;i++){
+							info[That.infoView[i].name]=That.infoView[i].value;
+							sessionStorage.setItem(That.infoView[i].name,That.infoView[i].value);
+						}
+						info.WapToken=That.token;
+						info.ExhID=564;
+						info.IfSubmit=false;
+						//开启保存信息接口
+						fetch('post','http://eztapi.exporegist.com/EztApi/api/Visitor/SaveVisitor',info,function(res){
+							resSave=JSON.parse(res);
+							if(resSave.status=="OK"){
+								sessionStorage.setItem('dataInfo',JSON.stringify(info));
+								That.disabledBtn=true;
+							}else{
+								alert(resSave.ErrorMsg);
+							}
+						},function(error){
+							console.log("保存信息接口请求失败"+error)
+						})
+					},
+					//获取国家
+					countryChange : function(val){
+						var That=this;
+						this.countryVal=val;
+						if(val=="中国大陆"){
+							//获取省份
+							fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetProvince',{ExhID : 564},function(res){
+								res=JSON.parse(res);
+
+									res.Data=res.Data.map(function(ele){
+										ele.label=ele.zptCity;
+										ele.value=ele.zptCity;
+										return ele
+									})
+									That.provinceArr=res.Data;
+
+									if(res.status==="OK"){
+										res.Data=res.Data.map(function(ele){
+											ele.label=ele.zptCity;
+											ele.value=ele.zptCity;
+											return ele
+										})
+										That.provinceArr=res.Data;
+									}else{
+										console.log("请求省份失败"+res.ErrorMsg);
+									}
+
+							},function(err){
+								console.log(err)
+							})
+						}else{
+							for(var i=0;i<this.infoView.length;i++){
+								if(this.infoView[i].name==="PsnProvince"||this.infoView[i].name==="PsnCity"){
+									this.infoView[i].value="";
+								}
+							}
+							this.provinceArr=[];
+							this.cityArr=[];
+						}
+					},
+					//获取省份
+					provinceChange : function(val){
+						var That=this;
+						for(var i=0;i<this.infoView.length;i++){
+							if(this.infoView[i].name==="PsnCity"){
+								this.infoView[i].value="";
+							}
+						}
+						fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetCity',{ExhID : 564,zptProvince:val},function(res){
+							res=JSON.parse(res);
+
+								res.Data=res.Data.map(function(ele){
+									ele.label=ele.zptCity;
+									ele.value=ele.zptCity;
+									return ele
+								})
+								That.cityArr=res.Data;
+
+								if(res.status==="OK"){
+									res.Data=res.Data.map(function(ele){
+										ele.label=ele.zptCity;
+										ele.value=ele.zptCity;
+										return ele
+									})
+									That.cityArr=res.Data;
+								}else{
+									console.log("请求城市失败"+res.ErrorMsg);
+								}
+
+						},function(err){
+							console.log(err)
+						})
+					},
+					edit:function(){
+						this.disabledBtn=false;
+					},
+					goBack:function () {
+						this.disabledBtn=true;
+					}
+				},
+				updated:function(){
+					if(this.$refs.goBackPersonInfo){
+						//改变返回框字体颜色
+						this.$refs.goBackPersonInfo.style.color=this.globalStyle.background;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

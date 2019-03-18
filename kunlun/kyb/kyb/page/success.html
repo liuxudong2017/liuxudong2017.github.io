@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/success.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg" />
+			</div>
+			<div id="step_box">
+				<img :src="stepImg[2]" />
+			</div>
+			<div id="success_box">
+				<p>信息确认</p>
+				<div class="success_table">
+					<div class="table_top">
+						<div class="table_name">{{getInfo.PsnName}}<span class="table_appellation">{{getInfo.PsnGender}}</span></div>
+						<div class="table_PsnComName">{{getInfo.PsnComName}}<span class="table_PsnRank">{{getInfo.PsnRank}}</span></div>
+					</div>
+					<div class="table_bottom">
+						<div class="table_PsnAddress">地址：{{getInfo.PsnAddress}}</div>
+						<div class="table_PsnTel">电话：{{getInfo.PsnTel}}</div>
+						<div class="table_PsnMobile">手机：{{getInfo.PsnMobile}}</div>
+						<div class="table_PsnEmail">邮箱：{{getInfo.PsnEmail}}</div>
+					</div>
+				</div>
+				<p>调查问卷</p>
+				<div class="quest">
+					<div class="quest_one_box" v-for="item in question">
+						<p class="big_tit">{{item.QusID}}.{{item.quest}}</p>
+						<span v-for="itemChild in item.answerOption">
+							<span v-if="item.answerType==1">
+								<span
+									class="small_tit"
+									v-if="itemChild.TssTagID==answerObj[item.QusID].TssTagID"
+								>
+									{{itemChild.TssTagName}}
+									<span v-if="Boolean(answerObj[item.QusID][itemChild.TssTagID])==true">
+										({{answerObj[item.QusID][itemChild.TssTagID]}})
+									</span>
+								</span>
+							</span>
+							<span v-else-if="item.answerType==2" >
+								<span
+									class="small_tit"
+									v-if="answerObj[item.QusID].group.includes(itemChild.TssTagID)"
+								>
+									{{itemChild.TssTagName}}
+									<span v-if="Boolean(answerObj[item.QusID][itemChild.TssTagID])==true">
+										({{answerObj[item.QusID][itemChild.TssTagID]}})
+									</span>
+								</span>
+							</span>
+						</span>
+					</div>
+				</div>
+				<div class="success_btn"  :style="globalStyle" @click="submitPage">保 存</div>
+				<div class="success_btn_white" ref="goBackQuest"  @click="goBackQuestion">上一步</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data : {
+					global : {},
+					bannerImg : "",
+					globalStyle : {},
+					stepImg : [],
+					getInfo : {},
+					answerObj : {},
+					question:[]
+				},
+				methods:{
+					submitPage :function(){
+						var questInfo={
+							exhid:564,
+							WapToken : sessionStorage.getItem('token'),
+							Mobile   : sessionStorage.getItem('PsnMobile'),
+							QusID    : 1,
+							questEnd : true,
+							Ans      : sessionStorage.getItem('dataAnswer')
+						};
+						fetch('post',"http://eztapi.exporegist.com/EztApi/api/visitor/SaveAns",questInfo,function(res,edit){
+							res=JSON.parse(res);
+							if(res.status=="OK"){
+								sessionStorage.setItem('PsjID',res.PsjID);
+								window.location.href="./index.html";
+							}else{
+								alert(res.ErrorMsg);
+							}
+						},function(err){
+							console.log(err);
+						})
+					},
+					goBackQuestion:function(){
+						window.location.href='./question.html';
+					}
+				},
+				mounted:function(){
+					var That=this;
+					this.getInfo=JSON.parse(sessionStorage.getItem('dataInfo'));
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}
+					for(var i=0;i<this.global.images.length;i++){
+						if(this.global.images[i].name=="StepImg"){
+							this.stepImg=this.global.images[i].data
+						}
+					}
+					this.question=JSON.parse(sessionStorage.getItem('question'));
+					//拿调问
+					this.answerObj=JSON.parse(sessionStorage.getItem('answerObj'));
+					//拿token
+					this.token=sessionStorage.getItem('token');
+					//改变返回框字体颜色
+					this.$refs.goBackQuest.style.color=this.globalStyle.background;
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'CheckInfo'},function(res,edit){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							// console.log(res)
+						}else{
+							console.log(res.ErrorMsg)
+						}
+					},function(err){
+						console.log(err)
+					})
+				}
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,139 @@
+/*首页登录标题容器样式*/
+#main{
+	margin: 0 auto 56px;
+}
+/*登录页上边*/
+.login_top{
+	margin-top: 42px;
+	text-align: center;
+	font-weight: bold;
+}
+/*登录页左边*/
+.login_left{
+	padding-top: 170px;
+}
+.login_left p{
+	text-align: center;
+	font-weight: bold;
+}
+.login_left img{
+	width : 100%;
+}
+/*登录页右边*/
+.login_right{
+	padding-top: 42px;
+}
+.login_right p{
+	text-align: center;
+}
+/*登录盒子部分*/
+.login_box_top{
+	width: 80%;
+	margin: 30px auto 0;
+}
+.login_title_box{
+	width: 50%;
+	height: 55px;
+	color: #d2d2d2;
+	float:left;
+}
+.login_title{
+	height: 55px;
+	line-height: 55px;
+	font-size:16px;
+	font-family: bold;
+	text-align: center;
+	cursor: pointer;
+	border-top: 1px  #c7c7c7 solid;
+	border-left: 1px  #c7c7c7 solid;
+	border-right: 1px  #c7c7c7 solid;
+}
+.login_title_right{
+	height: 55px;
+	line-height: 55px;
+	font-size:16px;
+	font-family: bold;
+	text-align: center;
+	cursor: pointer;
+	border-top: 1px  #c7c7c7 solid;
+	border-right: 1px  #c7c7c7 solid;
+}
+.login_box_center{
+	width: 80%;
+	margin: 0 auto 0;
+	border : 1px  #c7c7c7 solid;
+	padding-bottom: 24px;
+}
+.login_box_min_center{
+	width: 80%;
+	margin: 30px auto 0;
+}
+.login_inp{
+	margin-bottom: 11px;
+}
+.login_inp input{
+	height: 58px;
+}
+.login_inp_mob:after{
+	content: "";
+	background: url(../img/mob_icon.png) no-repeat;
+	width: 14px;
+	height: 20px;
+	display: inline-block;
+	position: absolute;
+	top: 18px;
+	right: 20px;
+}
+.login_inp_password:after{
+	content: "";
+	background: url(../img/password_icon.png) no-repeat;
+	width: 14px;
+	height: 20px;
+	display: inline-block;
+	position: absolute;
+	top: 18px;
+	right: 20px;
+}
+.login_regCode_btn{
+	height: 58px;
+	line-height: 58px;
+	text-align: center;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.login_btn{
+	height: 58px;
+	line-height: 58px;
+	text-align: center;
+	margin-top: 38px;
+	cursor: pointer;
+}
+.login_btn_white{
+	height: 58px;
+	line-height: 58px;
+	text-align: center;
+	color: #0d386e;
+	font-weight: bold;
+	cursor: pointer;
+}
+.login_box_bottom{
+	width:70%;
+	margin: 30px auto 20px;
+}
+.login_box_bottom div{
+	height: 56px;
+	line-height: 56px;
+	border : 1px solid #124e9a;
+	color: #124e9a;
+	text-align: center;
+	font-weight: bold;
+	cursor: pointer;
+}
+/*登录页底部*/
+#footer{
+	width:100%;
+	padding-top:25px;
+	padding-bottom:25px;
+	background: #f0f0f0;
+	text-align: center;
+}

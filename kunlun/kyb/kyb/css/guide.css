@@ -1,0 +1,33 @@
+#guide_box{
+	margin: 0 auto;
+	padding-top: 86px;
+}
+#guide_box p{
+	line-height: 40px;
+}
+.guide_form{
+	margin: 40px auto;
+}
+.guide_form label{
+	text-align: left;
+}
+.guide_btn{
+	width: 50%;
+	height: 58px;
+	margin: 94px auto 26px;
+	line-height: 58px;
+	text-align: center;
+	color: white;
+	background: #114a92;
+	cursor: pointer;
+	
+}
+.guide_btn_white{
+	width: 50%;
+	height: 58px;
+	margin: 0 auto 40px;
+	line-height: 58px;
+	text-align: center;
+	color: #0d386e;
+	cursor: pointer;
+}

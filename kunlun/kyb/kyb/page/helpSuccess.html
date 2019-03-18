@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/helpSuccess.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg" />
+			</div>
+			<div class="nav">
+				<span @click="goBackTo('index')">首页</span>
+				<span @click="goBackTo('personInfo')">个人信息</span>
+				<span @click="goBackTo('helpQuestion')">调查问题</span>
+				<span @click="goBackTo('groupInfo')">团组注册</span>
+				<span  ref="active" @click="goBackTo('helpRegister')">协助注册</span>
+				<span @click="goBackTo('changePW')">修改密码</span>
+				<span @click="goBackTo('login')">退出</span>
+			</div>
+			<div id="success_box">
+				<p>信息确认</p>
+				<div class="success_table">
+					<div class="table_top">
+						<div class="table_name">{{getInfo.PsnName}}</div>
+						<div class="table_appellation">{{getInfo.PsnGender}}</div>
+						<div class="table_PsnComName">{{getInfo.PsnComName}}</div>
+						<div class="table_PsnRank">{{getInfo.PsnRank}}</div>
+					</div>
+					<div class="table_bottom">
+						<div class="table_PsnAddress">地址：{{getInfo.PsnAddress}}</div>
+						<div class="table_PsnTel">电话：{{getInfo.PsnTel}}</div>
+						<div class="table_PsnMobile">手机：{{getInfo.PsnMobile}}</div>
+						<div class="table_PsnEmail">邮箱：{{getInfo.PsnEmail}}</div>
+					</div>
+				</div>
+				<p>调查问卷</p>
+				<div class="quest">
+					<div class="quest_one_box" v-for="item in question">
+						<p class="big_tit">{{item.QusID}}.{{item.quest}}</p>
+						<span v-for="itemChild in item.answerOption">
+							<span v-if="item.answerType==1">
+								<span
+									class="small_tit"
+									v-if="itemChild.TssTagID==answerObj[item.QusID].TssTagID"
+								>
+									{{itemChild.TssTagName}}
+									<span v-if="Boolean(answerObj[item.QusID][itemChild.TssTagID])==true">
+										({{answerObj[item.QusID][itemChild.TssTagID]}})
+									</span>
+								</span>
+							</span>
+							<span v-else-if="item.answerType==2" >
+								<span
+									class="small_tit"
+									v-if="answerObj[item.QusID].group.includes(itemChild.TssTagID)"
+								>
+									{{itemChild.TssTagName}}
+									<span v-if="Boolean(answerObj[item.QusID][itemChild.TssTagID])==true">
+										({{answerObj[item.QusID][itemChild.TssTagID]}})
+									</span>
+								</span>
+							</span>
+						</span>
+					</div>
+				</div>
+				<div class="success_btn"  :style="globalStyle" @click="submitHelpPage">下一步</div>
+				<div class="success_btn_white" ref="goBackHelpQuest" @click="goBack">上一步</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data : {
+					global : {},
+					bannerImg : "",
+					globalStyle : {},
+					getInfo : {},
+					answerObj : {},
+					question:[]
+				},
+				methods:{
+					goBack:function(){
+						window.location.href="./helpQuestion.html";
+					},
+					submitHelpPage :function(){
+						var questInfo={
+							exhid:564,
+							WapToken : sessionStorage.getItem('helptoken'),
+							Mobile   : sessionStorage.getItem('PsnMobile'),
+							QusID    : 1,
+							questEnd : true,
+							Ans      : sessionStorage.getItem('helpDataAnswer')
+						};
+						fetch('post',"http://eztapi.exporegist.com/EztApi/api/visitor/SaveAns",questInfo,function(res,edit){
+							res=JSON.parse(res);
+							if(res.status=="OK"){
+								alert("被协助人注册成功");
+								window.location.href="./helpRegister.html";
+								sessionStorage.setItem('helpDataInfo','');
+								sessionStorage.setItem('helpAnswerObj','');
+								sessionStorage.setItem('helpDataAnswer','');
+							}else{
+								alert(res.ErrorMsg);
+							}
+						},function(err){
+							console.log(err);
+						})
+					},
+					goBackTo : function(name){
+						window.location.href='./'+name+'.html';
+					}
+				},
+				mounted:function(){
+					var That=this;
+					this.getInfo=JSON.parse(sessionStorage.getItem('helpDataInfo'));
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}
+					this.question=JSON.parse(sessionStorage.getItem('question'));
+					//拿调问
+					this.answerObj=JSON.parse(sessionStorage.getItem('helpAnswerObj'));
+					//拿token
+					this.token=sessionStorage.getItem('token');
+					//改变返回框字体颜色
+					this.$refs.goBackHelpQuest.style.color=this.globalStyle.background;
+					this.$refs.active.style.color=this.globalStyle.background;
+					//获取局部可配置项接口
+					// fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'CheckInfo'},function(res,edit){
+					// 	res=JSON.parse(res);
+					// 	if(res.status==="OK"){
+					// 		// console.log(res)
+					// 	}else{
+					// 		console.log(res.ErrorMsg)
+					// 	}
+					// },function(err){
+					// 	console.log(err)
+					// })
+				}
+			})
+
+		</script>
+	</body>
+</html>

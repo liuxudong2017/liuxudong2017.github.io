@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/addMember.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<!-- ajax -->
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img src="../img/banner.png"/>
+			</div>
+			<div id="addMember_box">
+				<div class="nav">
+					<span @click="goBackTo('index')">首页</span>
+					<span @click="goBackTo('personInfo')">个人信息</span>
+					<span @click="goBackTo('personQuestion')">调查问题</span>
+					<span ref="active" @click="goBackTo('groupInfo')">团组注册</span>
+					<span @click="goBackTo('helpRegister')">协助注册</span>
+					<span @click="goBackTo('changePW')">修改密码</span>
+					<span @click="goBackTo('login')">退出</span>
+				</div>
+				<el-row class="addGroupInfoTop">
+					<el-col
+						:xs="20"
+						:sm="20"
+						:md="20"
+						:lg="20"
+						:xl="20"
+					>团组登记，登记人数不得低于{{minPersonNum}}人,您已登记{{readyRegister}}人</el-col>
+					<div
+						@click="addOne"
+					>
+						<el-col
+							:xs="4"
+							:sm="4"
+							:md="4"
+							:lg="4"
+							:xl="4"
+							class="addOne"
+						>
+							<b>
+								增加一名团组成员
+							</b>
+						</el-col>
+					</div>
+				</el-row>
+				<div class="addGroupInfo" v-for="item,index in personNum">
+					<div class="groupInfo_content">
+						<p class="groupInfo_content_title">同事{{index+1}}</p>
+						<el-row class="groupInfo_content_row">
+							<el-col
+								class="groupInfo_title_box"
+								:xs="3"
+								:sm="3"
+								:md="3"
+								:lg="2"
+								:xl="1"
+							>
+								<span class="group_title">性别<span class="xing">*</span></span>
+							</el-col>
+							<el-col
+								:xs="9"
+								:sm="9"
+								:md="9"
+								:lg="10"
+								:xl="11"
+								class="sex_box"
+							>
+								<el-radio label="先生" v-model="item[index+1].psngender">先生</el-radio>
+								<el-radio label="女士" v-model="item[index+1].psngender">女士</el-radio>
+							</el-col>
+						</el-row>
+						<el-row class="groupInfo_content_row">
+							<el-col
+								class="groupInfo_title_box"
+								:xs="3"
+								:sm="3"
+								:md="3"
+								:lg="2"
+								:xl="1"
+							>
+								<span class="group_title">姓名<span class="xing">*</span></span>
+							</el-col>
+							<el-col
+								:xs="9"
+								:sm="9"
+								:md="9"
+								:lg="10"
+								:xl="11"
+							>
+								<el-input
+									type="text"
+									placeholder="请输入姓名"
+									v-model="item[index+1].psnname"
+								>
+								</el-input>
+							</el-col>
+							<el-col
+								class="groupInfo_title_box"
+								:xs="3"
+								:sm="3"
+								:md="3"
+								:lg="2"
+								:xl="1"
+							>
+								<span class="group_title">职位<span class="xing">*</span></span>
+							</el-col>
+							<el-col
+								:xs="9"
+								:sm="9"
+								:md="9"
+								:lg="10"
+								:xl="11"
+							>
+								<el-input
+									type="text"
+									placeholder="请输入职位"
+									v-model="item[index+1].psnrank"
+								>
+								</el-input>
+							</el-col>
+						</el-row>
+						<el-row class="groupInfo_content_row">
+							<el-col
+								class="groupInfo_title_box"
+								:xs="3"
+								:sm="3"
+								:md="3"
+								:lg="2"
+								:xl="1"
+							>
+								<span class="group_title">手机<span class="xing">*</span></span>
+							</el-col>
+							<el-col
+								:xs="9"
+								:sm="9"
+								:md="9"
+								:lg="10"
+								:xl="11"
+							>
+								<el-input
+									type="text"
+									placeholder="请输入手机"
+									v-model="item[index+1].psnmobile"
+								>
+								</el-input>
+							</el-col>
+							<el-col
+								class="groupInfo_title_box"
+								:xs="3"
+								:sm="3"
+								:md="3"
+								:lg="2"
+								:xl="1"
+							>
+								<span class="group_title">电子邮箱<span class="xing">*</span></span>
+							</el-col>
+							<el-col
+								:xs="9"
+								:sm="9"
+								:md="9"
+								:lg="10"
+								:xl="11"
+							>
+								<el-input
+									type="text"
+									placeholder="请输入电子邮箱"
+									v-model="item[index+1].psnemail"
+								>
+								</el-input>
+							</el-col>
+						</el-row>
+					</div>
+				</div>
+				<el-row>
+					<div @click="saveInfo" class="saveInfoBtn" :style="globalStyle">
+						<el-col
+						>
+							保存并继续添加团组成员
+						</el-col>
+					</div>
+					<div 
+						class="addMember_btn_white" 
+						ref="goBackaddMember" 
+						@click="goBackaddMember"
+					>
+						查看团组列表
+					</div>
+				</el-row>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+
+			var app = new Vue({
+				el: '#app',
+				data : {
+					bannerImg : "",
+					global : {},
+					globalStyle : {},
+					personNum : [],
+					minPersonNum : "",
+					personInfoBtn:true,
+					rule : {
+						psnname : /^([\u4E00-\u9FA5\uF900-\uFA2D]|[a-zA-Z\.\s]){0,}$/,
+						psnemail  : /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/,
+						psnrank  :   /^[0-9a-zA-Z\u4e00-\u9fa5\,\s]+$/,
+						psnmobile : /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/
+					},
+					readyRegister : "",
+					repeatMobile:[],
+					repeatEmail:[]
+				},
+				methods : {
+					saveInfo : function(){
+						var That=this;
+						this.personInfoBtn=true;
+						this.repeatMobile=[];
+						this.repeatEmail=[];
+						for(var i=0;i<this.personNum.length;i++){
+							for(var key in this.rule){
+								if(this.personNum[i][i+1].psngender==""){
+									alert("请选择同事"+(i+1)+"的性别");
+									this.personInfoBtn=false
+									break;
+								}else if(this.personNum[i][i+1][key]==""){
+									if(key=="psnname"){
+										alert("请填写同事"+(i+1)+"的姓名");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnrank"){
+										alert("请填写同事"+(i+1)+"的职位");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnemail"){
+										alert("请填写同事"+(i+1)+"的电子邮箱");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnmobile"){
+										alert("请填写同事"+(i+1)+"的手机");
+										this.personInfoBtn=false
+										break;
+									}
+								}else if(!this.rule[key].test(this.personNum[i][i+1][key])){
+									if(key=="psnname"){
+										alert("请正确填写同事"+(i+1)+"的姓名");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnrank"){
+										alert("请正确填写同事"+(i+1)+"的职位");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnemail"){
+										alert("请正确填写同事"+(i+1)+"的电子邮箱");
+										this.personInfoBtn=false
+										break;
+									}else if(key=="psnmobile"){
+										alert("请正确填写同事"+(i+1)+"的手机");
+										this.personInfoBtn=false
+										break;
+									}
+								}
+							}
+							if(!this.personInfoBtn){
+								break;
+							}
+						}
+						
+						//查重手机和邮箱
+						for(var m=0;m<this.personNum.length;m++){
+							this.repeatMobile.push(this.personNum[m][m+1].psnmobile)
+							this.repeatEmail.push(this.personNum[m][m+1].psnemail)
+						}
+						for(var z = 0; z<this.repeatMobile.length; z++) {
+							for(var zm = z + 1;zm<this.repeatMobile.length;zm++){
+								if(this.repeatMobile[z]==this.repeatMobile[zm]){
+									alert("同事"+(z+1)+"和同事"+(zm+1)+"的手机号相同");
+									this.personInfoBtn=false
+									break;
+								}
+							}
+							if(!this.personInfoBtn){
+								break;
+							}	
+						}
+						//手机号查重结束
+						for(var b = 0; b<this.repeatEmail.length; b++) {
+							for(var ba = b + 1;ba<this.repeatEmail.length;ba++){
+								if(this.repeatEmail[b]==this.repeatEmail[ba]){
+									alert("同事"+(b+1)+"和同事"+(ba+1)+"的邮箱相同");
+									this.personInfoBtn=false
+									break;
+								}
+							}
+							if(!this.personInfoBtn){
+								break;
+							}	
+						}
+						
+						//结束查重手机和邮箱
+						if(!this.personInfoBtn){
+							return;
+						}
+						var GroupData=[];
+						for(var j=0;j<this.personNum.length;j++){
+							GroupData.push(this.personNum[j][j+1]);
+						}
+						GroupData=JSON.stringify(GroupData);
+						var groupInfo={
+							exhid : 564,
+							PsnID : 'IAAHa6',
+							Language : 'cn',
+							GroupData : GroupData
+						}
+						//提交团组注册
+						fetch('post',"http://eztapi.exporegist.com/EztApiTest/api/Visitor/GroupRegist",groupInfo,function(res){
+							res=JSON.parse(res);
+							if(res.status=="OK"){
+								That.readyRegister=Number(That.personNum.length)+Number(That.readyRegister);
+								That.personNum=[];
+								That.personNum.push({'1':{psngender:'',psnname:'',psnrank:'',psnmobile:'',psnemail:''}});
+							}else{
+								alert(res.ErrorMsg);
+							}
+						},function(error){
+							alert("提交团组注册"+error)
+						})
+					},
+					addOne:function(){
+						this.personNum.push({[this.personNum.length+1]:{psngender:'',psnname:'',psnrank:'',psnmobile:'',psnemail:''}})
+					},
+					goBackTo : function(name){
+						window.location.href='./'+name+'.html';
+					},
+					goBackaddMember : function(){
+						window.location.href='./groupInfo.html';
+					}
+				},
+				mounted : function(){
+					var That=this;
+					this.readyRegister=sessionStorage.getItem('groupInfoLength');
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}
+					this.$refs.goBackaddMember.style.color=this.globalStyle.background;
+					this.$refs.active.style.color=this.globalStyle.background;
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'GroupList'},function(res){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							for(var i=0;i<res.promptinfo.length;i++){
+								if(res.promptinfo[i].name=="GroupListNumber"){
+									That.minPersonNum=res.promptinfo[i].value;
+									if(Number(That.readyRegister)>=Number(res.promptinfo[i].value)){
+										That.personNum.push({'1':{psngender:'',psnname:'',psnrank:'',psnmobile:'',psnemail:''}})
+										return;
+									}
+									//需要渲染的列表数
+									var tableLength=res.promptinfo[i].value-That.readyRegister;
+									for(var k=0;k<tableLength;k++){
+										That.personNum.push({[k+1]:{psngender:'',psnname:'',psnrank:'',psnmobile:'',psnemail:''}})
+									}
+								}
+							}
+						}else{
+							alert(res.ErrorMsg)
+						}
+					},function(err){
+						console.log("局部配置接口请求失败"+err)
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

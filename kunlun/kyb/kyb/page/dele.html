@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body,html{
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+			}
+			#box{
+				background: red;
+				height: 100%;
+			}
+			#box .box_img{
+				width: 40%;
+				margin: 0 auto;
+			}
+			#box div img{
+			
+			}
+			.show{
+				width: 80%;
+				height: 300px;
+				margin: 0 auto;
+				border: 1px solid #000;
+				overflow: scroll;
+			}
+			#BigImg{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="box_img">
+				<img src="../img/login_left.png" alt=""  style="width: 100%;">
+			</div>
+			<div class="show">
+				<img src="../img/login_left.png" alt="" id="BigImg" style="width: 100%;">
+			</div>
+			<div id="box_one"></div>
+		</div>
+		<script type="text/javascript">
+			window.onload=function(){
+				var oImg=document.getElementsByClassName('box_img')[0];
+				var oBoxOne=document.getElementById('box_one');
+				var oBigImg=document.getElementById('BigImg')
+				var onoff=false;
+				var scale=false;
+				oImg.onclick=function(){
+					onoff=!onoff;
+					if(onoff){
+						oBigImg.style.display='block'
+					}else{
+						oBigImg.style.display='none'
+					}
+				}
+				oBigImg.addEventListener('gesturechange',function(e){
+					var width=Number(oBigImg.style.width.substring(0,3))
+					oBigImg.style.width=(e.scale*10)+width+'%';
+					oBoxOne.innerHTML+=oBigImg.style.width;
+				})
+				
+				var gesturestart = new CustomEvent('gesturestart');
+				var gesturechange = new CustomEvent('gesturechange');
+				var gestureend = new CustomEvent('gestureend');
+				var istouch = false;
+				var start = [];
+				document.addEventListener("touchstart", function(e) {
+				    if(e.touches.length >= 2) { //判断是否有两个点在屏幕上
+				        istouch = true;
+				        start = e.touches; //得到第一组两个点
+				        e.target.dispatchEvent(gesturestart);
+				    };
+				}, false);
+				function getDistance(p1, p2) {
+				    var x = p2.pageX - p1.pageX,y = p2.pageY - p1.pageY;
+				    return Math.sqrt((x * x) + (y * y));
+				};
+				function getAngle(p1, p2) {
+				    var x = p1.pageX - p2.pageX,
+				        y = p1.pageY - p2.pageY;
+				    return Math.atan2(y, x) * 180 / Math.PI;
+				};
+				document.addEventListener("touchmove", function(e) {
+				    if(e.touches.length >= 2 && istouch) {
+				        var now = e.touches; //得到第二组触点
+				        var scale = getDistance(now[0], now[1]) / getDistance(start[0], start[1]); //得到缩放比例
+				        var rotation = getAngle(now[0], now[1]) - getAngle(start[0], start[1]); //得到旋转角度
+				        gesturechange.scale = scale.toFixed(2);
+				        gesturechange.rotation = rotation.toFixed(2);
+				        e.target.dispatchEvent(gesturechange);  
+				    };
+				}, false);
+				document.addEventListener("touchend", function(e) {
+				    if(istouch) {
+				        istouch = false;
+				        e.target.dispatchEvent(gestureend);
+				    };
+				}, false);
+			}
+
+		</script>
+	</body>
+</html>

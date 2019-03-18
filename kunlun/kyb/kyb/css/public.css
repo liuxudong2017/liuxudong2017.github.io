@@ -1,0 +1,174 @@
+/*banner图*/
+#banner{
+	width: 100%;
+}
+#banner img{
+	width: 100%;
+}
+.xing{
+	color: red;
+}
+#step_box{
+ width: 80%;
+ margin: 40px auto;
+}
+#step_box img{
+ width: 100%;
+}
+
+
+/*导航*/
+.nav{
+	text-align: center;
+	margin: 30px auto;
+}
+.nav span{
+	cursor: pointer;
+	padding-left: 2%;
+	color: #909399;
+	font-weight:bold;
+}
+.nav span:last-child:after{
+	content: "";
+}
+.nav span:after{
+	content: "|";
+	padding-left: 2%;
+	color: #c7c7c7;
+}
+/*响应式媒询*/
+@media  screen and (max-width:768px) {
+	/*小于768时候*/
+	#main{
+		max-width: 90%;
+	}
+	#guide_box{
+		max-width: 90%;
+	}
+	#info_box{
+		max-width: 74%;
+	}
+	#question_box{
+		max-width: 74%;
+	}
+	#success_box{
+		max-width: 74%;
+	}
+	#groupInfo_box{
+		max-width: 74%;
+	}
+	#addMember_box{
+		max-width: 74%;
+	}
+	#assistRegister_box{
+		max-width: 74%;
+	}
+}
+@media  screen and (min-width: 768px) and (max-width:992px){
+	/*大于768小于992*/
+	#main{
+		max-width: 90%;
+	}
+	#guide_box{
+		max-width: 90%;
+	}
+	#info_box{
+		max-width: 74%;
+	}
+	#question_box{
+		max-width: 74%;
+	}
+	#success_box{
+		max-width: 74%;
+	}
+	#groupInfo_box{
+		max-width: 74%;
+	}
+	#addMember_box{
+		max-width: 74%;
+	}
+	#assistRegister_box{
+		max-width: 74%;
+	}
+}
+@media  screen and (min-width: 992px) and (max-width:1200px){
+	/*大于992小于1200*/
+	#main{
+		max-width: 80%;
+	}
+	#guide_box{
+		max-width: 80%;
+	}
+	#info_box{
+		max-width: 74%;
+	}
+	#question_box{
+		max-width: 74%;
+	}
+	#success_box{
+		max-width: 74%;
+	}
+	#groupInfo_box{
+		max-width: 74%;
+	}
+	#addMember_box{
+		max-width: 74%;
+	}
+	#assistRegister_box{
+		max-width: 74%;
+	}
+}
+@media  screen and (min-width: 1200px) and (max-width:1920px){
+	/*大于1200小于1920*/
+	#main{
+		max-width: 70%;
+	}
+	#guide_box{
+		max-width: 40%;
+	}
+	#info_box{
+		max-width: 74%;
+	}
+	#question_box{
+		max-width: 74%;
+	}
+	#success_box{
+		max-width: 74%;
+	}
+	#groupInfo_box{
+		max-width: 74%;
+	}
+	#addMember_box{
+		max-width: 74%;
+	}
+	#assistRegister_box{
+		max-width: 74%;
+	}
+}
+@media  screen and (min-width: 1920px){
+	/*大于1920*/
+	#main{
+		max-width: 70%;
+	}
+	#guide_box{
+		max-width: 40%;
+	}
+	#info_box{
+		max-width: 70%;
+	}
+	#question_box{
+		max-width: 70%;
+	}
+	#success_box{
+		max-width: 70%;
+	}
+	#groupInfo_box{
+		max-width: 70%;
+	}
+	#addMember_box{
+		max-width: 74%;
+	}
+	#assistRegister_box{
+		max-width: 74%;
+	}
+}

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/element.css" />
+		<link rel="stylesheet" href="../css/display.css" />
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<!--ajax-->
+		<script src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg"/>
+			</div>
+			<div id="main">
+				<el-row>
+					<el-col :md="12" :lg="12" :xl="12" class="login_left hidden-sm-only hidden-xs-only">
+						<p>{{leftText}}</p>
+						<img :src="leftImg" alt="加载失败" />
+					</el-col>
+					<el-col class="hidden-md-only hidden-lg-only hidden-xl-only login_top">
+						<p>北京昆仑亿发科技股份有限公司（展会名）</p>
+					</el-col>
+					<el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" class="login_right">
+						<p>温馨提示：</p>
+						<p>{{topText}}</p>
+						<div class="login_box_top">
+							<el-row>
+								<div
+									@click="loginType('numBtn')"
+									ref="numBtn"
+									class="login_title_box"
+								>
+									<el-col
+										:xs="24"
+										:sm="24"
+										:md="24"
+										:lg="24"
+										:xl="24"
+										class="login_title"
+										v-if="PwdLoginShow"
+									>
+										账号登录
+									</el-col>
+								</div>
+								<div
+									@click="loginType('codeBtn')"
+									ref="codeBtn"
+									class="login_title_box"
+								>
+									<el-col
+										:xs="24"
+										:sm="24"
+										:md="24"
+										:lg="24"
+										:xl="24"
+										class="login_title_right"
+										v-if="CodeLoginShow"
+									>
+										手机验证登录
+									</el-col>
+								</div>
+							</el-row>
+						</div>
+						<div class="login_box_center">
+							<div class="login_box_min_center">
+								<div v-if="loginShowBoolean">
+									<el-input
+									    placeholder="邮箱/手机号"
+									    class="login_inp login_inp_mob"
+											v-model="emailMobile"
+									>
+									</el-input>
+									<el-input
+									    placeholder="密码"
+									    class="login_inp login_inp_password"
+											v-model="empassword"
+									>
+									</el-input>
+								</div>
+								<div v-if="!loginShowBoolean">
+									<el-input
+									    placeholder="手机号"
+									    class="login_inp login_inp_mob"
+											v-model="mMobile"
+									>
+									</el-input>
+									<el-row>
+										<el-col
+											:xs="14"
+											:sm="14"
+											:md="14"
+											:lg="14"
+											:xl="14"
+										>
+											<el-input
+											    placeholder="验证码"
+											    class="login_inp login_regCode"
+													v-model="verificationCode"
+											>
+											</el-input>
+										</el-col>
+										<el-col
+											:xs="9"
+											:sm="9"
+											:md="9"
+											:lg="9"
+											:xl="9"
+											:offset="1"
+											class="login_regCode_btn"
+											:style="globalStyle"
+										>
+										<div @click="sendbtn">{{regBtnCodeText}}</div>
+										</el-col>
+									</el-row>
+								</div>
+								<div class="login_btn" :style="globalStyle" @click="loginbtn">登录</div>
+								<div
+									class="login_btn_white"
+									ref="retrievePassword"
+									v-if="forgetPassword"
+									:style="pageStyle"
+									@click="goRetrievePW"
+								>
+									找回密码？
+								</div>
+							</div>
+						</div>
+						<el-row
+							class="login_box_bottom"
+							v-if="groupRegist"
+						>
+							<el-col
+								:xs="11"
+								:sm="11"
+								:md="11"
+								:lg="11"
+								:xl="11"
+								:style="pageStyle"
+								ref="personRegister"
+							>
+								<p @click="goPersonRegister">
+									个人注册
+								</p>
+							</el-col>
+							<el-col
+								:xs="11"
+								:sm="11"
+								:md="11"
+								:lg="11"
+								:xl="11"
+								:push="2"
+								:style="pageStyle"
+								ref="groupRegister"
+							>
+								<p @click="goGroupRegister">团组注册</p>
+							</el-col>
+						</el-row>
+						<el-row class="login_box_bottom"  v-if="!groupRegist">
+							<el-col
+								:xs="22"
+								:sm="22"
+								:md="22"
+								:lg="22"
+								:xl="22"
+								:offset="2"
+								:style="pageStyle"
+								ref="personRegister"
+							>
+								<p @click="goPersonRegister">个人注册</p>
+							</el-col>
+						</el-row>
+						<p v-html="GATText"></p>
+					</el-col>
+				</el-row>
+			</div>
+			<div id="footer">
+				<p>{{bottomText}}</p>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data : {
+					token :"",
+					global : {},                  //全局配置
+					globalStyle : {},             //全局样式配置
+					pageStyle : {},               //字体颜色，边框颜色
+					bannerImg : "",               //顶部banner图
+					leftImg : "",                 //登陆页面左边banner
+					leftText : "",                //登陆页面标题
+					stepImg : [],                 //顶部步骤图
+					PwdLoginShow : "",              //登陆的方式
+					CodeLoginShow : "",               //登陆的方式
+					loginShowBoolean : true,          //登陆方式的切换
+					groupRegist : false,             //团组注册
+					forgetPassword : false,           //忘记密码
+					topText : "",                    //顶部文字
+					bottomText : "",                  //底部文字
+					GATText : ""                      ,//港澳台文字
+					onoffSubmit :true,
+					regBtnCodeText : '获取验证码',
+					regNum : 60,
+					verificationCode : "",
+					emailMobile : "",
+					empassword : "",
+					mMobile : "",
+					LoginType : 2
+				},
+				methods : {
+					goRetrievePW:function(){
+						window.location.href="./retrievePW.html"
+					},
+					loginbtn:function(){
+						var PsnMobile = /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
+						var PsnEmail  = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+						var empassword = /^[0-9a-zA-Z\u4e00-\u9fa5\,\s]{6,18}$/;
+						if(this.loginShowBoolean){
+							if(this.emailMobile==""){
+								alert("请输入您的邮箱或手机号")
+								return;
+							}else if(!PsnMobile.test(this.emailMobile)&&!PsnEmail.test(this.emailMobile)){
+								alert("请正确输入您的邮箱或手机号")
+								return;
+							}
+							if(this.empassword==""){
+								alert("请输入您的密码")
+								return;
+							}else if(!empassword.test(this.empassword)){
+								alert("请正确输入您的密码")
+								return;
+							}
+						}else{
+								if(this.mMobile==""){
+									alert("请输入您的手机号")
+									return;
+								}else if(!PsnMobile.test(this.mMobile)){
+									alert("请正确输入您的手机号")
+									return;
+								}
+								if(this.empassword==""){
+									alert("请输入您的验证码")
+									return;
+								}else if(!empassword.test(this.empassword)){
+									alert("请正确输入您的验证码")
+									return;
+								}
+						}
+						//登录接口
+						fetch('post',"http://eztapi.exporegist.com/EztApiTest/api/Visitor/Login",{
+							exhid : 564,
+							UserName : this.emailMobile ,
+							UserPwd : this.empassword,
+							LoginType : this.LoginType ,
+						},function(res){
+							res=JSON.parse(res);
+							console.log(res)
+							if(res.status=="OK"){
+								alert("登录成功");
+								window.location.href="./index.html"
+							}else{
+								alert(res.ErrorMsg);
+							}
+						},function(error){
+							console.log("请求登录接口失败"+error);
+						})
+					},
+					loginType : function(type){
+						if(type=="numBtn"){
+							this.LoginType=2;
+							this.loginShowBoolean=true;
+							this.$refs.numBtn.style.background=this.globalStyle.background;
+							this.$refs.numBtn.style.color=this.globalStyle.color;
+							this.$refs.codeBtn.style.background='';
+							this.$refs.codeBtn.style.color='';
+						}else if(type=="codeBtn"){
+							this.LoginType=1;
+							this.loginShowBoolean=false;
+							this.$refs.codeBtn.style.background=this.globalStyle.background;
+							this.$refs.codeBtn.style.color=this.globalStyle.color;
+							this.$refs.numBtn.style.background='';
+							this.$refs.numBtn.style.color='';
+						}
+					},
+					sendbtn:function(){
+						var That=this;
+						var PsnMobile = /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
+						if(this.mMobile==""){
+							alert("请输入您的手机号")
+							return;
+						}else if(!PsnMobile.test(this.mMobile)){
+							alert("请正确输入您的手机号")
+							return;
+						}
+						fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/PsnMobileRepeat',{exhid:564,UserName:this.emailMobile},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									That.repeatRegBtn=true;
+									alert("验证码发送成功");
+									//验证码倒计时
+									this.onoffSubmit=true;
+									let timer = setInterval(function(){
+											if(That.regNum==0){
+												clearInterval(timer);
+												That.repeatRegBtn=false;
+												That.regBtnCodeText='获取验证码';
+												That.regNum=60;
+											}else{
+												That.regNum--;
+												That.regBtnCodeText=That.regNum+'s';
+											}
+									}, 1000);
+								}else{
+									alert(res.ErrorMsg);
+								}
+						})
+					},
+					goPersonRegister:function(){
+						window.location.href="./guide.html";
+					},
+					goGroupRegister : function(){
+						window.location.href="./guide.html";
+					}
+				},
+				mounted:function(){
+					var That=this;
+					//获取token
+		      fetch('post','http://eztapi.exporegist.com/EztApi/api/visitor/GetEFWapToken',null,function(res){
+		       	res=JSON.parse(res);
+		        if(res.status==="OK"){
+		        	That.token=res.WapToken;
+		        	sessionStorage.setItem('token',That.token);
+		        }else{
+		        	alert(res.ErrorMsg)
+		        }
+		      },function(err){
+		      	console.log("获取token请求失败"+err)
+		      })
+					//获取全局可配置项
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetGlobal',{ExhID : 564,RegistType:'pc'},function(res){
+							res=JSON.parse(res);
+							if(res.status==="OK"){
+								That.global=res;
+								sessionStorage.setItem('global',JSON.stringify(That.global));
+								for(var i=0;i<That.global.images.length;i++){
+									if(That.global.images[i].name==="OverallBanner"){
+										That.bannerImg=That.global.images[i].data[0];
+										sessionStorage.setItem('bannerImg',That.bannerImg);
+									}else if(That.global.images[i].name=="StepImg"){
+										That.stepImg=That.global.images[i].data;
+										sessionStorage.setItem('stepImg',That.stepImg);
+									}
+								}
+								for(var i=0;i<That.global.buttons.length;i++){
+									if(That.global.buttons[i].OverallButton=="Globalbutton"){
+										That.globalStyle=That.global.buttons[i].styles;
+										That.pageStyle={
+											color : That.globalStyle.background,
+											borderColor : That.globalStyle.background
+										}
+										sessionStorage.setItem('globalStyle',That.globalStyle);
+										That.$refs.numBtn.style.background=That.globalStyle.background;
+										That.$refs.numBtn.style.color=That.globalStyle.color;
+									}
+								}
+							}else{
+								alert(res.ErrorMsg)
+							}
+					},function(err){
+						console.log("全局配置接口请求失败"+err);
+					})
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'Login'},function(res){
+						res=JSON.parse(res);
+						//console.log(res)
+						if(res.status==="OK"){
+							That.switchInfos=res.switchInfos;
+							for(var i=0;i<res.images.length;i++){
+								if(res.images[i].name=="LoginPagePic"){
+									That.leftImg=res.images[i].data[0];
+								}
+							}
+							for(var i=0;i<That.switchInfos.length;i++){
+								if(That.switchInfos[i].name=="PwdLogin"){
+									That.PwdLoginShow=That.switchInfos[i].data;
+								}
+								if(That.switchInfos[i].name=="CodeLogon"){
+									That.CodeLoginShow=That.switchInfos[i].data;
+								}
+								if(That.switchInfos[i].name=="GroupRegSwitch"){
+									That.groupRegist=That.switchInfos[i].data;
+								}
+								if(That.switchInfos[i].name=="FindPwdSwitch"){
+									That.forgetPassword=That.switchInfos[i].data;
+								}
+							}
+
+							for(var i=0;i<res.promptinfo.length;i++){
+								//顶部文字
+								if(res.promptinfo[i].name=="LoginFont"){
+									That.topText=res.promptinfo[i].value;
+								}
+								//底部文字
+								if(res.promptinfo[i].name=="LoginBrowse"){
+									That.bottomText=res.promptinfo[i].value;
+								}
+								//港澳台提示文字
+								if(res.promptinfo[i].name=="LoginExplain"){
+									That.GATText=res.promptinfo[i].value;
+								}
+								//顶部banner文字
+								if(res.promptinfo[i].name=="LoginExhName"){
+									That.leftText=res.promptinfo[i].value;
+								}
+							}
+						}else{
+							alert(res.ErrorMsg)
+						}
+					},function(err){
+						console.log("局部配置接口请求失败"+err)
+					})
+				}
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+			<title></title>
+			<!--清除默认样式-->
+			<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+			<!--此页面样式-->
+			<link rel="stylesheet" type="text/css" href="../css/changePW.css"/>
+			<!--element-->
+			<link rel="stylesheet" href="../css/element.css" />
+			<link rel="stylesheet" href="../css/display.css" />
+			<!--公共样式-->
+			<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+			<!--vue.js-->
+			<script type="text/javascript" src="../js/vue.js"></script>
+			<!--element.js-->
+			<script src="../js/element.js"></script>
+			<!--ajax-->
+			<script src="../js/ajax.js"></script>
+		</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg"/>
+			</div>
+			<div class="nav">
+				<span @click="goBackTo('index')">首页</span>
+				<span @click="goBackTo('personInfo')">个人信息</span>
+				<span @click="goBackTo('personQuestion')">调查问题</span>
+				<span @click="goBackTo('groupInfo')">团组注册</span>
+				<span @click="goBackTo('helpRegister')">协助注册</span>
+				<span @click="goBackTo('changePW')" ref="active">修改密码</span>
+				<span @click="goBackTo('login')">退出</span>
+			</div>
+			<div id="pwcontent">
+				<el-row class="changePW_content_row">
+					<el-col
+						:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+						class="changePW_tit_box"
+					>
+						<span class="changePW_tit">原始秘密<span class="xing">*</span></span>
+					</el-col>
+					<el-col
+						:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+						:push="1"
+					>
+						<el-input 
+							type="text"  
+							placeholder="请输入原始密码"
+							v-model="OldPwd"
+						>
+						</el-input>
+					</el-col>
+				</el-row>
+				<el-row class="changePW_content_row">
+					<el-col
+						:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+						class="changePW_tit_box"
+					>
+						<span class="changePW_tit">设置密码<span class="xing">*</span></span>
+					</el-col>
+					<el-col
+						:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+						:push="1"
+					>
+						<el-input 
+							type="text"  
+							placeholder="请输入设置密码"
+							v-model="NewPwd"
+						>
+						</el-input>
+					</el-col>
+				</el-row>
+				<el-row class="changePW_content_row">
+					<el-col
+						:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+						class="changePW_tit_box"
+					>
+						<span class="changePW_tit">确认密码<span class="xing">*</span></span>
+					</el-col>
+					<el-col
+						:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+						:push="1"
+					>
+						<el-input 
+							type="text"  
+							placeholder="请输入确认密码"
+							v-model="confirmNewPwd"
+						>
+						</el-input>
+					</el-col>
+				</el-row>
+				<div class="info_btn" :style="globalStyle" @click="resetPassword">修 改</div>
+			</div>
+		</div>	
+		
+			<script type="text/javascript">
+		
+				var app = new Vue({
+					el: '#app',
+					mounted:function(){
+						this.token=sessionStorage.getItem('token');
+						this.bannerImg=sessionStorage.getItem('bannerImg');
+						this.global=JSON.parse(sessionStorage.getItem("global"));
+						for(var i=0;i<this.global.buttons.length;i++){
+							if(this.global.buttons[i].OverallButton=="Globalbutton"){
+								this.globalStyle=this.global.buttons[i].styles;
+							}
+						}		
+						this.$refs.active.style.color=this.globalStyle.background;
+					},	
+
+					data : {
+						token : "",
+						bannerImg : "",
+						globalStyle : {},
+						global : {},
+						OldPwd : "",
+						NewPwd : '',
+						confirmNewPwd : "",
+						rule : /^[0-9a-zA-Z\u4e00-\u9fa5\,\s]{6,18}$/
+					},
+					methods : {
+// 						returnlogin : function(){
+// 							window.location.href="./login.html";
+// 						},
+						goBackTo : function(name){
+							window.location.href='./'+name+'.html';
+						},
+						resetPassword : function(){
+							if(this.OldPwd==""){
+								alert("请输入原始密码")
+								return;
+							}else if(!this.rule.test(this.OldPwd)){
+								alert("请正确输入原始密码")
+								return;
+							}
+							if(this.NewPwd==""){
+								alert("请输入新密码")
+								return;
+							}else if(!this.rule.test(this.NewPwd)){
+								alert("请正确输入新密码")
+								return;
+							}
+							if(this.confirmNewPwd==""){
+								alert("请输入确认密码")
+								return;
+							}else if(!this.rule.test(this.confirmNewPwd)){
+								alert("请正确输入确认密码")
+								return;
+							}
+							var That=this;
+							fetch('post',"http://eztapi.exporegist.com/EztApiTest/api/Visitor/EditPwd",{
+								exhid : 564,
+								PsnID : 'IAAHa6',
+								OldPwd : That.OldPwd,
+								NewPwd : That.NewPwd,
+								Language : 	"cn"
+							},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									alert("修改密码成功");
+								}else{
+									alert(res.ErrorMsg);
+									That.OldPwd="";
+									That.NewPwd="";
+									That.confirmNewPwd="";
+								}
+							},function(error){
+								console.log("请求修改密码接口失败"+error);
+							})
+						}
+					}
+					
+				})		
+			</script>			
+	</body>
+</html>

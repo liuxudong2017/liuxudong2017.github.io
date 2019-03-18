@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/question.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg" />
+			</div>
+			<div id="step_box">
+				<img :src="stepImg[1]" />
+			</div>
+			<div id="question_box">
+				<div class="quest_box" v-for="item in quest">
+					<el-row>
+						<el-col
+							:xs="22" :sm="22" :md="22" :lg="22" :xl="22"
+							:push="2"
+							class="question_title"
+						>
+							{{item.QusNum}}、{{item.quest}}
+							<span class="xing" v-if="item.required">*</span>
+						</el-col>
+					</el-row>
+					<el-row>
+						<el-col
+							:offset="2"
+						>
+							<div v-for="itemChild in item.answerOption">
+								<!--单选-->
+								<el-col
+									v-if="item.answerType===1"
+									class="question_one_box"
+									:xs="24" :sm="24" :md="24/item.AnsColumnCount" :lg="24/item.AnsColumnCount" :xl="24/item.AnsColumnCount"
+								>
+									<el-radio
+										:label="itemChild.TssTagID"
+										v-model="answerObj[item.QusID].TssTagID"
+										@change="radioChange(item.QusID,itemChild.TssTagID,itemChild.ansLeveInputText)"
+									>
+										{{itemChild.TssTagName}}
+									</el-radio>
+									<el-input
+										placeholder="请输入内容"
+										v-if="itemChild.ansLeveInputText"
+										:disabled="answerObj[item.QusID].TssTagID!==itemChild.TssTagID"
+										v-model="answerObj[item.QusID][itemChild.TssTagID]"
+									></el-input>
+								</el-col>
+								<!--多选-->
+								<el-col
+									v-else-if="item.answerType===2"
+									class="question_one_box"
+									:xs="24" :sm="24" :md="24/item.AnsColumnCount" :lg="24/item.AnsColumnCount" :xl="24/item.AnsColumnCount"
+								>
+									<el-checkbox-group v-model="answerObj[item.QusID].group">
+										<el-checkbox
+											:label="itemChild.TssTagID"
+											@change="checkboxChange($event,item.QusID,itemChild.TssTagID)"
+										>{{itemChild.TssTagName}}</el-checkbox>
+										<el-input
+											placeholder="请输入内容"
+											v-if="itemChild.ansLeveInputText"
+											v-model="answerObj[item.QusID][itemChild.TssTagID]"
+											:disabled="answerObj[item.QusID].group.indexOf(itemChild.TssTagID)===-1"
+										></el-input>
+									</el-checkbox-group>
+								</el-col>
+							</div>
+							<!--<span>
+								<span class="question_small_title">其他</span>
+								<el-input placeholder="请输入内容"></el-input>
+							</span>-->
+						</el-col>
+					</el-row>
+				</div>
+				<div class="question_btn" @click="submitQuest" :style="globalStyle">下一步</div>
+				<div class="question_btn_white" @click="backQuFest">上一步</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript">
+
+			var app = new Vue({
+				el: '#app',
+				data : {
+					quest  : [],                  //题目数据
+					answer : "",                  //提交问题
+					answerObj : {
+
+					},
+					onoffAnswer : true,
+					global : {},
+					bannerImg : "",
+					globalStyle : {},
+					stepImg : []
+				},
+				methods:{
+					radioChange : function(e,k,isInp){
+						if(isInp){
+							this.answerObj[e][k]="";
+						}
+					},
+					checkboxChange : function(e,questNum,checkboxNum){
+						if(!e){
+							this.answerObj[questNum][checkboxNum]="";
+						}
+					},
+					submitQuest : function(){
+						this.onoffAnswer=true;
+						if(this.quest.length>0){
+							for(var i=0;i<this.quest.length;i++){
+								if(this.quest[i].required){
+									if(this.answerObj[i+1].type==1){
+										//单选
+										if(this.answerObj[i+1].TssTagID==""){
+											alert("请选择第"+(i+1)+'题');
+											this.onoffAnswer=false;
+											break;
+										}else{
+											for(var k in this.answerObj[i+1]){
+												if(k==this.answerObj[i+1].TssTagID&&this.answerObj[i+1][k]==""){
+													alert("请在第"+(i+1)+"题文本框中输入内容");
+													this.onoffAnswer=false;
+													break;
+												}
+											}
+											if(!this.onoffAnswer){
+												break
+											}
+										}
+									}else if(this.answerObj[i+1].type==2){
+										//多选
+										if(this.answerObj[i+1].group.length==0){
+											alert("请选择第"+(i+1)+'题');
+											this.onoffAnswer=false;
+											break;
+										}else{
+											for(var j=0;j<this.answerObj[i+1].group.length;j++){
+												for(var key in this.answerObj[i+1]){
+													if(this.answerObj[i+1].group[j]==key&&this.answerObj[i+1][key]==""){
+														alert("请在第"+(i+1)+"题文本框中输入内容");
+														this.onoffAnswer=false;
+														break;
+													}
+												}
+												if(!this.onoffAnswer){
+													break
+												}
+											}
+											if(!this.onoffAnswer){
+												break
+											}
+										}
+									}
+								}
+							}
+						}
+
+						if(!this.onoffAnswer){
+							return;
+						}
+						sessionStorage.setItem('answerObj',JSON.stringify(this.answerObj));
+						var ans=[];
+						for(var key in this.answerObj){
+							if(this.answerObj[key].type==1){
+								//单选
+								if(this.answerObj[key].TssTagID){
+									var str="";
+									if(this.answerObj[key][this.answerObj[key].TssTagID]){
+										str+=key+':'+this.answerObj[key].TssTagID+':'+this.answerObj[key][this.answerObj[key].TssTagID];
+									}else{
+										str+=key+':'+this.answerObj[key].TssTagID+':';
+									}
+									ans.push(str);
+								}
+							}else if(this.answerObj[key].type==2){
+								//多选
+								for(var i=0;i<this.answerObj[key].group.length;i++){
+									if(this.answerObj[key][this.answerObj[key].group[i]]){
+										ans.push(key+':'+this.answerObj[key].group[i]+':'+this.answerObj[key][this.answerObj[key].group[i]]);
+									}else{
+										ans.push(key+':'+this.answerObj[key].group[i]+':');
+									}
+								}
+							}
+						}
+						ans=ans.join(";");
+						sessionStorage.setItem('dataAnswer',ans)
+						//window.location.href="./success.html";
+					},
+					backQuFest : function(){
+						window.location.href="./info.html";
+					}
+				},
+				created : function (){
+					var That=this;
+					//获取调问接口
+					fetch('post','http://eztapi.exporegist.com/EztApi/api/Visitor/GetAnswers',{ExhID : 564},function(res,edit){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							That.quest=res.questionnaire;
+							sessionStorage.setItem('question',JSON.stringify(That.quest));
+							for(var i=0;i<res.questionnaire.length;i++){
+								if(res.questionnaire[i].answerType===1){
+									var radioGroup={TssTagID:"",type:1};
+									for(var j=0;j<res.questionnaire[i].answerOption.length;j++){
+										if(res.questionnaire[i].answerOption[j].ansLeveInputText){
+											radioGroup[res.questionnaire[i].answerOption[j].TssTagID]="";
+										}
+									}
+									That.$set(That.answerObj,res.questionnaire[i].QusID,radioGroup);
+								}else if(res.questionnaire[i].answerType===2){
+									var checkObj={};
+									for(var j=0;j<res.questionnaire[i].answerOption.length;j++){
+										if(res.questionnaire[i].answerOption[j].ansLeveInputText){
+											checkObj[res.questionnaire[i].answerOption[j].TssTagID]=""
+										}
+									}
+									checkObj.group=[];
+									checkObj.type=2;
+									That.$set(That.answerObj,res.questionnaire[i].QusID,checkObj)
+								}
+							}
+							var dataAnswer=sessionStorage.getItem('dataAnswer');
+							if(dataAnswer){
+								dataAnswerOne=dataAnswer.split(';');
+								for(var i=0;i<dataAnswerOne.length;i++){
+									var key=dataAnswerOne[i].split(":");
+									if(That.answerObj[key[0]].type=="1"){
+										if(That.answerObj[key[0]][key[1]]!=undefined){
+											That.$set(That.answerObj,key[0],{TssTagID:Number(key[1]),[key[1]]:key[2],type:1});
+										}else{
+											That.$set(That.answerObj,key[0],{TssTagID:Number(key[1]),type:1});
+										}
+									}else if(That.answerObj[key[0]].type=="2"){
+										That.answerObj[key[0]].group.push(Number(key[1]));
+										for(var k in That.answerObj[key[0]]){
+											if(k==key[1]){
+												That.answerObj[key[0]][k]=key[2];
+											}
+										}
+									}
+								}
+							}
+						}else{
+							console.log(res.ErrorMsg)
+						}
+					},function(err){
+						console.log(err)
+					})
+				},
+				updated : function(){
+
+				},
+				mounted:function(){
+					var That=this;
+					//获取全局配置
+					That.global=sessionStorage.getItem("global");
+					That.global=JSON.parse(That.global);
+					for(var i=0;i<That.global.images.length;i++){
+						if(That.global.images[i].name==="OverallBanner"){
+							That.bannerImg=That.global.images[i].data[0];
+							sessionStorage.setItem('bannerImg',That.bannerImg);
+						}else if(That.global.images[i].name=="StepImg"){
+							That.stepImg=That.global.images[i].data;
+							sessionStorage.setItem('stepImg',That.stepImg);
+						}
+					}
+					for(var i=0;i<That.global.buttons.length;i++){
+						if(That.global.buttons[i].OverallButton=="Globalbutton"){
+							That.globalStyle=That.global.buttons[i].styles;
+							sessionStorage.setItem('globalStyle',That.globalStyle);
+						}
+					}
+
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'Question'},function(res,edit){
+						res=JSON.parse(res);
+						if(edit){
+//							console.log(res)
+						}else{
+							if(res.status==="OK"){
+//								console.log(res)
+							}else{
+								alert(res.ErrorMsg)
+							}
+						}
+					},function(err){
+						console.log(err)
+					})
+				}
+			})
+
+		</script>
+	</body>
+</html>

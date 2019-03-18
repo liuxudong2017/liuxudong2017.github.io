@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/assistRegister.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<!-- ajax -->
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner"><img :src="bannerImg"/></div>
+			<div id="assistRegister_box">
+				<div class="nav">
+					<span>首页</span>
+					<span>个人信息</span>
+					<span>调查问题</span>
+					<span>团组注册</span>
+					<span>协助注册</span>
+					<span>修改密码</span>
+					<span>退出</span>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data : {
+					bannerImg : "",
+					global : {},
+					globalStyle : {}
+				},
+				methods : {
+
+				},
+				mounted : function(){
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					// for(var i=0;i<this.global.buttons.length;i++){
+					// 	if(this.global.buttons[i].OverallButton=="Globalbutton"){
+					// 		this.globalStyle=this.global.buttons[i].styles;
+					// 	}
+					// }
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'ColleaguesList'},function(res){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							console.log(res);
+						}else{
+							alert(res.ErrorMsg)
+						}
+					},function(err){
+						console.log("局部配置接口请求失败"+err)
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

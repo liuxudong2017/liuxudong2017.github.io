@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/groupInfo.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<!-- ajax -->
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner"><img :src="bannerImg"/></div>
+			<div class="nav">
+				<span @click="goBackTo('index')">首页</span>
+				<span @click="goBackTo('personInfo')">个人信息</span>
+				<span @click="goBackTo('personQuestion')">调查问题</span>
+				<span ref="active" @click="goBackTo('groupInfo')">团组注册</span>
+				<span @click="goBackTo('helpRegister')">协助注册</span>
+				<span @click="goBackTo('changePW')">修改密码</span>
+				<span @click="goBackTo('login')">退出</span>
+			</div>
+			<div id="groupInfo_box">
+				<el-row>
+					<el-col
+						:xs="24" :sm="24" :md="24" :lg="24" :xl="24"
+						:offset="1"
+						class="groupInfo_title"
+					>
+						团组成员：
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col
+						:xs="24" :sm="24" :md="24" :lg="24" :xl="24"
+						:offset="1"
+					>
+						<el-table
+					      	style="width:100%"
+							:data="tableData"
+					    >
+					    	<el-table-column
+						        label="登录名"
+								prop="PsjName"
+						    >
+					      	</el-table-column>
+					      	<el-table-column
+						        label="密码"
+								prop="PsjPwd"
+						    >
+					      	</el-table-column>
+					      	<el-table-column
+					        	label="姓名"
+								prop="PsjName"
+					        >
+					    	</el-table-column>
+					    	<el-table-column
+					        	label="职务"
+								prop="PsjRank"
+					        >
+					    	</el-table-column>
+					    	<el-table-column
+					        	label="手机"
+								prop="PsjMobile"
+					        >
+					    	</el-table-column>
+					    	<el-table-column
+					        	label="电话"
+								prop="PsjTel"
+					        >
+					    	</el-table-column>
+					    	<el-table-column
+					        	label="打印"
+								prop="PsjTel1"
+					        >
+					    	</el-table-column>
+					    </el-table>
+					</el-col>
+				</el-row>
+				<el-row>
+					<div @click="addMember">
+						<el-col
+							:xs="3" :sm="3" :md="3" :lg="3" :xl="3"
+							:offset="1"
+							class="addMemberBtn"
+							:style="globalStyle"
+						>
+							添加团组成员
+						</el-col>
+					</div>
+				</el-row>
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+
+			var app = new Vue({
+				el: '#app',
+				data : {
+					bannerImg : "",
+					global : {},
+					globalStyle : {},
+					tableData : []
+				},
+				methods : {
+					addMember : function(){
+						sessionStorage.setItem('groupInfoLength',this.tableData.length);
+						window.location.href="./addMember.html";
+					},
+					goBackTo : function(name){
+						window.location.href='./'+name+'.html';
+					}
+				},
+				mounted : function(){
+					var That=this;
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}						
+					this.$refs.active.style.color=this.globalStyle.background;
+					//获取团组成员列表
+					fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GroupMembers',{ExhID : 564,PsnID:'IAAHa6',Language:'cn'},function(res){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							That.tableData=res.Data;
+						}else{
+							alert(res.ErrorMsg)
+						}
+					},function(err){
+						console.log("获取团组成员列表接口请求失败"+err)
+					})
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'GroupList'},function(res){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							// console.log(res);
+						}else{
+							alert(res.ErrorMsg)
+						}
+					},function(err){
+						console.log("局部配置接口请求失败"+err)
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

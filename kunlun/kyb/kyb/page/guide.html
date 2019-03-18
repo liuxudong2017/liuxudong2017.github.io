@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/guide.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg"/>
+			</div>
+			<div id="guide_box">
+				<p>{{PreRegPromptText}}</p>
+				<p>请填写您的个人信息：<span class="xing">*</span>为必填项</p>
+				<el-form
+					status-icon
+					label-width="100px"
+					class="guide_form"
+				>
+					<el-form-item>
+						<span style="position: absolute;left: -70px;"><font style="color:#f00;">*</font>姓名</span>
+			    	<el-input
+			    		type="text"
+			    		autocomplete="off"
+							v-model="guideName"
+			    	>
+			    	</el-input>
+			  	</el-form-item>
+				</el-form>
+				<p><span class="xing">*</span>您的手机与电子邮件至少填写一项</p>
+				<el-form
+					status-icon
+					label-width="100px"
+					class="guide_form"
+				>
+				  	<el-form-item
+				  		label="手机号码"
+				  	>
+				    	<el-input
+				    		type="text"
+				    		autocomplete="off"
+								v-model="guideMobile"
+				    	>
+				    	</el-input>
+				  	</el-form-item>
+				  	<el-form-item
+				  		label="电子邮箱"
+				  	>
+				   		<el-input
+				    		type="text"
+				    		autocomplete="off"
+								v-model="guideEmail"
+				    	>
+				    	</el-input>
+				  	</el-form-item>
+				</el-form>
+				<div
+					class="guide_btn"
+					@click="guidesubbtn"
+					:style="globalStyle"
+				>
+					下一步
+				</div>
+				<div
+					class="guide_btn_white"
+					@click="gologin"
+					ref="goBackLogin"
+				>
+					返回登录
+				</div>
+			</div>
+		</div>
+
+
+
+		<script type="text/javascript">
+			var Banner={
+				template : ''
+			}
+
+
+			var app = new Vue({
+				el: '#app',
+				data : {
+					token :"",
+					global : {},                  //全局配置
+					globalStyle : {},             //全局样式配置
+					bannerImg : "",               //顶部banner图
+					PreRegPromptText : "",        //顶部文字
+					guideName:"",                  //姓名
+					guideMobile : "",               //电话
+					guideEmail  : ""               //邮箱
+				},
+				mounted:function(){
+					var That=this;
+					this.bannerImg=sessionStorage.getItem('bannerImg');
+					this.global=JSON.parse(sessionStorage.getItem('global'));
+					for(var i=0;i<this.global.buttons.length;i++){
+						if(this.global.buttons[i].OverallButton=="Globalbutton"){
+							this.globalStyle=this.global.buttons[i].styles;
+						}
+					}
+					//改变返回框字体颜色
+					this.$refs.goBackLogin.style.color=this.globalStyle.background;
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'PreReg'},function(res){
+						res=JSON.parse(res);
+						if(res.status==="OK"){
+							for(var i=0;i<res.promptinfo.length;i++){
+								//顶部文字
+								if(res.promptinfo[i].name=="PreRegPromptText"){
+									That.PreRegPromptText=res.promptinfo[i].value;
+								}
+							}
+						}else{
+							alert(res.ErrorMsg)
+						}
+					})
+				},
+				methods : {
+					//信息提交
+					guidesubbtn : function(){
+						var That=this;
+						var guideName= /^([\u4E00-\u9FA5\uF900-\uFA2D]|[a-z9 A-Z\.\s]){2,30}$/;
+						var guideMobile= /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$/;
+						var guideEmail= /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+						if(this.guideName===""){
+							alert("请输入您的姓名");
+							return;
+						}else if(this.guideName.length<2 || this.guideName.length>30){
+							alert("请输入2-30位姓名");	
+							return false;
+						}else if(!guideName.test(this.guideName)){
+							alert("请正确输入您的姓名");
+							return;
+						}
+						if(this.guideMobile==""&&this.guideEmail==""){
+							alert("手机和邮箱至少输入一项");
+							return;
+						}
+						if(this.guideMobile!=""&&!guideMobile.test(this.guideMobile)){
+							alert("请正确填写手机号码");
+							return;
+						}
+						if(this.guideEmail!=""&&!guideEmail.test(this.guideEmail)){
+							alert("请正确填写电子邮箱");
+							return;
+						}
+						if(this.guideMobile!=""&&this.guideEmail!=""){
+							//手机号查重
+							fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/PsnMobileRepeat',{exhid:564,PsnMobile:That.guideMobile},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									//邮箱查重
+									fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/EmailRepeat',{ExhID : 564,PsnEmail:That.guideEmail},function(res){
+										res=JSON.parse(res);
+										if(res.status=="OK"){
+											sessionStorage.setItem('guideName',That.guideName);
+											sessionStorage.setItem('guideMobile',That.guideMobile);
+											sessionStorage.setItem('guideEmail',That.guideEmail);
+											window.location.href="./info.html";
+										}else{
+											alert(res.ErrorMsg);
+											window.location.href="./login.html";
+										}
+									},function(err){
+										alert(res.ErrorMsg);
+									})
+								}else{
+									alert(res.ErrorMsg);
+									window.location.href="./login.html";
+								}
+							},function(err){
+								console.log(err)
+							})
+						}else if(this.guideMobile!=""){
+							//手机号查重
+							fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/PsnMobileRepeat',{exhid:564,PsnMobile:That.guideMobile},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									sessionStorage.setItem('guideName',That.guideName);
+									sessionStorage.setItem('guideMobile',That.guideMobile);
+									sessionStorage.setItem('guideEmail',That.guideEmail);
+									window.location.href="./info.html";
+								}else{
+									alert(res.ErrorMsg);
+									window.location.href="./login.html";
+								}
+							},function(err){
+								console.log(err)
+							})
+						}else if(this.guideEmail!=""){
+							//邮箱查重
+							fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/EmailRepeat',{ExhID : 564,PsnEmail:That.guideEmail},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									sessionStorage.setItem('guideName',That.guideName);
+									sessionStorage.setItem('guideMobile',That.guideMobile);
+									sessionStorage.setItem('guideEmail',That.guideEmail);
+									window.location.href="./info.html";
+								}else{
+									alert(res.ErrorMsg);
+									window.location.href="./login.html";
+								}
+							},function(err){
+								alert(res.ErrorMsg);
+							})
+						}
+					},
+					gologin:function(){
+						window.location.href="./login.html";
+					},
+				}
+			})
+
+		</script>
+	</body>
+</html>

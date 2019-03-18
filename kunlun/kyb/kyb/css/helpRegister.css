@@ -1,0 +1,23 @@
+#groupInfo_box{
+	margin: 0 auto;
+}
+
+.groupInfo_title{
+	font-size: 18px;
+	font-weight: bold;
+	color: #909399;
+	margin-bottom: 10px;
+}
+.el-table__header-wrapper table{
+	width: 100% !important;
+}
+.addMemberBtn{
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	background: red;
+	border-radius: 10px;
+	cursor: pointer;
+	color: white;
+	margin-top: 20px;
+}

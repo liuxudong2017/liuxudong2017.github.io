@@ -1,0 +1,49 @@
+#addMember_box{
+	margin: 0 auto;
+}
+.addGroupInfoTop{
+	margin-bottom: 30px;
+	color: #606266;
+}
+.addOne{
+	cursor: pointer;
+}
+.addGroupInfo{
+	padding-top: 20px;
+	padding-bottom: 5px;
+	border-top: 1px solid rgb(220,223,230);
+	border-bottom: 1px solid rgb(220,223,230);
+}
+.groupInfo_content_row{
+	margin-bottom: 22px;
+}
+.groupInfo_content_title{
+	color: #606266;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+.group_title{
+	font-size: 14px;
+	color: #606266;
+	line-height: 40px;
+	margin-left: 20px;
+}
+.sex_box{
+	line-height: 40px;
+}
+.saveInfoBtn{
+	width: 30% !important;
+	height: 58px;
+	margin: 20px auto;
+	line-height: 58px;
+	text-align: center;
+	cursor: pointer;
+}
+.addMember_btn_white{
+	height: 58px;
+	line-height: 58px;
+	text-align: center;
+	color: #0d386e;
+	font-weight: bold;
+	cursor: pointer;
+}

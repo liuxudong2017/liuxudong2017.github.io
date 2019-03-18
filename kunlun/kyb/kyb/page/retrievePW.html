@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+			<title></title>
+			<!--清除默认样式-->
+			<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+			<!--此页面样式-->
+			<link rel="stylesheet" type="text/css" href="../css/retrievePW.css"/>
+			<!--element-->
+			<link rel="stylesheet" href="../css/element.css" />
+			<link rel="stylesheet" href="../css/display.css" />
+			<!--公共样式-->
+			<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+			<!--vue.js-->
+			<script type="text/javascript" src="../js/vue.js"></script>
+			<!--element.js-->
+			<script src="../js/element.js"></script>
+			<!--ajax-->
+			<script src="../js/ajax.js"></script>
+		</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg"/>
+			</div>
+			<div id="pwcontent">
+				<el-row class="retrievePW_content_row">
+					<el-col
+						:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+						class="retrievePW_tit_box"
+					>
+						<span class="retrievePW_tit">姓名<span class="xing">*</span></span>
+					</el-col>
+					<el-col
+						:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+						:push="1"
+					>
+						<el-input 
+							type="text"  
+							placeholder="请输入姓名"
+							v-model="PsnName"
+						>
+						</el-input>
+					</el-col>
+				</el-row>
+				<el-row class="retrievePW_content_row">
+					<el-col
+						:xs="6" :sm="6" :md="6" :lg="3" :xl="2"
+						class="retrievePW_tit_box"
+					>
+						<span class="retrievePW_tit">邮箱<span class="xing">*</span></span>
+					</el-col>
+					<el-col
+						:xs="18" :sm="18" :md="18" :lg="20" :xl="21"
+						:push="1"
+					>
+						<el-input 
+							type="text"  
+							placeholder="请输入邮箱"
+							v-model="PsnEmail"
+						>
+						</el-input>
+					</el-col>
+				</el-row>
+				<div class="info_btn" :style="globalStyle" @click="setEmail">发送到注册邮箱</div>
+				<div class="question_btn_white" @click="returnlogin">返回</div>
+			</div>
+		</div>	
+		
+			<script type="text/javascript">
+		
+				var app = new Vue({
+					el: '#app',
+					mounted:function(){
+						this.token=sessionStorage.getItem('token');
+						this.bannerImg=sessionStorage.getItem('bannerImg');
+						this.global=JSON.parse(sessionStorage.getItem("global"));
+						console.log(this.global)
+						for(var i=0;i<this.global.buttons.length;i++){
+							if(this.global.buttons[i].OverallButton=="Globalbutton"){
+								this.globalStyle=this.global.buttons[i].styles;
+							}
+						}		
+					},	
+
+					data : {
+						token : "",
+						bannerImg : "",
+						globalStyle : {},
+						global : {},
+						PsnEmail : "",
+						PsnName : "",
+						
+					},
+					methods : {
+						returnlogin : function(){
+							window.location.href="./login.html";
+						},
+					setEmail:function(){
+							var PsnName = /^([\u4E00-\u9FA5\uF900-\uFA2D]|[a-z9 A-Z\.\s]){2,30}$/;
+							var PsnEmail  = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+							if(this.PsnName==""){
+								alert("请输入您的姓名")
+								return;
+							}else if(!PsnName.test(this.PsnName)){
+								alert("请正确输入您的姓名")
+								return;
+							}
+							if(this.PsnEmail==""){
+								alert("请输入您的邮箱")
+								return;
+							}else if(!PsnEmail.test(this.PsnEmail)){
+								alert("请正确输入您的邮箱")
+								return;
+							}
+							var That=this;
+							fetch('post',"http://eztapi.exporegist.com/EztApiTest/api/Visitor/FindPwd",{
+								exhid : 564,
+								PsnEmail : That.PsnEmail,
+							},function(res){
+								res=JSON.parse(res);
+								if(res.status=="OK"){
+									alert("找回密码成功");
+								}else{
+									alert(res.ErrorMsg);
+									That.PsnEmail="";
+								}
+							},function(error){
+								console.log("请求找回密码接口失败"+error);
+							})
+						}	
+					}
+					
+				})		
+			</script>			
+	</body>
+</html>

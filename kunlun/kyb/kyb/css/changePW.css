@@ -1,0 +1,86 @@
+#pwcontent{
+	width: 40%;
+    margin: 5% auto;
+}
+.changePW_content_row{
+	margin-bottom: 22px;
+}
+.changePW_tit_box{
+	text-align: right;
+}
+.changePW_tit{
+	font-changesize: 14px;
+	color: #606266;
+	line-height: 40px;
+	text-align: right;
+}
+.question_btn_white{
+	width: 30%;
+	height: 58px;
+	margin: 0 auto 40px;
+	line-height: 58px;
+	text-align: center;
+	color: #0d386e;
+	cursor: pointer;
+}
+
+/*响应式媒询*/
+@media  screen and (max-width:768px) {
+	/*小于768时候*/
+	.info_btn{
+		width: 80% !important;
+		height: 58px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		margin-left: 15%;
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+@media  screen and (min-width: 768px) and (max-width:992px){
+	/*大于768小于992*/
+	.info_btn{
+		width: 80% !important;
+		height: 58px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		margin-left: 15%;
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+@media  screen and (min-width: 992px) and (max-width:1200px){
+	/*大于992小于1200*/
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+@media  screen and (min-width: 1200px) and (max-width:1920px){
+	/*大于1200小于1920*/
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+@media  screen and (min-width: 1920px){
+	/*大于1920*/
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
