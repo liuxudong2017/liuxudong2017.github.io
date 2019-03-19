@@ -1,0 +1,108 @@
+/* pages/self.wxss */
+@import '../../utils/public.wxss';
+.module{
+  width:95%;
+  margin:0 auto 20rpx;
+  box-sizing:border-box;
+  border-radius:15rpx;
+  padding:36rpx;
+  background:#fff;
+
+}
+page{
+  background: #e3d4b5;
+}
+.wx-module-1{
+  font-size: 25rpx;
+  margin-top: 17rpx;
+
+}
+.wx-module-1 .wx-user-name{
+  font-size: 36rpx;
+  font-weight: 600
+}
+.wx-module-1 .wx-user-img{
+  width:89rpx;
+  height:89rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+.wx-module-1 .wx-set-img{
+  width:40rpx;
+  height:40rpx;
+  vertical-align: middle;
+  margin-right: 15rpx;
+}
+.wx-module-1 .wx-set-img text{
+  font-size:27rpx;
+}
+.wx-module-1 .wx-right{
+  line-height: 85rpx;
+}
+.wx-module-2{
+  text-align: center;
+  overflow: hidden;
+  font-size: 38rpx;
+  color:#595757;
+  font-weight: 600;
+  margin-top:58rpx;
+}
+.wx-module-2 .wx-sub-title{
+  font-size:28rpx;
+  font-weight: 500;
+  color:#969797;
+  margin-top:35rpx;
+}
+.wx-module-2 .wx-share-btn{
+  width:80%;
+  margin:27rpx auto 74rpx;
+  color:#1972b4;
+  font-size:36rpx;
+  background: #bbb19d;
+  border-radius: 30rpx;
+}
+.wx-module-3{
+  width:95%;
+  margin:0 auto;
+  border-radius: 30rpx;
+  background: #ffffff;
+
+}
+.wx-module-3 .wx-title{
+  font-size: 28rpx;
+  color:#595757;
+  height:80rpx;
+  line-height: 80rpx;
+  padding: 0 45rpx;
+  border-bottom:1rpx solid #808080;
+}
+.wx-module-3 .wx-title text{
+  font-size: 30rpx;
+  color:#0080c2;
+}
+.wx-module-3 .wx-user-img{
+  width:106rpx;
+  height: 106rpx;
+  border: 1rpx solid #b8b6b6;
+  vertical-align:middle;
+  margin:0 15rpx;
+
+}
+.wx-module-3 .wx-user-name{
+  font-size:33rpx;
+  color:#231815;
+  font-weight: 600;
+}
+.wx-module-3 .wx-share-item{
+  padding:23rpx 45rpx 42rpx;
+  font-size:28rpx;
+  color:#808080;
+}
+.wx-module-3 .wx-num{
+  font-size:39rpx;
+  color:#231815;
+  
+}
+.wx-module-3 .wx-time{
+  margin-top:30rpx;
+}

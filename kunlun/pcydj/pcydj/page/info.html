@@ -49,10 +49,9 @@
 							>
 								<el-option
 									v-for="item in countryArr"
-							        :label="item.value"
-							        :value="item.zptCityCode"
-							        :pre="item.zptCityCode"
-							        :data-aa="item.zptCityCode"
+							        :label="item.label"
+							        :value="item.value"
+									v-model="item.zptCityCode" 
 								></el-option>
 							</el-select>
 						</el-col>
@@ -71,7 +70,6 @@
 									v-for="item in provinceArr"
 									:label="item.label"
 									:value="item.value"
-
 								></el-option>
 							</el-select>
 						</el-col>
@@ -81,14 +79,16 @@
 					  		:push="1"
 					  		v-else-if="item.name==='PsnCity'"
 						>
-							<el-select 
+							<el-select chan
 								:placeholder="item.placeholder"
 								v-model="item.value" 
+								@change="cityChange(item.value)"
 							>
 								<el-option
 									v-for="item in cityArr"
 							        :label="item.label"
 							        :value="item.value"
+									v-model="item.zptCityCode" 
 								></el-option>
 							</el-select>
 						</el-col>
@@ -165,7 +165,6 @@
 					  		:push="1"
 					  		v-else
 						>
-							
 							<el-input 
 					    		type="text" 
 					    		:placeholder="item.placeholder"
@@ -188,7 +187,7 @@
 				mounted:function(){
 					var That=this;
 					//获取全局可配置项
-					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetGlobal',{ExhID : 564,RegistType:'pc'},function(res){
+					fetch('post','http://tapi.eastfair.com/EfTempletApi3/api/Template/GetGlobal',{ExhID : 564,RegistType:'pc'},function(res){
 						res=JSON.parse(res);
 						
 							That.global=res;
@@ -236,7 +235,7 @@
 					}),
 					
 					//获取局部可配置项接口
-					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'AddInfo'},function(res){
+					fetch('post','http://tapi.eastfair.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'AddInfo'},function(res){
 						res=JSON.parse(res);
 						
 							if(res.status==="OK"){
@@ -248,11 +247,9 @@
 						console.log(err)
 					})
 					//获取input配置项
-					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/template/getinput',{ExhID : 564,RegistType:'pc'},function(res){
+					fetch('post','http://tapi.eastfair.com/EfTempletApi3/api/template/getinput',{ExhID : 564,RegistType:'pc'},function(res){
 						res=JSON.parse(res);
 						That.infoView=res.data;
-
-						console.log(res.data,"输入项")
 							if(res.status==="OK"){
 								for(var i=0;i<res.data.length;i++){
 									if(res.data[i].name==="PsnMobile"){
@@ -296,7 +293,7 @@
 						console.log(err)
 					})
 					//获取token
-					fetch('post','http://eztapi.exporegist.com/EztApi/api/visitor/GetEFWapToken',null,function(res){
+					fetch('post','http://tapi.eastfair.com/EztApi/api/visitor/GetEFWapToken',null,function(res){
 						res=JSON.parse(res);
 						
 							That.token=res.WapToken;
@@ -313,8 +310,7 @@
 						console.log(err)
 					})
 					//获取国家
-					fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetCountry',{ExhID : 564},function(res){
-						console.log(res);
+					fetch('post','http://tapi.eastfair.com/EztApiTest/api/Visitor/GetCountry',{ExhID : 564},function(res){
 						res=JSON.parse(res);
 // 							res.Data=res.Data.map(function(ele){
 // 								ele.label=ele.zptCity;
@@ -328,7 +324,6 @@
 								res.Data=res.Data.map(function(ele){
 									ele.label=ele.zptCity;
 									ele.value=ele.zptCity;
-									//ele.Code=ele.zptCityCode;
 									return ele
 								})
 								res.Data.unshift({zptCity:"中国大陆",zptCityCode:"86",value:"中国大陆",label:"中国大陆"});
@@ -354,6 +349,7 @@
 				    tradeArr : [],
 					psnEmai :"",
 					PsnIDCard :"",
+					zptCityCode : " ",
 				    rule : {
 				    	PsnName : /^([\u4E00-\u9FA5\uF900-\uFA2D]|[a-z9 A-Z\.\s]){2,30}$/,          
 				    	PsnComName : /^[\u4E00-\u9FA5A-Za-z0-9-_.,()（）'\s]{4,50}$/,
@@ -377,10 +373,6 @@
 					repeatRegBtn : false
 				},
 				methods : {
-					preFun:function(val){
-						console.log(val,"pre-=区号-=-=-");
-
-					},
 					//提交信息接口
 					submitInfo : function(){
 						this.onoffSubmit=true;
@@ -416,6 +408,8 @@
 									if(this.infoView[i].value.trim()===""){
 										//输入为空
 										alert("请输入您的"+this.infoView[i].title);
+										var elInput = document.getElementById(this.infoView[i].name);
+										elInput.focus()
 										this.onoffSubmit=false;
 										break;
 									}
@@ -424,6 +418,8 @@
 									if(this.infoView[i].value.trim()===""){
 										//输入为空
 										alert("请输入您的"+this.infoView[i].title);
+										var elInput = document.getElementById(this.infoView[i].name);
+										elInput.focus()
 										this.onoffSubmit=false;
 										break;
 									}else{
@@ -438,6 +434,8 @@
 										}
 										if(!this.rule[this.infoView[i].name].test(this.infoView[i].value)){
 											alert("请正确输入您的"+this.infoView[i].title);
+											var elInput = document.getElementById(this.infoView[i].name);
+											elInput.focus()
 											this.onoffSubmit=false;
 											break;
 										}
@@ -637,7 +635,7 @@
 									}
 								}
 								//开启邮箱查重
-								fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/EmailRepeat',{ExhID : 564,PsnEmail:that.psnEmail},function(res){
+								fetch('post','http://tapi.eastfair.com/EztApi/api/Visitor/EmailRepeat',{ExhID : 564,PsnEmail:that.psnEmail},function(res){
 									res=JSON.parse(res);
 									if(res.status=="OK"){
 										//拿身份证号的值
@@ -647,7 +645,7 @@
 											}
 										}
 										//开启身份证号查重
-										fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/IDCardRepeat',{ExhID : 564,PsnIDCard:that.PsnIDCard},function(res){
+										fetch('post','http://tapi.eastfair.com/EztApi/api/Visitor/IDCardRepeat',{ExhID : 564,PsnIDCard:that.PsnIDCard},function(res){
 											resIDCard=JSON.parse(res);
 											if(resIDCard.status=="OK"){
 												var info={};
@@ -659,7 +657,7 @@
 												info.ExhID=564;
 												info.IfSubmit=false;
 												//开启保存信息接口
-												fetch('post','http://eztapi.exporegist.com/EztApi/api/Visitor/SaveVisitor',info,function(res){
+												fetch('post','http://tapi.eastfair.com/EztApi/api/Visitor/SaveVisitor',info,function(res){
 													resSave=JSON.parse(res);
 													if(resSave.status=="OK"){
 														sessionStorage.setItem('dataInfo',JSON.stringify(info));
@@ -706,18 +704,13 @@
 					},
 					//获取国家
 					countryChange : function(val){
-						console.log('-=-=-=--=-=-=');
-						console.log(val);
-						console.log(val.zptCityCode)
-						// console.log(event);
-						console.log('-=-=-=--=-=-=');
 						var That=this;
 						this.countryVal=val;
-						if(val=="中国大陆"){
+						if(val=="86"){
 							//获取省份
-							fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetProvince',{ExhID : 564},function(res){
+							fetch('post','http://tapi.eastfair.com/EztApiTest/api/Visitor/GetProvince',{ExhID : 564},function(res){
 								res=JSON.parse(res);
-									console.log(res);
+								console.log(res,"shengfen");
 									res.Data=res.Data.map(function(ele){
 										ele.label=ele.zptCity;
 										ele.value=ele.zptCity;
@@ -757,9 +750,9 @@
 								this.infoView[i].value="";
 							}
 						}
-						fetch('post','http://eztapi.exporegist.com/EztApiTest/api/Visitor/GetCity',{ExhID : 564,zptProvince:val},function(res){
+						fetch('post','http://tapi.eastfair.com/EztApiTest/api/Visitor/GetCity',{ExhID : 564,zptProvince:val},function(res){
 							res=JSON.parse(res);
-							
+								console.log(res.Data,"城市11")
 								res.Data=res.Data.map(function(ele){
 									ele.label=ele.zptCity;
 									ele.value=ele.zptCity;
@@ -782,6 +775,10 @@
 							console.log(err)
 						})
 					},
+					cityChange : function(val){
+						var zptCityCode=val
+						console.log(zptCityCode,"选中的城市");
+					},
 					//获取短信验证码
 					getCode : function(){
 						let That=this;
@@ -800,6 +797,8 @@
 						}
 						if(getCodeData.mobile==""){
 							alert("请输入手机号");
+// 							var elInput = document.getElementById(this.infoView[i].name);
+// 							elInput.focus()
 							return;
 						}
 						if(!this.rule.PsnMobile.test(getCodeData.mobile)){
@@ -807,10 +806,10 @@
 							return;
 						}
 						//手机号查重
-						fetch('post','https://eztapi.exporegist.com/EztApi/api/Visitor/PsnMobileRepeat',{exhid:564,PsnMobile:getCodeData.mobile},function(res){
+						fetch('post','http://tapi.eastfair.com/EztApi/api/Visitor/PsnMobileRepeat',{exhid:564,PsnMobile:getCodeData.mobile},function(res){
 							res=JSON.parse(res);
 							if(res.status=="OK"){
-								fetch('post','http://api.exporegist.com/common/api/sms/GetVerificationCode',getCodeData,function(res){
+								fetch('post','http://capi.eastfair.com/common/api/sms/GetVerificationCode',getCodeData,function(res){
 									res=JSON.parse(res);
 									if(res.status=="OK"){
 										That.repeatRegBtn=true;

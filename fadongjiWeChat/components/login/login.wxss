@@ -1,0 +1,90 @@
+@import '../../utils/public.wxss';
+/* 注册 start */
+.register-wrap,.register-ok-wrap{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0, 0, 0,0.5);
+}
+.register-wrap .register-group,.register-ok-wrap .register-ok-group{
+  width:90%;
+  margin:148rpx auto;
+  background: #fff;
+  border-radius: 15rpx;
+  box-sizing: border-box;
+  padding:15rpx 15rpx 88rpx;
+  
+}
+.register-wrap label{
+  width:90%;
+  height: 85rpx;
+  line-height: 85rpx;
+  margin:60rpx auto;
+  box-sizing: border-box;
+  padding-left: 45rpx;
+  background: #e6e6e6;
+  border-radius:70rpx;
+  color:#8c8c8c;
+  font-size: 35rpx;
+  overflow: hidden;
+}
+.register-wrap input{
+ height:70rpx;
+font-size:35rpx;
+padding-top:15rpx;
+width:65%;
+
+}
+.register-wrap .code{
+  width:43%;
+}
+.register-wrap .btn{
+  width:332rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  margin:0 auto 15rpx;
+  background: #0068b7;
+  font-size: 35rpx;
+  color:#fff;
+  border-radius:45rpx;
+}
+.register-wrap .p{
+  text-align: center;
+  font-size:26rpx;
+  color:#8c8c8c;
+}
+.register-wrap .send-code{
+  line-height: 2;
+  /* border-radius: 45rpx; */
+  background: #e6e6e6;
+  /* border:#8c8c8c solid 1rpx; */
+  border:0;
+  width:165rpx;
+  padding:10rpx;
+ 
+}
+.register-wrap .cancel-box,.register-ok-wrap .cancel-box{
+  text-align: right;
+}
+.register-wrap .cancel,.register-ok-wrap .cancel{
+  width:60rpx;
+  height:47rpx;
+}
+.register-ok-wrap{
+  text-align: center;
+}
+.register-ok-wrap .ok-img{
+  width:347rpx;
+  height:227rpx;
+  margin:156rpx auto 86rpx;
+}
+.register-ok-wrap .p{
+  display: block;
+  font-size:59rpx;
+  color:#fa86be;
+  padding-bottom: 150rpx;
+
+}
+/* 注册 end */

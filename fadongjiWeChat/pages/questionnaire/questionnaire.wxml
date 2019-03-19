@@ -1,0 +1,18 @@
+<view class="wx-banner flex-around">
+  <image src='/img/qi.png'></image>
+  <text>调查问卷</text>
+</view>
+<view class='wx-group'>
+  <view class='wx-check-item' wx:for="12345" wx:key="{{index}}">
+    <view class='h1'>
+      1.对应雷沃发动机满意度
+    </view>
+    <view class='flex-around'>
+    <text>非常满意</text>
+    <text>满意</text>
+    <text>满意</text>
+    </view>
+  </view>
+</view>
+
+

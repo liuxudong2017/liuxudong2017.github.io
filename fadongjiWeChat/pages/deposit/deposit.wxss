@@ -1,0 +1,45 @@
+/* pages/deposit/deposit.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #e7e7e7;
+}
+.wx-module{
+  width:95%;
+  margin:20rpx auto;
+  background: #fff;
+  color:#231815;
+  font-size:28rpx;
+  box-sizing: border-box;
+  padding:54rpx 70rpx;
+  border-radius:10rpx;
+}
+.wx-title{
+  font-size:34rpx;
+}
+.wx-title-2{
+  margin:98rpx 0 46rpx;
+}
+.wx-btn{
+  
+  width:80%;
+  height:84rpx;
+  line-height: 84rpx;
+  text-align: center;
+  margin:30rpx auto;
+  background: #0068b7;
+  font-size:35rpx;
+  color:#fff;
+  border-radius: 20rpx;
+}
+.wx-rnb-box{
+  border-bottom: 1rpx solid #808080;
+  padding:15rpx 0;
+}
+.wx-rnb-box input{
+  display: inline-block;
+  width:80%;
+  vertical-align: middle;
+  border-left:2rpx solid #808080;
+  margin-left: 15rpx;
+  padding:8rpx;
+}

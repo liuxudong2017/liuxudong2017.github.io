@@ -1,0 +1,27 @@
+.no-click{
+  pointer-events: none;
+}
+.flex-start{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content:flex-start;
+  justify-content: flex-start;
+}
+.flex{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content:space-between;
+  justify-content: space-between;
+}
+.flex-around{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+.bg-gradient{
+  background: -webkit-linear-gradient(180deg, red, blue); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(180deg, red, blue); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(180deg, red, blue); /* Firefox 3.6 - 15 */
+  background: linear-gradient(180deg, red, blue); /* 标准的语法 */
+}

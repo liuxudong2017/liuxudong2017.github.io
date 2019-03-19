@@ -1,0 +1,43 @@
+/* pages/answerType/answerType.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #e7e7e7;
+}
+.wx-answer-wrap{
+  width:95%;
+  height: 217rpx;
+  line-height: 217rpx;
+  font-size: 42rpx;
+  color:#fff;
+  background: #30e3ca;
+  border-radius: 20rpx;
+  margin:20rpx auto 84rpx;
+}
+.wx-answer-wrap .wx-engine-img{
+  width:175rpx;
+  height:183rpx;
+  margin-top: 15rpx;
+}
+.wx-answer-type{
+  width:88%;
+  height: 192rpx;
+  line-height: 192rpx;
+  font-size:42rpx;
+  color:#fff;
+  border-radius: 20rpx;
+  margin:0 auto 41rpx;
+}
+.wx-answer-type .wx-answer-type-img{
+  width:96rpx;
+  height: 142rpx;
+  margin-top:25rpx;
+}
+.bgcolor-1{
+  background: #ffce45;
+}
+ .bgcolor-2{
+  background: #fa86be;
+}
+ .bgcolor-3{
+  background: #a275e3;
+}

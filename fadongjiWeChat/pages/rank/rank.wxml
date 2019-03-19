@@ -1,0 +1,34 @@
+<!--pages/rank/rank.wxml-->
+<view class='wx-title'>
+  好友排行榜
+</view>
+<view class='wx-rank-item flex' wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="{{key}}">
+  <view class='wx-r flex-around'>
+    <image wx:if="{{index<=2}}" class='wx-rank-num' src='/img/num-{{index+1}}.png'></image>
+    <view class='wx-p-border' wx:if="{{index>2}}">{{index+1}}</view>
+    <image class='wx-user-img' src="/img/xin.png"></image>
+    <view class='wx-text-box'>
+      <view class='wx-user-name'>王小二</view>
+      <view class='wx-answer-num'>最高答题数99</view>
+    </view>
+  </view>
+  <view class='wx-rnb'>
+    ￥99
+  </view>
+</view>
+<view class='wx-footer'>
+  <view class='wx-footer-box flex'>
+    <view class='flex-start'>
+      <image class='wx-rnb-img' src='/img/rnb.png'></image>
+      <view class='wx-p'>
+        <view>分享微信群</view>
+        <view>下次答题即可2倍暴击奖励*2</view>
+      </view>
+    </view>
+    <button class='wx-share-btn' open-type='share'>
+    <image src='/img/wx.png'></image>
+    分享
+  </button>
+  </view>
+  
+</view>

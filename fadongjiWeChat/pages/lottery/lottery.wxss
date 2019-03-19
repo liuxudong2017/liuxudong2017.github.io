@@ -1,0 +1,169 @@
+/* pages/lottery/lottery.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #e3d4b5;
+}
+.wx-title{
+  width:90%;
+  height: 44rpx;
+  line-height: 100%;
+  margin:30rpx auto;
+  border-radius: 40rpx;
+  background: #fff;
+  padding:30rpx 0;
+  font-size: 27rpx;
+  color:#000;
+}
+.wx-title .wx-title-item{
+  width:100%;
+  text-align: center;
+  line-height: 44rpx;
+  box-sizing: border-box;
+
+}
+.wx-title .wx-title-item text{
+  font-weight: 700;
+}
+.wx-title .wx-border-right{
+  border-right: 1rpx solid #595757;
+}
+.wx-title .wx-rnb{
+  font-size:14rpx;
+  color:#fa86be;
+  width:80%;
+  text-align: right;
+  margin-top:-10rpx;
+}
+/*  */
+.wx-lottery-moudle{
+  width:90%;
+  margin:20rpx auto;
+  text-align: right;
+}
+.wx-lottery-moudle .wx-img-box{
+  width:560rpx;
+  height:560rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle
+}
+.wx-lottery-moudle .wx-lottery-img-1{
+  width:560rpx;
+  height: 560rpx;
+  vertical-align: middle;
+  transition: all 3s ease-out;
+  
+}
+.wx-lottery-moudle .wx-lottery-img-2{
+  width:72rpx;
+  height:65rpx;
+}
+.wx-info{
+  width:80%;
+  margin:50rpx auto;
+  font-size: 34rpx;
+  color: #231815;
+}
+.wx-info .wx-lottery-num{
+  font-size:38rpx;
+  color:#fa86be;
+
+}
+.wx-btn-box{
+  width:80%;
+  margin:0 auto;
+  font-size:34rpx;
+  text-align: center;
+}
+.wx-btn-box image{
+  width:40rpx;
+  height:40rpx;
+  vertical-align: middle;
+}
+.wx-btn-box .wx-btn{
+  width:47%;
+  border-radius:50rpx;
+  background: #fa86be;
+  color:#fff;
+  border:0;
+}
+.wx-get-lotery-box{
+  width:95%;
+  margin:40rpx auto;
+  background: #fff;
+  border-radius: 30rpx;
+}
+.wx-get-lotery-box .wx-user-img{
+  width:60rpx;
+  height:60rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+.wx-ul{
+  margin:30rpx auto;
+}
+.wx-get-lotery-box .wx-time{
+  font-size:19rpx;
+  height:#727171;
+}
+.wx-get-lotery-box .wx-item-r{
+  font-size: 30rpx;
+  color:#231819;
+
+}
+.wx-get-lotery-box .wx-item-r text{
+  color:#ffa100;
+}
+.wx-get-lotery-box .p{
+  display: block;
+  font-size:21rpx;
+  color:#3e3a39;
+  font-weight: 600;
+}
+.wx-get-lotery-box .p2{
+  color:#727171;
+  font-weight: 500;
+}
+.wx-get-lottery{
+  font-size: 30rpx;
+  color:#231815;
+}
+.wx-get-lottery text{
+  font-size: #ffa100;
+}
+.wx-alert-wrap{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 998;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,.5);
+}
+.wx-alert-wrap .wx-alert-box{
+  width:90%;
+  margin:120rpx auto 0;
+  font-size:28rpx;
+  color:#969797;
+  text-align: center;
+  background: #fff;
+  border-radius: 15rpx;
+  overflow: hidden;
+  padding-bottom: 118rpx;
+
+}
+.wx-alert-wrap .wx-alert-title{
+  font-size:45rpx;
+  color:#231815;
+  margin-top:114rpx;
+}
+.wx-alert-wrap .wx-alert-p{
+  font-size:51rpx;
+  color:#1e76c1;
+  margin: 15rpx;
+}
+.wx-alert-wrap image{
+  width:342rpx;
+  height:342rpx;
+}

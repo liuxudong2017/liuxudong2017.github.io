@@ -1,0 +1,159 @@
+/**index.wxss**/
+@import '../../utils/public.wxss';
+page{
+  background: #e6e6e6;
+}
+/* 授权 Start */
+.authorize-wrap{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  text-align: center;
+  z-index: 99;
+  overflow: hidden;
+  background: #e6e6e6;
+}
+.authorize-wrap .logo-img{
+  width: 154rpx;
+  height: 154rpx;
+  margin: 150rpx auto 99rpx;
+}
+.authorize-wrap .p{
+  display: block;
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color:#595757;
+  font-weight: 600;
+}
+.authorize-wrap .small{
+  font-size:20rpx;
+}
+.authorize-wrap .btn{
+  width:60%;
+color:#fff;
+background:#0068b7;
+margin:131rpx auto;
+}
+/* 授权 end */
+.module{
+  width:95%;
+  margin:0 auto 20rpx;
+  box-sizing: border-box;
+  border-radius: 15rpx;
+  padding: 36rpx;
+  background: #fff;
+}
+/* 个人信息 :start */
+.wx-container{
+  background: #e6e6e6;
+}
+.wx-self-mess-module{
+  background: #fff;
+  font-size:25rpx;
+  color:#000;
+}
+.wx-self-mess-module .wx-user-img{
+  width:89rpx;
+  height:89rpx;
+  border-radius: 50%;
+  margin-right: 25rpx;
+}
+.wx-self-mess-module .wx-user-name{
+  font-size:36rpx;
+}
+.wx-self-mess-module .wx-xin-img{
+  width:96rpx;
+  height:96rpx;
+  vertical-align: middle;
+}
+.wx-self-mess-module .wx-self-box{
+  font-size: 40rpx;
+}
+.wx-self-mess-module .wx-self-up{
+  border-bottom:1rpx solid #808080;
+  padding-bottom:30rpx;
+  margin-bottom:20rpx;
+
+}
+.wx-self-mess-module .wx-self-bottom{
+  font-size:53rpx;
+  color:#000;
+  text-align: center;
+}
+.wx-self-mess-module .wx-self-bottom .wx-title{
+  font-size:27rpx;
+}
+/* 个人信息 :end */
+.wx-notice-module{
+  font-size:25rpx;
+  color:#000;
+  background: #fff;
+}
+.wx-notice-module .wx-notice-img{
+  width:74rpx;
+  height:55rpx;
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
+
+.wx-item-module{
+  font-size:21rpx;
+  color:#fff;
+}
+.wx-list-group .wx-item{
+  margin-top:10rpx;
+}
+.wx-item-module .wx-item-icon{
+  width:138rpx;
+  height:151rpx;
+  margin:0 76rpx 0 90rpx;
+}
+.wx-item-module .wx-title{
+  font-size:36rpx;
+  margin:20rpx auto 10rpx;
+}
+.wx-answer{
+  background: #30e3ca;
+}
+.wx-lucky-draw{
+  background: #fa86be;
+}
+.wx-questionnaire{
+  background: #a275e3;
+}
+/* 获奖名单 s */
+.wx-list-module{
+  font-size:31rpx;
+  color:#000;
+  background: #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: 0;
+}
+.wx-list-module .wx-medal-img{
+  width:55rpx;
+  height:63rpx;
+  vertical-align: bottom;
+  margin-right: 15rpx;
+}
+.wx-list-module .wx-list-group{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.wx-list-box{
+  border:1rpx solid #e8e8e8;
+  background: #f6f6f6;
+  font-size:21rpx;
+  color:#0080c2;
+  width:95%;
+  margin:0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding:15rpx;
+}
+.wx-list-box .span{
+  color:#231818;
+}

@@ -1,0 +1,92 @@
+<!--index.wxml-->
+<view>
+<!-- 授权 头像用户名sss -->
+<view class='authorize-wrap' wx:if="{{!hasUserInfo && canIUse}}">
+<image src='/img/logo.png' class='logo-img'></image>
+<text class='p'>点击下方授权,将有超级红包等你哦！</text>
+<text class='p small'>（答题提示：授权只使用您的微信昵称和头像，不会另作他用哦）</text>
+<button class='btn' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+  点击授权
+</button>
+</view>
+<!-- 授权 eeee -->
+<!-- 绑定手机 star -->
+<login wx:if="{{showLogin}}" bindcallback="cancelLogin"></login>
+<!-- 首页 star-->
+  <view class='wx-container'>
+    <view class='wx-self-mess-module module'>
+      <view class='flex wx-self-up'>
+        <view class='flex'>
+          <image class='wx-user-img' src='{{userInfo.avatarUrl}}'></image>
+          <view>
+            <view class='wx-user-name'>{{userInfo.nickName}}</view>
+            <view>近日最高答题数 {{dataObj.max_answer_count}}</view>
+          </view>
+        </view> 
+        <view class='wx-self-box' bindtap='goSelf'>
+          <image class="wx-xin-img" src='/img/xin.png'></image>
+          	>
+        </view>
+      </view>
+      <view class='flex-around wx-self-bottom'>
+        <view bindtap='goBonus'><view class='wx-title'>帐户余额</view><view>￥{{dataObj.vouchar/100}}</view></view>
+        <view bindtap='goRank'>
+          <view class='wx-title'>排行榜</view><view>100+</view>
+        </view>
+      </view>
+    </view>
+    <!-- 公告 s-->
+    <view class='module wx-notice-module flex-start'>
+      <image class='wx-notice-img' src='/img/laba.png'></image>
+      <view>雷沃发动机答题产品升级中，敬请期待。</view>
+    </view>
+    <!-- 公告 e -->
+    <view class='module wx-item-module wx-answer flex-start' bindtap='goAnswer'>
+      <image class='wx-item-icon' src='/img/jiangbei.png'></image>
+      <view>
+        <view class='wx-title'>开始答题</view>
+        <view>无限模式！海量现金等你拿</view>
+      </view>
+    </view>
+    <view class='module wx-item-module wx-lucky-draw flex-start' bindtap='goLottery'>
+      <image class='wx-item-icon' src='/img/xing.png'></image>
+      <view>
+        <view class='wx-title'>幸运抽奖</view>
+        <view>100%中奖</view>
+      </view>
+    </view>
+    <view class='module wx-item-module wx-questionnaire flex-start' bindtap='goQuestionnaire'>
+      <image class='wx-item-icon' src='/img/qi.png'></image>
+      <view>
+        <view class='wx-title'>调查问卷</view>
+        <!-- <view>无限模式！海量现金等你拿</view> -->
+      </view>
+    </view>
+    <!-- 获奖名单 -->
+    <view class='module wx-list-module'>
+      <image class='wx-medal-img' src='/img/jiangpai.png'></image>
+      <text>实时获奖名单</text>
+    </view>
+    <view class='module wx-list-group'>
+      <view class='wx-list-box '>
+        <swiper autoplay='true' circular='true' vertical='true' duration="5000">
+          <block wx:for="{{[1,2,3,4,5]}}" wx:key="{{index}}">
+            <swiper-item>
+              <view class='wx-item' wx:for="0123456789" wx:key="{{index}}">
+                <text class='wx-user-name'>李二狗</text>
+                <text class='span'>在10秒前答题赢了</text>
+                <text>￥0.21</text>
+              </view>
+            </swiper-item>
+           </block>
+        </swiper>
+        <!-- <view class='wx-item'>
+          <text class='wx-user-name'>李二狗</text>
+          <text class='span'>在10秒前答题赢了</text>
+          <text>￥0.21</text>
+        </view> -->
+      </view>
+    </view>
+  </view>
+ <!-- 首页 end -->
+</view>

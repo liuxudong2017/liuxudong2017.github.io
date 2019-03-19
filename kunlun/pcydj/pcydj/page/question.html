@@ -63,6 +63,7 @@
 										v-if="itemChild.ansLeveInputText"
 										:disabled="answerObj[item.QusID].TssTagID!==itemChild.TssTagID"
 										v-model="answerObj[item.QusID][itemChild.TssTagID]"
+										:id="'TssTagID'+itemChild.TssTagID"
 									></el-input>
 								</el-col>
 								<!--多选-->
@@ -81,14 +82,11 @@
 											v-if="itemChild.ansLeveInputText"
 											v-model="answerObj[item.QusID][itemChild.TssTagID]"
 											:disabled="answerObj[item.QusID].group.indexOf(itemChild.TssTagID)===-1"
+											:id="'QusID'+itemChild.TssTagID"
 										></el-input>
 									</el-checkbox-group>
 								</el-col>
 							</div>
-							<!--<span>
-								<span class="question_small_title">其他</span>
-								<el-input placeholder="请输入内容"></el-input>
-							</span>-->
 						</el-col>
 					</el-row>
 				</div>
@@ -127,6 +125,7 @@
 						}
 					},
 					submitQuest : function(){
+						var regex = /\s+/g;
 						this.onoffAnswer=true;
 						if(this.quest.length>0){
 							for(var i=0;i<this.quest.length;i++){
@@ -139,8 +138,10 @@
 											break;
 										}else{
 											for(var k in this.answerObj[i+1]){
-												if(k==this.answerObj[i+1].TssTagID&&this.answerObj[i+1][k]==""){
+												if(k==this.answerObj[i+1].TssTagID&&this.answerObj[i+1][k].replace(regex, "")==""){
 													alert("请在第"+(i+1)+"题文本框中输入内容");
+													var elInput = document.getElementById('TssTagID'+this.answerObj[i+1].TssTagID);
+													elInput.focus()
 													this.onoffAnswer=false;
 													break;
 												}
@@ -158,8 +159,11 @@
 										}else{
 											for(var j=0;j<this.answerObj[i+1].group.length;j++){
 												for(var key in this.answerObj[i+1]){
-													if(this.answerObj[i+1].group[j]==key&&this.answerObj[i+1][key]==""){
+													if(this.answerObj[i+1].group[j]==key&&this.answerObj[i+1][key].replace(regex, "")==""){
+														//console.log(this.answerObj[i+1].group[j],"其他")
 														alert("请在第"+(i+1)+"题文本框中输入内容");
+														var elInput = document.getElementById('QusID'+this.answerObj[i+1].group[j]);
+														elInput.focus()
 														this.onoffAnswer=false;
 														break;
 													}
@@ -217,7 +221,7 @@
 							questEnd : true,
 							Ans      : ans
 						};
-						fetch('post',"http://eztapi.exporegist.com/EztApi/api/visitor/SaveAns",questInfo,function(res,edit){
+						fetch('post',"http://tapi.eastfair.com/EztApi/api/visitor/SaveAns",questInfo,function(res,edit){
 							res=JSON.parse(res);
 							if(edit){
 								if(res.status=="OK"){
@@ -247,8 +251,9 @@
 				created : function (){
 					var That=this;
 					//获取调问接口
-					fetch('post','http://eztapi.exporegist.com/EztApi/api/Visitor/GetAnswers',{ExhID : 564},function(res,edit){
+					fetch('post','http://tapi.eastfair.com/EztApi/api/Visitor/GetAnswers',{ExhID : 564},function(res,edit){
 						res=JSON.parse(res);
+						console.log(res)
 						if(edit){
 							That.quest=res.questionnaire;
 							for(var i=0;i<res.questionnaire.length;i++){
@@ -348,7 +353,7 @@
 					}
 
 					//获取局部可配置项接口
-					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'Question'},function(res,edit){
+					fetch('post','http://tapi.eastfair.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'Question'},function(res,edit){
 						res=JSON.parse(res);
 						if(edit){
 //							console.log(res)

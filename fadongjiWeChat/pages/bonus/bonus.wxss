@@ -1,0 +1,98 @@
+/* pages/bonus/bonus.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #7ef9fe;
+}
+.wx-modlue-1 {
+  width:95%;
+  height:268rpx;
+  background: #fff;
+  border-radius: 15rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color:#231815;
+  margin:20rpx auto;
+  overflow: hidden;
+  padding-top:50rpx;
+
+}
+.wx-modlue-1 .wx-item-1{
+  border-bottom: 1rpx solid #808080;
+  width:95%;
+  margin:0 auto;
+}
+.wx-modlue-1 .wx-line{
+  width:2rpx;
+  height:80rpx;
+  background: #808080;
+}
+.wx-modlue-1 image{
+  width:43rpx;
+  height:35rpx;
+  vertical-align: middle;
+}
+.wx-modlue-1 .wx-get-rnb{
+  width:202rpx;
+  height:55rpx;
+  line-height: 55rpx;
+  background: #0168b5;
+  color:#fff;
+  border-radius: 30rpx;
+  float: right;
+  margin:15rpx 2.5% 0 auto;
+}
+.wx-modlue-1 .p1{
+  font-size:53rpx;
+  color:#000;
+}
+
+.wx-modlue-2{
+  box-sizing: border-box;
+  height:89rpx;
+  line-height: 89rpx;
+  background: #79c9cc;
+  padding:0rpx 60rpx;
+  font-size:28rpx;
+  color:#231815;
+}
+.wx-modlue-3{
+  padding-left: 70rpx;
+  font-size:27rpx;
+  color:#0068b7;
+}
+.wx-modlue-3 .color{
+  color:#ff2f1d;
+}
+.wx-modlue-3 .ul{
+  position: relative;
+  width:8rpx;
+  height: 100rpx;
+  background: #fff;
+}
+.wx-modlue-3 .ul .li{
+  position: absolute;
+  top:75rpx;
+  left:-16rpx;
+  width:30rpx;
+  height:30rpx;
+  border:6rpx solid #c4fcff;
+  border-radius: 50%;
+  background: #fff;
+}
+.wx-modlue-3 .ul .li image{
+  position: absolute;
+  left:100rpx;
+  width:35rpx;
+  height:40rpx;
+  
+}
+.wx-modlue-3 .wx-info{
+  position: absolute;
+  left:150rpx;
+  min-width: 370rpx;
+}
+.wx-modlue-3 .ul .li .wx-num{
+  position: absolute;
+  width:80rpx;
+  left:50rpx;
+}

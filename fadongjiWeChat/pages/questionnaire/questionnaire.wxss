@@ -1,0 +1,46 @@
+/* pages/questionnaire/questionnaire.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #82f7ff;
+}
+.wx-banner{
+  width:90%;
+  height: 210rpx;
+  line-height: 210rpx;
+  margin:15rpx auto;
+  box-sizing: border-box;
+  padding:15rpx;
+  border-radius: 30rpx;
+  background: #a275e3;
+  font-size:36rpx;
+  color:#fff;
+
+}
+.wx-banner image{
+  width:126rpx;
+  height: 144rpx;
+  margin-top:25rpx;
+}
+.wx-group{
+width:90%;
+  margin :15rpx auto;
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.wx-check-item{
+  width:80%;
+  margin:40rpx auto;
+}
+.wx-check-item .h1{
+  font-size:37rpx;
+  color:#231815;
+  margin:30rpx auto;
+}
+.wx-check-item text{
+  font-size:26rpx;
+  color:#3e3a30;
+  border:2rpx solid #c0c0c1;
+  padding:15rpx 30rpx;
+  border-radius: 30rpx;
+}

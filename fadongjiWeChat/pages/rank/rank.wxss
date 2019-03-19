@@ -1,0 +1,100 @@
+/* pages/rank/rank.wxss */
+@import '../../utils/public.wxss';
+page{
+  background: #7cfcff;
+  padding-bottom: 130rpx;
+}
+.wx-title{
+  width:90%;
+  height:77rpx;
+  margin:27rpx auto 38rpx;
+  border-radius: 50rpx;
+  background: #0096b5;
+  text-align: center;
+  line-height: 77rpx;
+  font-size:38rpx;
+  color:#7efaff;
+}
+.wx-rank-item{
+  width:95%;
+  height: 150rpx;
+  box-sizing: border-box;
+  margin:0 auto 16rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  padding:25rpx 30rpx 0;
+}
+.wx-rank-item .wx-r .wx-rank-num{
+  width:57rpx;
+  height: 77rpx;
+  margin-top:15rpx;
+}
+.wx-rank-item .wx-text-box{
+  padding-top:15rpx;
+}
+.wx-rank-item .wx-r .wx-user-img{
+  width:100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin:0 20rpx;
+}
+.wx-rank-item .wx-r .wx-user-name{
+  font-size:26rpx;
+  color:#231815;
+}
+.wx-rank-item .wx-r .wx-answer-num{
+  font-size:23rpx;
+  color:#0068b7;
+}
+.wx-rank-item .wx-rnb{
+  font-size:63rpx;
+  color:#0068b7;
+}
+.wx-p-border{
+  width:50rpx;
+  height:50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  border-radius: 50%;
+  background:#c9caca;
+  color:#0068b7;
+  margin-top:20rpx;
+}
+.wx-footer{
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width:100%;
+  height:120rpx;
+  background: #0196b6;
+  box-sizing: border-box;
+  font-size:29rpx;
+  color:#fff;
+}
+.wx-footer .wx-rnb-img{
+  width:79rpx;
+  height:93rpx;
+}
+.wx-footer-box{
+  width:95%;
+  margin:18rpx auto 0;
+}
+.wx-p{
+  margin:10rpx;
+}
+.wx-footer .wx-share-btn{
+  font-size:32rpx;
+  color:#0096b5;
+  background: #7efaff;
+  width:202rpx;
+  height:55rpx;
+  line-height: 55rpx;
+  border-radius: 50rpx;
+  margin-top: 20rpx;
+}
+.wx-footer .wx-share-btn image{
+  width:47rpx;
+  height:37rpx;
+  vertical-align: middle;
+}

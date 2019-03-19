@@ -1,0 +1,19 @@
+<!--pages/answerType/answerType.wxml-->
+<view class='wx-answer-wrap flex-around'>
+  <text>选择题型</text>
+  <image class="wx-engine-img" src='/img/engine.png'></image>
+</view>
+<navigator url='../answer/answer?type=0' class='wx-answer-type bgcolor-1 flex-around'>
+  <image src='/img/num-3.png' class='wx-answer-type-img'></image>
+  <text>入门级</text>
+</navigator>
+<!--  -->
+<navigator url='../answer/answer?type=1' class='wx-answer-type bgcolor-2 flex-around'>
+  <image src='/img/num-2.png' class='wx-answer-type-img'></image>
+  <text>进阶级</text>
+</navigator>
+<!--  -->
+<navigator url='../answer/answer?type=2' class='wx-answer-type bgcolor-3 flex-around'>
+  <image src='/img/num-1.png' class='wx-answer-type-img'></image>
+  <text>大师级</text>
+</navigator>

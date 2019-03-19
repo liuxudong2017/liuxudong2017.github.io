@@ -1,0 +1,64 @@
+<!--pages/answer/answer.wxml-->
+<view class='wx-module-1'>
+  <view class='wx-answer-num-wrap'>
+    <view class='wx-ul'>
+      <view class='wx-li' wx:for="{{answerArr}}" wx:key="{{index}}" style='{{"left:"+item*46+"rpx"}}'>
+        <image class='wx-img' src='/img/award.png' wx:if="{{index!=0}}"></image>
+        <text>{{item}}</text>
+      </view>
+    </view>
+    <!--  -->
+    <view class='wx-box' style='{{"width:"+(currentAnswerNum+1)*46+"rpx"}}'>
+      <view class='wx-ul bgcolor'>
+        <view class='wx-li' wx:for="{{answerArr}}" wx:key="{{index}}" style='{{"left:"+item*46+"rpx"}}'></view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 2 -->
+<view class='wx-module-2'>
+  <!-- 倒计时 s -->
+  <view class='wx-count-wrap'>
+    {{countTime}}
+    <view class='wx-left-box'><view class='{{start?"wx-box-l animation-left":"wx-box-l"}}'></view></view>
+    <view class='wx-right-box'><view class='{{start?"wx-box-r animation-right":"wx-box-r"}}'></view></view>
+  </view>
+  <!-- 标题  -->
+  <!-- 无图 start -->
+    <view class='wx-title'>
+    {{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].question}}
+      <image wx:if="{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].question_url}}" class='wx-title-img' src='{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].question_url}}'></image>
+    </view>
+  <view wx:if="{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type!='4'||questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type!='5'}}">
+    <view class='{{isNoClick?"no-click wx-radio-group wx-group":"wx-radio-group wx-group"}}'> 
+      <view class='wx-item'>
+        <view class='wx-item-li {{item.question_id==0?"wx-true":item.question_id==1?"wx-flase":""}}' bindtap='choose' wx:for="{{chooseArr}}" wx:key="{{index}}" data-type='{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type}}' data-choose='{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].real_answer}}' data-index='{{index}}' data-item='{{item}}' data-choosenum="{{item.create_time}}" data-time="{{item.create_time}}"> {{item.content}} 
+          <view class='wx-true-icon'></view> 
+          <view class='wx-flase-icon'><text class='wx-icon'></text><text class='wx-iocn wx-icon-2'></text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 无图 end -->
+  <!-- 有图 s -->
+<view wx:if="{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type=='4'||questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type=='5'}}" class='wx-choose-img-wrap'>
+  <image wx:for="chooseArr" src="{{item.option_url}}" bindtap='choose' data-type='{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].option_type}}' data-choose='{{questionArr[(currentAnswerNum-1)-(pageIndex-1)*answerArr.length].real_answer}}' data-index='{{index}}' data-item='{{item}}'></image>
+
+</view>
+  <!-- 有图 e -->
+  <view class='wx-answer-num'>第{{currentAnswerNum}}题</view>
+  <view class='wx-alert-module' wx:if="{{isShowAlert}}">
+    <view class='wx-alert-group'>
+      <view class='wx-alert-title' wx:if="{{isFail}}">{{alertTitle}}</view>
+       <view class='wx-alert-title' wx:if="{{!isFail}}">恭喜您已连续答对{{currentAnswerNum}}题</view>
+       <image class='wx-alert-img' src='/img/alert-img.png'></image>
+        <view class='p' wx:if="{{isFail}}">本次败在了第{{currentAnswerNum}}题</view>
+        <view class='p' wx:if="{{isFail}}">你今日已领取0.0现金</view>
+        <view class="p" wx:if="{{!isFail}}">恭喜获得50积分</view>
+        <view class='p1'>每成功邀请一名新人，下次答题现金翻倍</view>
+        <button class='btn btn-share' open-type='share'>邀请好友下次答题获得2倍奖励</button>
+        <button class='btn' wx:if="{{isFail}}" bindtap='reloadAnswer'>重新开始</button>
+        <button class='btn' wx:if="{{!isFail}}" bindtap='keepAnswer'>继续答题</button>
+    </view>
+  </view>
+</view>

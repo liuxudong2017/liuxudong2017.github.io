@@ -1,0 +1,38 @@
+<!--components/login.wxml-->
+<view class='login-wrap'>
+<view class='register-wrap' wx:if="{{!isRegisterOk}}">
+<view class="register-group">
+<view class='cancel-box' bindtap='cancel'>
+  <image class='cancel' src='/img/cancel.png'></image>
+ </view>
+  <label class='flex-start' for="userName">
+   <text>姓名：</text> 
+    <input type='text' id="nuserName" name='userName' bindinput='changeName'></input>
+  </label>
+   <label class='flex-start' for="iphone">
+   <text>手机号：</text> 
+    <input type='number' id="iphone" name="iphone" maxlength="11" bindinput='changeIphone'></input>
+  </label>
+   <label class='flex-start' for="code">
+   <text>验证码：</text> 
+    <input type='text' class='code' id="code" name='code' bindinput='changeCode'></input>
+    <button bindtap='random' class='send-code bg-gradient' disabled='{{isSendCode}}'>{{sCode}}</button>
+  </label>
+  <button class='btn' bindtap='submitMess'>确认</button>
+  <view class='p'>
+  注册成功可获得100积分
+</view>
+  <view class='p'>(100积分为1元，10元起可提现)</view>
+</view>
+
+</view>
+<view class='register-ok-wrap' wx:if="{{isRegisterOk}}">
+  <view class='register-ok-group'>
+    <view class='cancel-box' bindtap='cancel'>
+      <image class='cancel' src='/img/cancel.png'></image>
+    </view>
+    <image class='ok-img' src='/img/ok.png'></image>
+    <text class='p'>注册成功</text>
+  </view>
+</view>
+</view>

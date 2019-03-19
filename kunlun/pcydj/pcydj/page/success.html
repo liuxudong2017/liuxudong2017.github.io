@@ -90,7 +90,7 @@
 						}
 					})
 					//获取局部可配置项接口
-					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'successpage'},function(res,edit){
+					fetch('post','http://tapi.eastfair.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'successpage'},function(res,edit){
 						res=JSON.parse(res);
 						if(edit){
 							if(res.status==="OK"){
@@ -123,7 +123,7 @@
 						PsjID : sessionStorage.getItem('PsjID')
 					};
 					//获取人员信息
-					fetch('post',"http://eztapi.exporegist.com/EztApi/api/visitor/GetVisitorInfo",successInfo,function(res,edit){
+					fetch('post',"http://tapi.eastfair.com/EztApi/api/visitor/GetVisitorInfo",successInfo,function(res,edit){
 						res=JSON.parse(res);
 						if(edit){
 							if(res.status=="OK"){

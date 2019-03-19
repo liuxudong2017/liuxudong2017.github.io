@@ -1,0 +1,38 @@
+/* pages/rule/rule.wxss */
+page{
+  background: #0168b5;
+}
+.wx-rule-wrap{
+  width: 95%;
+  margin:15rpx auto;
+  border-radius: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+  padding:40rpx;
+  font-size: 31rpx;
+  color:#727171;
+
+}
+.wx-title{
+  font-size:46rpx;
+  font-weight: 600;
+  text-align: center;
+  color:#3e3a39;
+  margin-bottom: 40rpx;
+}
+.wx-rule-wrap .p{
+  display: block;
+  margin-bottom: 10rpx;
+}
+.wx-btn{
+  display: block;
+  width:50%;
+  height:70rpx;
+  line-height: 70rpx;
+  font-size: 36rpx;
+  color:#fff;
+  margin:30rpx auto 0;
+  background: #0068b7;
+  text-align: center;
+  border-radius: 35rpx;
+}

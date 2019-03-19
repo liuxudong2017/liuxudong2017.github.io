@@ -1,0 +1,10 @@
+<!--pages/deposit/deposit.wxml-->
+<view class='wx-module'>
+  <view class='wx-title'>转到微信零钱</view>
+  <view class='wx-title-2'>提现金额</view>
+  <view class='wx-rnb-box'>
+    ￥<input focus="true" type='number' value='{{rnb}}' placeholder='请输入要提现的金额' bindblur='watherRnb'></input>
+  </view>
+  <view>可体现金额￥{{allRnb}}</view>
+  <button class='wx-btn' bindtap='goDeposit'>提现</button>
+</view>
