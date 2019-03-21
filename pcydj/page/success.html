@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<!--清除默认样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<!--此页面样式-->
+		<link rel="stylesheet" type="text/css" href="../css/success.css"/>
+		<!--element-->
+		<link rel="stylesheet" href="../css/display.css" />
+		<link rel="stylesheet" href="../css/element.css">
+		<!--公共样式-->
+		<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+		<!--vue.js-->
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<!--element.js-->
+		<script src="../js/element.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div id="banner">
+				<img :src="bannerImg" />
+			</div>
+			<div id="step_box">
+				<img :src="stepImg[2]" />
+			</div>
+			<div id="success_box">
+				<div class="success_font">
+					<div v-html="successHtml"></div>
+				</div>
+				<div class="success_table">
+					<div class="table_border">
+						<span class="txt_left txt_padding">姓名</span>
+						<span class="txt_right txt_padding">{{information.PsnName}}</span>
+					</div>
+					<div class="table_border">
+						<span class="txt_left txt_padding">公司</span>
+						<span class="txt_right txt_padding">{{information.PsnComName}}</span>
+					</div>
+					<div class="table_border">
+						<span class="txt_left txt_padding">卡号</span>
+						<span class="txt_right txt_padding">{{information.PsnCardNo}}</span>
+					</div>
+					<div class="table_border table_border_ewm">
+						<span class="txt_left txt_ewm">二维码</span>
+						<div class="txt_right table_ewm_box"><img :src="information.PsnQRCode"/></div>
+					</div>
+				</div>
+				<div class="success_btn" :style="globalStyle">下载确认函</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			history.pushState(null,null,window.location.href)
+			window.addEventListener('popstate',function(){
+				history.pushState(null,null,window.location.href)
+			},false)
+			var app = new Vue({
+				el: '#app',
+				data : { 
+					global : {},
+					bannerImg : "",
+					globalStyle : {},
+					stepImg : [],
+					successHtml: "",
+					information : {}
+				},
+				methods:{
+					
+				},
+				mounted:function(){
+					var That=this;
+					//获取全局配置
+					That.global=JSON.parse(sessionStorage.getItem('global'));
+					That.global.images.forEach(function(ele){
+						if(ele.name==="OverallBanner"){
+							That.bannerImg=ele.data[0];
+						}else if(ele.name=="StepImg"){
+							That.stepImg=ele.data;
+						}
+					})
+					That.global.buttons.forEach(function(ele){
+						if(ele.OverallButton=="Globalbutton"){
+							That.globalStyle=ele.styles;
+						}
+					})
+					//获取局部可配置项接口
+					fetch('post','http://eztapi.exporegist.com/EfTempletApi3/api/Template/GetPage',{ExhID : 564,RegistType:'pc',page:'successpage'},function(res,edit){
+						res=JSON.parse(res);
+						if(edit){
+							if(res.status==="OK"){
+								res.promptinfo.forEach(function(ele){
+									if(ele.name=="PageTips"){
+										That.successHtml=ele.value;
+									}
+								})
+							}else{
+								console.log(res.ErrorMsg)
+							}
+						}else{
+							if(res.status==="OK"){
+								res.promptinfo.forEach(function(ele){
+									if(ele.name=="PageTips"){
+										That.successHtml=ele.value;
+									}
+								})
+							}else{
+								console.log(res.ErrorMsg)
+							}
+						}
+					},function(err){
+						console.log(err)
+					})
+					var successInfo={
+						OpenID : "",
+						ExhID : 564,
+						PayModel : "",
+						PsjID : sessionStorage.getItem('PsjID')
+					};
+					//获取人员信息
+					fetch('post',"http://eztapi.exporegist.com/EztApi/api/visitor/GetVisitorInfo",successInfo,function(res,edit){
+						res=JSON.parse(res);
+						if(edit){
+							if(res.status=="OK"){
+								That.information=res;
+							}else{
+								alert(res.ErrorMsg);
+							}
+						}else{
+							if(res.status=="OK"){
+								That.information=res;
+							}else{
+								alert(res.ErrorMsg);
+							}
+						}
+					},function(err){
+						console.log(err);
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

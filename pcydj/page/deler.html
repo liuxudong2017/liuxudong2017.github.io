@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">{{text}}{{obj.key.el}}<input type="button" @click="cl"/></div>
+		
+		<script type="text/javascript">
+			new Vue({
+				el : "#app",
+				data : {
+					text : '123',
+					obj : {
+						key : {
+							el : 'key1'
+						}
+					}
+				},
+				methods: {
+					cl :function(){
+						
+						this.obj={
+							key : {
+								el : 'key2'
+							}
+						};
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

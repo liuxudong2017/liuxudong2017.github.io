@@ -1,0 +1,126 @@
+.info_content_row{
+	margin-bottom: 22px;
+}
+.info_tit_box{
+	text-align: right;
+}
+.info_tit{
+	font-size: 14px;
+	color: #606266;
+	line-height: 40px;
+	text-align: right;
+}
+.sex_box{
+	line-height: 40px;
+}
+.info_tips{
+	margin-left: 100px;
+	margin-bottom: 22px;
+	color: red;
+}
+.el-select{
+	width:100%;
+}
+.info_code_btn{
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+
+
+/*响应式媒询*/
+@media  screen and (max-width:768px) {
+	/*小于768时候*/
+	.info_content{
+		width: 100%;
+	}
+	.info_btn{
+		width: 80% !important;
+		height: 58px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		margin-left: 15%;
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.box_margin{
+		margin-bottom: 22px;
+	}
+	.info_tit{
+		font-size: 12px;
+	}
+}
+@media  screen and (min-width: 768px) and (max-width:992px){
+	/*大于768小于992*/
+	.info_content{
+		width: 100%;
+	}
+	.info_btn{
+		width: 80% !important;
+		height: 58px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		margin-left: 15%;
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.box_margin{
+		margin-bottom: 22px;
+	}
+	.info_tit{
+		font-size: 12px;
+	}
+}
+@media  screen and (min-width: 992px) and (max-width:1200px){
+	/*大于992小于1200*/
+	.info_content{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.box_margin{
+		margin-bottom: 22px;
+	}
+}
+@media  screen and (min-width: 1200px) and (max-width:1920px){
+	/*大于1200小于1920*/
+	.info_content{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+@media  screen and (min-width: 1920px){
+	/*大于1920*/
+	.info_content{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.info_btn{
+		width: 30% !important;
+		height: 58px;
+		margin: 10px auto 26px; 
+		line-height: 58px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
