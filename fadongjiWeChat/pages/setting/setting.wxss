@@ -16,3 +16,16 @@ page{
 .wx-gl{
   font-size:60rpx;
 }
+.box{
+  text-align: center
+}
+.box image{
+  display: block;
+  width:80%;
+  margin:15rpx auto;
+}
+.box text{
+  text-align:center;
+display:block;
+
+}

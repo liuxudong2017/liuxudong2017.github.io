@@ -1,9 +1,13 @@
 <!--pages/setting/setting.wxml-->
 <view class='wx-item flex'>
   <view>音效开关</view>
-  <switch checked="{{!isCloseVideo}}" bindchange="switchChange" color="#0080c2"/>
+  <switch checked="{{isOpenVideo}}" bindchange="switchChange" color="#0080c2"/>
 </view>
 <navigator url='../rule/rule' class='wx-item flex'>
   <view>答题规则</view>
   <view class='wx-gl'>></view>
 </navigator>
+<div class="box">
+<image src='{{obj.img_url}}'></image>
+<text>{{obj.content}}</text>
+</div>

@@ -2,18 +2,16 @@
   "pages": [
     "pages/index/index",
     "pages/deposit/deposit",
+    "pages/answer/answer",
     "pages/bonus/bonus",
     "pages/rank/rank",
     "pages/questionnaire/questionnaire",
     "pages/lottery/lottery",
-   
-    "pages/answer/answer",
     "pages/setting/setting",
     "pages/logs/logs",
     "pages/self/self",
     "pages/rule/rule",
     "pages/answerType/answerType"
-   
   ],
   "permission": {
     "scope.userLocation": {
@@ -25,5 +23,6 @@
     "navigationBarBackgroundColor": "#e6e6e6",
     "navigationBarTitleText": "发动机答题",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -88,11 +88,11 @@ page{
 }
 .wx-modlue-3 .wx-info{
   position: absolute;
-  left:150rpx;
+  left:340rpx;
   min-width: 370rpx;
 }
 .wx-modlue-3 .ul .li .wx-num{
   position: absolute;
-  width:80rpx;
+  width:400rpx;
   left:50rpx;
 }

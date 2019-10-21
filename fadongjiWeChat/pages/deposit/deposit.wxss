@@ -17,7 +17,7 @@ page{
   font-size:34rpx;
 }
 .wx-title-2{
-  margin:98rpx 0 46rpx;
+  margin:46rpx 0 46rpx;
 }
 .wx-btn{
   
@@ -42,4 +42,35 @@ page{
   border-left:2rpx solid #808080;
   margin-left: 15rpx;
   padding:8rpx;
+}
+.item{
+  height:88rpx;
+  line-height: 88rpx;
+  background: #e6e6e6;
+  padding:0 30rpx;
+  font-size: 40rpx;
+  color:#8c8c8c;
+  border-radius: 50rpx;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+}
+.item .input{
+  height:84rpx;
+  overflow: hidden;
+  width:70%;
+  margin-left: 15rpx;
+}
+.tip{
+  color:#8c8c8c;
+  font-size:23rpx;
+  display:block;
+  text-align:center;
+  margin-bottom:30rpx;
+}
+.deposit-btn{
+  padding:0 30rpx;
+  color:#0068b7;
+}
+.rnb-row{
+  margin:30rpx 0
 }

@@ -5,10 +5,19 @@ let http ="http://bank.maoyestudio.com";
 const api={
   registerInterface:https+"/smallProgram/register"	//注册 POST
   , getUserInfoInterface: https +'/smallProgram/getUserInfo'//获取用户信息
+  , getMessListInterface: https +"/smallProgram/getMessageList"//获取消息列表
   , getQuestionListInterface: https+"/smallProgram/getQuestionList"//获取问题列表
   , getOptionListInterface: https+"/smallProgram/getOptionList"//获取选择列表
-
-
+  , getSurveyListInterface: https+"/smallProgram/getSurveyList"//获取问卷
+  , getJoinLuckdrawInterface: https+"/smallProgram/joinLuckdraw"//抽奖接口
+  , getLuckdrawCountInterface:https+"/smallProgram/getLuckdrawCount"//获取抽奖的人
+  , saveSurveyInterface: https+"/smallProgram/saveSurvey"//提交问卷
+  , getRankInterface: https +"/smallProgram/getVoucharOrderList"//获得排行榜
+  , getOperLogInterface: https+"/smallProgram/getOperLog"//动态日志
+  , getFriendListInterface: https +"/smallProgram/getFriendList"//好友列表
+  , submitAnswerInterface: https +"/smallProgram/answerAddVouchar"//提交答案
+  , answerLuckyInterface: https +"/smallProgram/joinLuckdraw"//答题抽奖
+  , depostRnbInterface: https +"/smallProgram/drawCash"//提现接口
 }
 function toasts(str,icon){
   icon ? '' : icon = "none";
@@ -89,7 +98,7 @@ function ajax(url,param,method){
           r(res);
         }else{
           toasts(res.data.responseMsg);
-          console.log(res);
+          console.log(res,"失败");
         }
        
       },
@@ -112,10 +121,10 @@ function getUserInfo(fid){//获取用户信息
   fid?'':fid="";
   let promise;
  
-  // console.log(info,'-=-=-=iniffffff')
-  if (wx.getStorageSync("openid")){
+  if (wx.getStorageSync("info")){
     let info = wx.getStorageSync("info");
-    info = JSON.parse(info);
+    // info = JSON.parse(info);
+    console.log(info,"获取用户信息.....");
     let param = getParam({}, {
        "openid": wx.getStorageSync("openid")
       ,
@@ -168,7 +177,21 @@ function wxLogin(){
   return promise;
 }
 function sharePath(){
-  return {path:"/pages/index/index?share_id="+wx.getStorageSync("openid")}
+  return {
+    title:"发动机答题"
+    ,path:"/pages/index/index?share_id="+wx.getStorageSync("openid")
+    , imageUrl:"../../img/share-img.png"
+    }
+}
+function startMusic(){
+  let bg = getBgAudio();
+  bg.src ="https://program.wop100.cn/music/music-128.mp3";
+  bg.title="答题小程序";
+  bg.play();
+}
+function stopMusic(){
+  let bg = getBgAudio();
+  bg.stop();
 }
 const $={
   toasts: toasts,
@@ -181,6 +204,7 @@ const $={
   , getUserInfo
   ,wxLogin
   ,sharePath
-
+  , startMusic
+  , stopMusic
 }
 module.exports=$;

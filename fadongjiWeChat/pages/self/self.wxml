@@ -4,7 +4,7 @@
       <image class='wx-user-img' src='{{userInfo.avatarUrl}}'></image>
       <view>
         <view class='wx-user-name'>{{userInfo.nickName}}</view>
-        <view>近日最高答题数：0</view>
+        <view>今日最高答题数：{{infoData.max_answer_count}}</view>
       </view>
     </view>
     <!-- <view class='wx-right'>
@@ -19,22 +19,23 @@
 </view>
 <view class='wx-module-2'>
   <view class='wx-title'>呼朋唤友一起涨知识</view>
-  <view class='wx-sub-title'>没成功邀请一名新用户，发放双倍卡1张</view>
+  <view class='wx-sub-title'>每成功邀请3个朋友，就可获得一张答题卡</view>
   <button class='wx-share-btn' open-type='share'>邀请新用户</button>
 </view>
-<view class='wx-module-3'>
+<view class='wx-module-3' wx:if="{{friendLists.length>0}}">
   <view class='wx-title flex'>
-    <view>今日成功邀请好友：<text>2/20人</text></view>
-    <view>累计邀请数：<text>2人</text></view>
+    <view>今日成功邀请好友：<text>{{friendLists.length}}人</text></view>
+    <!-- <view>累计邀请数：<text>2人</text></view> -->
   </view>
-  <view class='wx-share-item flex' wx:for="11" wx:key="{{index}}">
+  <view class='wx-share-item flex' wx:for="{{friendLists}}" wx:key="{{index}}">
     <view class='wx-user-info'>
       <text class='wx-num'>{{index+1}}</text>
-      <image src="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epuhgawqA1upWFkwvJPbQaibpH29QSyQyrjnDurKlocZYqgre5TnAStUK74KU7aibR8waQ0K3AicS1uQ/132" class='wx-user-img'></image>
-      <text class='wx-user-name'>大脸猫</text>
+      <image src="{{item.headimgurl}}" class='wx-user-img'></image>
+      <text class='wx-user-name'>{{username}}</text>
     </view>
     <view class='wx-time'>
-      2019-02-24 13:54:09
+      {{item.create_time}}
     </view>
   </view>
 </view>
+<view wx:if="{{friendLists<=0}}" style="text-align:center;color:#fff">暂无好友</view>

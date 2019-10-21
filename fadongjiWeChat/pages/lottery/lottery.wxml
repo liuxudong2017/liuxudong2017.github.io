@@ -2,37 +2,37 @@
 <view class='wx-title flex'>
   <view class='wx-border-right wx-title-item'>抽奖消耗积分 <text>20</text></view>
   <view class='wx-title-item'>
-    <view>我的帐户积分 <text> {{integral}}</text></view>
-    <view class='wx-rnb'>[可兑现{{integral/100}}元]</view>
+    <view>我的帐户积分 <text> {{allNum}}</text></view>
+    <view class='wx-rnb'>[可兑现{{allNum/100}}元]</view>
   </view>
 </view>
 <!-- 抽奖模块 -->
 <view class='wx-lottery-moudle'>
 <view class='wx-img-box'>
-  <image class='wx-lottery-img-1' src='/img/zhuanpan.png' bindtap='beginLottery' style='transform: rotate({{rotate}}deg)'></image>
+  <image class='wx-lottery-img-1' src='/img/zhuanpan.png' bindtap='getJoinLuckdraw' style='transform: rotate({{rotate}}deg)'></image>
 </view>
   <image  class='wx-lottery-img-2'  src='/img/zhizhen.png'></image>
 </view>
 <view class='wx-info flex'>
-  <text>已有22298人参与</text>
-  <text>免费抽奖次数:<text class='wx-lottery-num'>10次</text> </text>
+  <text>已有{{luckdrawCount}}人参与</text>
+  <text>免费抽奖次数:<text class='wx-lottery-num'>{{last_luckdraw_times}}次</text> </text>
 </view>
 <view class='wx-btn-box flex'>
   <button class="wx-btn" open-type='share'>分享得双倍卡</button>
   <button class='wx-btn' bindtap='goBonus'> <image src='/img/award.png'></image> 我的奖品</button>
 </view>
 <view class='wx-get-lotery-box'>
-  <swiper>
-    <swiper-item>
-      <view class='wx-ul flex-around' wx:for="125">
+  <swiper autoplay duration="5000" vertical circular>
+    <swiper-item wx:for="{{operLogList}}" wx:key="{{index}}">
+      <view class='wx-ul flex-around' wx:for="{{item}}" wx:for-item='it' wx:for-index="i2" wx:key="{{i2}}">
         <view class='flex-start'>
-         <image src='/img/xin.png' class='wx-user-img'></image>
+         <image src='{{it.headimgurl}}' class='wx-user-img'></image>
           <view class='wx-r'>
-            <text class='p'>云淡风清</text>
-            <text class='p p2'>02月22日 13：00</text>
+            <text class='p'>{{it.username}}</text>
+            <text class='p p2'>{{it.create_time}}</text>
           </view>
         </view>
-        <view class='wx-get-lottery'>抽中<text>25积分</text></view>
+        <view class='wx-get-lottery'>抽中<text>{{it.vouchar}}积分</text></view>
       </view>
     </swiper-item>
   </swiper>
@@ -42,7 +42,7 @@
   <view class='wx-alert-box' bindtap='stopEnven'>
     <view class="wx-alert-title">恭喜您获得
     </view>
-    <view class='wx-alert-p'>100积分</view>
+    <view class='wx-alert-p'>{{lotteryNum}}积分</view>
     <image src='/img/er.png'></image>
     <view class='wx-footer-p'>快识别二维码，关注公众号</view>
     <view class='wx-footer-p'>领取您的幸运奖吧！</view>

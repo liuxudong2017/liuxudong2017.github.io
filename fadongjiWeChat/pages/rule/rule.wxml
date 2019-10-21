@@ -2,5 +2,5 @@
 <view class='wx-rule-wrap'>
   <view class='wx-title'>关于发动机答题规则</view>
   <text class='p' wx:for="{{ruleArr}}" wx:key="{{index}}">{{index+1}}.{{item}}</text>
-  <navigator url="/pages/answer/answer" class='wx-btn'>开始答题</navigator>
+  <!-- <navigator url="/pages/answer/answer?type=0" class='wx-btn'>开始答题</navigator> -->
 </view>

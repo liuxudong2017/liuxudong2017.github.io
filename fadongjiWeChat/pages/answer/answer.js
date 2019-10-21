@@ -5,12 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerArr:[0,2,5,9,13,19,22,30],//奖励节点
+    answerArr:[0,2,4,7,10,13,15,17,20],//奖励节点
     currentAnswerNum:0,//第几道题
     pageIndex:0,//请求问题列表次数
     start:false,//倒计时动画开始
-    countTime:9 //读秒
+    countTime:5 //读秒
+    ,defaultTiem:5//读秒 数
     ,stopCount:0//停止倒计时
+    ,loadNum:0
     , chooseArr: [
       // { content: "ren", state: 0, answer:"ren"},
       // { content: "xxx", state: 0, answer: "ren" }
@@ -19,28 +21,51 @@ Page({
     , alertTitle:"答题失败 继续努力"
     ,isShowAlert:false
     ,isFail:false
+    , curreAnser:''
     , questionArr:[]//问题数组
+    , add_vouchar:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var a=wx.getStorageSync('answerRes');
+    console.log(a,'----',typeof a,"答题结果")
     wx.setStorageSync("answerType",options.type);
     $.setNavigationBar({ title: "答题赢现金" 
     });
     this.getQuestionList();//加载问题列表
     this.getOptionList();//加载选项
+    // this.joinLuckdraw();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
-   
   },
-  
+  joinLuckdraw(){
+    var param = $.getParam({ "openid": wx.getStorageSync("openid")});
+    $.ajax($.api.answerLuckyInterface,param).then(res=>{
+      let arr=res.data.data;
+      let str='';
+      if(arr.add_vouchar<=0){
+        str="继续努力，越努力越幸运！"
+      }else{
+        str = "恭喜中了" + arr.add_vouchar/100+"元,邀请3位好友还有中奖机会";
+      }
+      wx.showModal({
+        title: '提示',
+        content:str,
+        complete:function(){
+          wx.navigateBack({
+            delta:1
+          })
+        }
+      })
+    })
+  },
   /** type:选择类型：0单选 ；1多选；2天空；
    * trueChoose :正确答案[]
    * index：当前选项下标
@@ -48,12 +73,14 @@ Page({
   getQuestionList(){//问题
     let _this=this;
     let param=$.getParam({"openid":wx.getStorageSync("openid")},{
-      "hard_type":wx.getStorageSync("answerType")
+      "hard_type": wx.getStorageSync("answerType") ? wx.getStorageSync("answerType"):0
     })
     $.ajax($.api.getQuestionListInterface,param).then(res=>{
-      console.log(res);
-      _this.setData({"questionArr":res.data.data.questionList,pageIndex:_this.data.pageIndex+1});
-    });
+      console.log(res,"问题....");
+      _this.setData({"questionArr":res.data.data.questionList,pageIndex:_this.data.pageIndex+1,
+        curreAnser: res.data.data.questionList[_this.data.currentAnswerNum == 0 ? _this.data.currentAnswerNum : _this.data.currentAnswerNum - 1].real_answer
+      });
+    }).catch(err=>{console.log(err,'获取失败...')});
   },
   getOptionList(){//选项
     let _this=this;
@@ -70,23 +97,32 @@ Page({
           chooseArr:res.data.data.optionList,
           currentAnswerNum:_this.data.currentAnswerNum+1,
           start:true,
-          countTime:9,
+          countTime:_this.data.defaultTiem,
           isNoClick:false
+         
         });
          _this.startCount(); //倒计时
       });
     }else{
-      setTimeout(()=>{
-        console.log("setTimeout-----");
-        _this.getOptionList();
-      },300);
+      if(_this.data.loadNum<10){
+        _this.data.loadNum++;
+        setTimeout(() => {
+          console.log("setTimeout-----");
+          _this.getOptionList();
+        }, 300);
+      }
+      
     }
   },
   choose(e){//选择答案
     let param=e.target.dataset;
+    
     let _this = this;
     console.log(param);
     let arr = this.data.chooseArr;
+    _this.setData({
+      curreAnser:param.choose
+    })
     if(param.type=="0"||param.type=="2"||param.type=="4"){//单选
       console.log('单选-=-=-=-=-');
       if (param.choose==param.item.option_tittle){
@@ -94,25 +130,57 @@ Page({
         // arr[param.index * 1].question_id = param.item.option_tittle;
         arr[param.index * 1].question_id =0;
         let ansArr = this.data.answerArr;
-        console.log(ansArr,'duanxian')
-        for (var i = 1; i < ansArr.length;i++){
-         if(this.data.currentAnswerNum-1==ansArr[i]){
-           this.setData({isShowAlert:true});
-         }
-        }
+        console.log(ansArr,'duanxian');
+        let params=$.getParam({openid:wx.getStorageSync("openid")},{
+          hard_type:param.type
+          , question_id:param.qid
+          , your_answer: param.item.option_tittle
+        })
+        $.ajax($.api.submitAnswerInterface,params).then(res=>{
+          // if(res.data.)
+          let data=res.data.data;
+          this.setData({ isShowAlert: true,isFail:false });
+          if(data.add_vouchar>0){
+            //this.setData({ isShowAlert: true, add_vouchar: add_vouchar });
+          }else{
+            if(_this.data.currentAnswerNum>=5){
+              if(wx.getStorageSync('answerRes')==true){
+                wx.showModal({
+                  title: '提示',
+                  content: "答错题，邀请3位好友还有中奖机会",
+                  complete: function () {
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                  }
+                })
+                wx.setStorageSync("answerRes",'');
+              
+              }else{
+                _this.joinLuckdraw()
+
+              }
+            }
+            //加载下一题
+            
+            // setTimeout(() => {
+            //   let curr = (this.data.currentAnswerNum - 1) - (this.data.pageIndex - 1) * this.data.answerArr.length;
+            //   if (curr >= this.data.questionArr.length - 1) {
+            //     _this.getQuestionList();
+            //   }
+            //   _this.getOptionList();
+
+            // }, 500)
+          }
+          console.log(res,'提答案');
+        });
+      
         this.setData({
           // isShowAlert:true,
           isNoClick: true,
           isFail: false
         });
-        setTimeout(() => {
-          let curr = (this.data.currentAnswerNum - 1) - (this.data.pageIndex - 1) * this.data.answerArr.length;
-          if (curr >= this.data.questionArr.length - 1) {
-            _this.getQuestionList();
-          }
-          _this.getOptionList();
-
-        }, 500)
+        
       }else{//单选错误
         // arr[param.index * 1].question_id = param.item.option_tittle;
         arr[param.index * 1].question_id =1;
@@ -120,6 +188,7 @@ Page({
           isShowAlert: true, 
           isNoClick: true,
           isFail: true });
+          wx.setStorageSync('answerRes',this.data.isFail);
         console.log(this.data.isShowAlert,"弹窗。。。")
       }
       this.setData({ chooseArr:arr,start:false});
@@ -143,22 +212,34 @@ Page({
             //正确答案都找到了 加载下一题
             isEnd=true;
             this.setData({isNoClick:true});
+            let params = $.getParam({ openid: wx.getStorageSync("openid") }, {
+              hard_type: param.type
+              , question_id: param.qid
+              , your_answer: param.item.option_tittle
+            })
+            $.ajax($.api.submitAnswerInterface, params).then(res => {
+              // if(res.data.)
+              let data = res.data.data;
+              this.setData({ isShowAlert: true, isFail:false });
             
-            let ansArr = this.data.answerArr;
-            console.log(ansArr, 'duanxian')
-            for (var i = 1; i < ansArr.length; i++) {
-              if (this.data.currentAnswerNum - 1 == ansArr[i]) {
-                this.setData({ isShowAlert: true });
+              if (_this.data.currentAnswerNum >= 5) {
+                if(wx.getStorageSync('answerRes')===true){
+                  wx.showModal({
+                    title: '提示',
+                    content: '答错题，邀请3位好友还有中奖机会',
+                    complete:function(){
+                      wx.navigateBack({
+                        delta:1
+                      })
+                    }
+                  })
+                }
+                _this.joinLuckdraw()
               }
-            }
-            setTimeout(() => {
-              let curr = (this.data.currentAnswerNum - 1) - (this.data.pageIndex - 1) * this.data.answerArr.length;
-              if (curr >= this.data.questionArr.length - 1) {
-                _this.getQuestionList();
-              }
-              _this.getOptionList();
+              console.log(res, '提答案');
+            });
 
-            }, 500)
+          
             break;
           }
         }
@@ -177,6 +258,7 @@ Page({
           isFail:true,
           isNoClick:true
         });
+        wx.setStorageSync('answerRes',this.data.isFail);
       }
     }
   },
@@ -186,25 +268,51 @@ Page({
     })
   },
   keepAnswer(){//继续答题
-    this.setData({ isShowAlert: false, countTime: 9, start: true});
+    this.setData({ isShowAlert: false, countTime:this.data.defaultTiem, start: true});
     // this.startCount();
-    this.getOptionList();
+    console.log(this.data.currentAnswerNum >= 5, "--", this.data.currentAnswerNum ,"--最后一题?")
+    if(this.data.currentAnswerNum>=5){
+      //答题完毕，去请求奖励
+      if(wx.getStorageSync('answerRes')==true){
+        wx.showModal({
+          title: '提示',
+          content: "答错题，邀请3位好友还有中奖机会",
+          complete: function () {
+            wx.navigateBack({
+              delta: 1
+            });
+          }
+        })
+        wx.setStorageSync("answerRes", '');
+      }else{
+        this.joinLuckdraw();
+      }
+      
+      
+    }else{
+      //下一题
+      this.getOptionList();
+    }
+    
   },
   // 倒计时 
   startCount(){
     let _this=this;
     let countNum=_this.data.countTime;
-    let bgAudio = $.getBgAudio();
+    // let bgAudio = $.getBgAudio();
     let stop=setInterval(()=>{
       countNum--;
-      if(countNum<=4&&countNum>=0&&wx.getStorageSync("isMusic")!="false"){//开启警告
-        bgAudio.src ="https://program.wop100.cn/music/music-128.mp3";
-        bgAudio.play();
+      if (countNum <= 4 && countNum >= 0 && wx.getStorageSync("isOpenVideo")){//开启警告
+        // bgAudio.src ="https://program.wop100.cn/music/music-128.mp3";
+        // bgAudio.play();
       }else if(countNum<0){//停止
         clearInterval(stop);
-        this.setData({start:false});
+        this.setData({start:false,isNoClick:true});
+        this.setData({ isShowAlert: true, isFail: true });
+        wx.setStorageSync("answerRes",this.data.isFail);
         console.log('countNum=' + countNum);
-        bgAudio.src = "";
+        // bgAudio.src = "";
+        // BackgroundAudioManager.stop();
         return '';
       }
       _this.setData({countTime:countNum});
@@ -250,6 +358,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return {path:"/pages/index/index"}
+    return $.sharePath()
   }
 })

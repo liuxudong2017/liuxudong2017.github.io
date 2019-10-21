@@ -1,5 +1,6 @@
 // components/login.js
 const $=require('../../utils/public.js');
+var bmap = require('../../utils/bmap-wx.min.js');
 Component({
   /**
    * 组件的属性列表
@@ -9,7 +10,7 @@ Component({
   },
   pageLifetimesL:{
     show(){
-      wx.authorize({ scope: "scope.invoice", complete(err) { console.log(err,"authorize")}})
+      // wx.authorize({ scope: "scope.invoice", complete(err) { console.log(err,"authorize")}})
       this.random();
       $.getUserInfo().then(res=>{
         console.log(res,"娃哈哈哈")
@@ -48,6 +49,7 @@ Component({
     sCode: '1+2=?',
     iphone:'',
     isRegisterOk:false
+    ,isAuthorize:false
   },
 
   /**
@@ -55,7 +57,7 @@ Component({
    */
   methods: {
     random(){
-      let type=Math.random()*3;
+      let type=Math.random()*2;
       type=Math.floor(type);
       let num1 = Math.random() * 10+1;
       let num2 = Math.random() * 10+1;
@@ -67,9 +69,6 @@ Component({
          allNum = num1 + num2;
          str =''+num1+"+"+ num2+"=?";
       }else if(type==1){
-        allNum = num1 - num2;
-        str = num1 + "-" + num2 + "=?";
-      }else if(type==2){
         allNum = num1 * num2;
         str = num1 + "*" + num2 + "=?";
       }else if(type==3){
@@ -121,15 +120,37 @@ Component({
       console.log(val);
       this.setData({ code: val })
     },
-    submitMess(){
+    submit(){
+      var _this=this;
+      var BMap = new bmap.BMapWX({
+        ak: 'yPrAz957nQ1COPk6VQjYye3MOgqjBedM'
+      });
+      BMap.regeocoding({
+        fail: (fail) => { 
+          $.toasts(fail.errMsg);
+           console.log(fail);
+          _this.setData({isAuthorize:true});
+        },
+        success: (res) => { 
+          console.log(res);
+          _this.submitMess(res.originalData.result.addressComponent);
+        }
+      });
+    },
+    submitMess(address){
+      var addr={
+        street:"天同圆"
+        , province:"背景"
+        ,city:"北京市"
+        , county:"昌平"
+      };
+      address=address.city?address:addr;
       let _this=this;
-      console.log(_this.data.cyCode + ' ==' + _this.data.code, !(_this.data.cyCode==_this.data.code));
-      $.getAuthorizeLocation().then(res => { console.log(res) }).catch(err => { console.log(err) })//获取授权和经纬度
        if (!_this.data.userName){
         $.toasts('用户名不能为空！');
       } else if (!_this.data.iphone){
         $.toasts('手机号不能为空！');
-       } else if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(_this.data.iphone))) {
+       } else if (!(/^1[3|4|5|8|7][0-9]\d{4,8}$/.test(_this.data.iphone))) {
          $.toasts('手机号错误！')
       } else if (!_this.data.code){
         $.toasts("验证码不能为空！")
@@ -142,28 +163,33 @@ Component({
            real_name: _this.data.userName,
            latitude: '9098.9',
            longitude: '908.7',
-           addr: '第三街区',
-           province: '北京',
-           city: "北京",
-           county: "昌平"
+           addr:address.street,
+           province: address.province,
+           city: address.city,
+           county: address.district
          });
          console.log(param);
          $.ajax($.api.registerInterface, param).then(res => {
            let data = res.data;
            if (data.responseCode == "000000") {
              _this.setData({ isRegisterOk: true });
-             wx.setStorageSync("showLogin","false");
            }
            $.toasts(data.responseMsg);
          }).catch(err => { console.log(err) });
-      }
-
-     
-      // _this.setData({ isRegisterOk:true});
-      
+      } 
     },
     cancel(){
       this.triggerEvent('callback',{});
+    },
+    callback(){
+      let _this=this;
+      wx.openSetting({
+        complete:(res)=>{
+          console.log(res);
+        }
+      })
+      // _this.setData({ isAuthorize: false });
+      console.log('9090909090');
     }
   }
 })

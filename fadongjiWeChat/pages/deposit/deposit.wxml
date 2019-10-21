@@ -1,10 +1,25 @@
 <!--pages/deposit/deposit.wxml-->
 <view class='wx-module'>
+  <view class='group'>
+    <view class='item flex-start'>
+      <text>姓名：</text>
+      <input class='input' value='{{name}}' bindinput='changeName'></input>
+    </view>  
+    <view class='item flex-start'>
+      <text>电话：</text>
+      <input class='input' value='{{iphone}}' bindinput='changeIphone'></input>
+    </view>
+    <view class='item flex-start'>
+      <text>微信：</text>
+      <input class='input' value='{{wx}}' bindinput='changeWx'></input>
+    </view>  
+  </view>
+  <text class='tip'>每周二只有一次提现机会，三日内到账，节假日顺延。</text>
   <view class='wx-title'>转到微信零钱</view>
   <view class='wx-title-2'>提现金额</view>
   <view class='wx-rnb-box'>
-    ￥<input focus="true" type='number' value='{{rnb}}' placeholder='请输入要提现的金额' bindblur='watherRnb'></input>
+    ￥<input focus="true" value='{{rnb}}' placeholder='请输入要提现的金额' bindinput='watherRnb'></input>
   </view>
-  <view>可体现金额￥{{allRnb}}</view>
+  <view class='rnb-row'>可体现金额￥{{allRnb}}  <text class='deposit-btn' bindtap='allDepost'>全部提现</text></view>
   <button class='wx-btn' bindtap='goDeposit'>提现</button>
 </view>

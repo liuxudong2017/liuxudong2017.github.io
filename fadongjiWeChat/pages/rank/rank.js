@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    page:1
+    ,list:[]
   },
 
   /**
@@ -14,8 +15,21 @@ Page({
    */
   onLoad: function (options) {
     $.setNavigationBar({ title: "排行榜" });
+    this.loadRank();
   },
-
+  loadRank(){
+    let _this=this;
+    let param=$.getParam({openid:wx.getStorageSync("openid")},{
+      pageNumber:_this.data.page,
+      type:1
+    });
+    $.ajax($.api.getRankInterface,param).then(res=>{
+       console.log(res)
+       _this.setData({
+         list:res.data.data.orderList
+       })
+      });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -55,15 +69,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log('加载')
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return{
-      path:"/pages/index/index"
-    }
+    return $.sharePath();
   }
 })

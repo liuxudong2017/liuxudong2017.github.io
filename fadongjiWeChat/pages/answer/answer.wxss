@@ -2,6 +2,7 @@
 @import '../../utils/public.wxss';
 page{
   background: #e7e7e7;
+  letter-spacing: 1px;
 }
 .wx-module-1{
   margin:30rpx auto 60rpx;
@@ -131,6 +132,7 @@ page{
   background: #fff;
   border-radius: 15rpx;
   padding:30rpx;
+  font-weight: 600;
 }
 .wx-module-2 .wx-title{
   font-size: 37rpx;
@@ -255,8 +257,11 @@ page{
   margin:60rpx auto;
 }
 .wx-title-img{
-  width:100rpx;
-  height:100rpx;
+  width:350rpx;
+  height:350rpx;
+  display:block;
+  margin:15rpx auto;
+
 }
 .wx-choose-img-wrap{
   width:80%;
@@ -264,6 +269,6 @@ page{
 }
 .wx-choose-img-wrap image{
   display: inline-block;
-  width:75rpx;
-  height:75rpx;
+  width:100rpx;
+  height:100rpx;
 }

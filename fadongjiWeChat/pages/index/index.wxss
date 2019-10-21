@@ -3,6 +3,9 @@
 page{
   background: #e6e6e6;
 }
+.no-data{
+  text-align: center
+}
 /* 授权 Start */
 .authorize-wrap{
   position: fixed;
@@ -11,7 +14,7 @@ page{
   top:0;
   left:0;
   text-align: center;
-  z-index: 99;
+  z-index: 1000;
   overflow: hidden;
   background: #e6e6e6;
 }
@@ -48,6 +51,7 @@ margin:131rpx auto;
 /* 个人信息 :start */
 .wx-container{
   background: #e6e6e6;
+  padding-bottom: 110rpx;
 }
 .wx-self-mess-module{
   background: #fff;
@@ -90,6 +94,12 @@ margin:131rpx auto;
   font-size:25rpx;
   color:#000;
   background: #fff;
+  overflow: hidden;
+}
+.wx-notice-module .wx-notice-swiper{
+  width:80%;
+  height:50rpx;
+
 }
 .wx-notice-module .wx-notice-img{
   width:74rpx;
@@ -156,4 +166,71 @@ margin:131rpx auto;
 }
 .wx-list-box .span{
   color:#231818;
+}
+
+
+/* 产品特性 */
+.wx-product{
+  height: 190rpx;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size:35rpx;
+  padding:0rpx;
+  color:#000;
+  background: blue;
+  color: #fff;
+  position: relative;
+}
+.wx-product view{
+  position: absolute;
+  left:50%;
+  top:50%;
+  width:50%;
+  /* margin:0 auto; */
+  transform: translate(-50%,-50%)
+}
+.wx-product-0{
+  background: #fa86be;
+}
+.wx-product-1{
+  background: #21d7ad;
+}
+.wx-product-2{
+  background: #a275e3;
+}
+/* .answer-btn{
+  display: block;
+  width:80%;
+  height:100rpx;
+  margin:0 auto;
+
+  text-align: center;
+  line-height: 100rpx;
+  background: blue;
+  border-radius: 15rpx;
+  color:#fff;
+  
+} */
+.answer-btn{
+  position:fixed;
+bottom:-225rpx;
+left:50%;
+width:342rpx;
+height:342rpx;
+line-height:120rpx;
+color:#fff;
+background:#0068b7;
+border-radius:50%;
+text-align:center;
+transform:translate(-50%);
+
+
+}
+.share-btn{
+  background:blue;
+}
+.tip{
+  font-size: 30rpx;
+  color:gray;
 }

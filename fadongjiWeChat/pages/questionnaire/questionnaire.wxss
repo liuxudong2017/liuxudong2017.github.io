@@ -21,26 +21,25 @@ page{
   height: 144rpx;
   margin-top:25rpx;
 }
-.wx-group{
-width:90%;
-  margin :15rpx auto;
+.wx-answer-box{
+  width:90%;
+  margin:15rpx auto;
   background: #fff;
-  border-radius: 20rpx;
-  overflow: hidden;
+  border-radius: 15rpx;
+  box-sizing: border-box;
+  padding:15rpx;
 }
-.wx-check-item{
+label{
+  display: block;
+  margin:15rpx 0;
+}
+.btn{
   width:80%;
-  margin:40rpx auto;
-}
-.wx-check-item .h1{
-  font-size:37rpx;
-  color:#231815;
-  margin:30rpx auto;
-}
-.wx-check-item text{
-  font-size:26rpx;
-  color:#3e3a30;
-  border:2rpx solid #c0c0c1;
-  padding:15rpx 30rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size:35rpx;
+  background: blue;
   border-radius: 30rpx;
+  color:#fff;
 }

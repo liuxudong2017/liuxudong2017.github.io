@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isCloseVideo:false
+    isOpenVideo:true
+    ,obj:{}
   },
 
   /**
@@ -14,9 +15,21 @@ Page({
    */
   onLoad: function (options) {
     $.setNavigationBar({ title: "设置" });
+    var src=wx.getStorageSync('setCache');
+    src=JSON.parse(src);
+
+    var isT = wx.getStorageSync("isOpenVideo");
+    this.setData({ isOpenVideo:isT!=''&&isT==false ?false:true,obj:src});
+    console.log(isT == false,wx.getStorageSync('isOpenVideo'));
   },
   switchChange(e){
     console.log(e.detail.value);
+    if (e.detail.value){
+      $.startMusic();
+    }else{
+      $.stopMusic();
+    }
+    wx.setStorageSync("isOpenVideo", e.detail.value)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -64,6 +77,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return $.sharePath();
   }
 })

@@ -4,13 +4,14 @@
     <view>
       <view class='p'>累计获得奖金</view>
       <view class='p1'>
-        ￥99.9
+        ￥{{obj.vouchar/100}}
       </view>
     </view>
     <view class='wx-line'></view>
     <view>
-      <view class='p'>今日获得奖金</view>
-      <view class='p1'>￥5.9</view>
+      <view class='p'>可提现金额</view>
+      <!-- <view class='p1'>￥{{obj.today_add_vouchar/100}}</view> -->
+      <view class='p1'> ￥{{obj.vouchar/100}}</view>
     </view>
   </view>
   <button class='wx-get-rnb' bindtap='goDeposit'>
@@ -19,14 +20,15 @@
 </view>
 <!--  -->
 <view class='wx-modlue-2'>
-  今日最高答题：5
+  <!-- 今日最高答题：{{obj.max_answer_count}} -->
+  记录
 </view>
 <view class='wx-modlue-3'>
-  <view class='ul' style='height:{{142*7+142}}rpx;'>
-    <view class='li {{item>4?"":"color"}}' wx:for="{{[2,4,7,10,13,17,20]}}" wx:key="{{index}}" style='top:{{(index+1)*142}}rpx;'>
-      <text class='wx-num'>{{item}}</text>
-      <image src='{{item>4?"/img/un-bonus.png":"/img/get-bonus.png"}}'></image>
-      <text class='wx-info'>{{item>4?"未领取":"今日已领取奖励：现金￥5.6元"}}</text>
+  <view class='ul' style='height:{{142*(list.length)+142}}rpx;'>
+    <view class='li {{obj.max_answer_count>=item?"":"color"}}' wx:for="{{list}}" wx:key="{{index}}" style='top:{{(index+1)*142}}rpx;'>
+      <text class='wx-num'>{{item.create_time}}</text>
+      <!-- <image src='{{"/img/get-bonus.png"}}'></image> -->
+      <text class='wx-info'>{{item.content}}获得了{{item.vouchar/100}}元</text>
     </view>
   </view>
 </view>

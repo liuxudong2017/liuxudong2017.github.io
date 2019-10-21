@@ -2,7 +2,24 @@
   <image src='/img/qi.png'></image>
   <text>调查问卷</text>
 </view>
-<view class='wx-group'>
+<view class='wx-answer-box' wx:for="{{questionArr}}" wx:key="{{index}}">
+  <view>{{index+1}}、{{item.content}}</view>
+  <radio-group class="radio-group" wx:if="{{item.isRadio}}" bindchange="radioChange" data-tid='{{item.temp_id}}' data-did="{{item.detail_id}}" data-index='{{index}}'>
+    <label class="radio" wx:for="{{questionArr[index].options}}" wx:for-item='i2' wx:for-index='j' wx:key="{{j}}">
+      <radio value="{{i2}}"/>
+      {{i2}}
+    </label>
+  </radio-group>
+  <!-- 分       割      线 -->
+  <checkbox-group data-tid='{{item.temp_id}}' data-did="{{item.detail_id}}" bindchange="checkboxChange" wx:if="{{!item.isRadio}}"  data-index='{{index}}'>
+    <label class="checkbox" wx:for="{{questionArr[index].options}}" wx:for-item='i2' wx:for-index='j' wx:key="{{j}}">
+      <checkbox value="{{i2}}"/>
+      {{i2}}
+    </label>
+  </checkbox-group>
+</view>
+<button class='btn' bindtap='submit'>提交问卷</button>
+<!-- <view class='wx-group'>
   <view class='wx-check-item' wx:for="12345" wx:key="{{index}}">
     <view class='h1'>
       1.对应雷沃发动机满意度
@@ -13,6 +30,6 @@
     <text>满意</text>
     </view>
   </view>
-</view>
+</view> -->
 
 
